@@ -1,0 +1,47 @@
+# ── Claude Code ──────────────────────────────────────────
+.claude/
+CLAUDE_CODE_PROMPT.md
+DESIGN_LANGUAGE.md
+
+# ── Design source files ───────────────────────────────────
+*.psd
+*.ai
+*.sketch
+*.fig
+*.xd
+
+# ── Loose/unnamed font files (superseded by OpenSauce set) ─
+italic.ttf
+regular.ttf
+light.ttf
+light italic.ttf
+
+# ── macOS ─────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ── Windows ───────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+desktop.ini
+*.lnk
+
+# ── Editors ───────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.user
+*.orig
+
+# ── Environment / secrets ─────────────────────────────────
+.env
+.env.local
+.env*.local
+
+# ── Node (if tooling is ever added) ───────────────────────
+node_modules/
+npm-debug.log*
