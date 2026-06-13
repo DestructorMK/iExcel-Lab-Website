@@ -9,14 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.17/paper-full.min.js"></script>
 <style>
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-LightItalic.ttf') format('truetype');font-weight:300;font-style:italic;font-display:swap}
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-Italic.ttf') format('truetype');font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-MediumItalic.ttf') format('truetype');font-weight:500;font-style:italic;font-display:swap}
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'OpenSauceSans';src:url('OpenSauceSans-SemiBoldItalic.ttf') format('truetype');font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-LightItalic.ttf') format('truetype');font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-Italic.ttf') format('truetype');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-MediumItalic.ttf') format('truetype');font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-SemiBoldItalic.ttf') format('truetype');font-weight:600;font-style:italic;font-display:swap}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -89,6 +89,23 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(4px)}
 }
+@keyframes nudge-up{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+#back-to-top{
+  position:fixed;bottom:5rem;left:5rem;
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  z-index:100;pointer-events:auto;cursor:pointer;
+  opacity:0;visibility:hidden;
+  transition:opacity 0.3s,visibility 0.3s;
+  background:none;border:none;padding:0;
+}
+#back-to-top.vis{opacity:1;visibility:visible}
+.up-arrow{display:block;animation:nudge-up 1.8s ease-in-out infinite;}
+.up-arrow:nth-child(1){opacity:0.6}
+.up-arrow:nth-child(2){animation-delay:.2s;opacity:0.35}
+.up-arrow:nth-child(3){animation-delay:.4s;opacity:0.2}
 
 /* ── HOME NEWS / TIMELINE ── */
 #home-news{background:var(--white);padding:3rem 3rem 6rem;position:relative;z-index:10}
@@ -287,6 +304,13 @@ footer a:hover{color:var(--white)}
       <svg class="scroll-arrow" width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,1 10,11 19,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <svg class="scroll-arrow" width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,1 10,11 19,1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
+
+    <!-- Back to top (fixed, visible after scrolling down) -->
+    <button id="back-to-top" aria-label="Back to top">
+      <svg class="up-arrow" width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,11 10,1 19,11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="up-arrow" width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,11 10,1 19,11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="up-arrow" width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,11 10,1 19,11" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 
   <!-- NEWS -->
@@ -600,7 +624,7 @@ var wmCtx = wmCanvas.getContext('2d');
 
 // Load hero background image
 var heroImage = new Image();
-heroImage.src = 'iExcel Hero Background.png';
+heroImage.src = 'Assets/iExcel Hero Background.png';
 
 blobCanvas.style.filter = 'blur(14px) contrast(18)';
 
@@ -620,7 +644,7 @@ var nodeData = [
   { label:'Publications', page:'publications', r:75,  fx:0.26, fy:0.56 },
   { label:'Teaching',     page:'teaching',     r:74,  fx:0.74, fy:0.54 },
   { label:'Join',         page:'join',         r:61,  fx:0.50, fy:0.74 },
-  { label:'News',         page:'home',         r:63,  fx:0.37, fy:0.70 },
+  { label:'News',         page:null, isNews:true, r:63,  fx:0.37, fy:0.70 },
   { label:'CV',           page:null,           r:59,  fx:0.63, fy:0.71, isCV:true },
 ];
 
@@ -736,6 +760,7 @@ wrap.addEventListener('click', function() {
   if (!hoveredBall) return;
   var nd = hoveredBall.nd;
   if (nd.isCV) window.open('https://drive.google.com/file/d/1psiIs4QJ6cD6wMEkKoBw5WPuFls7eYLB/view', '_blank');
+  else if (nd.isNews) document.getElementById('home-news').scrollIntoView({ behavior: 'smooth' });
   else if (nd.page) window.go(nd.page);
 });
 
@@ -773,19 +798,39 @@ function go(page) {
 }
 window.go = go;
 
-// Parallax on hero
+// Parallax on hero + back-to-top visibility
 window.addEventListener('scroll', function() {
   if (!document.getElementById('page-home').classList.contains('active')) return;
   var y = window.scrollY;
   var bl = document.getElementById('hero-blurb');
   var sh = document.getElementById('hero-scroll-hint');
+  var btt = document.getElementById('back-to-top');
   if (bl) {
     bl.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+    bl.style.opacity = Math.max(0, 1 - y / 180);
   }
   if (window.wmCanvas) {
     window.wmCanvas.style.transform = 'translateY(' + (y * 0.15) + 'px)';
   }
   if (sh) sh.style.opacity = Math.max(0, 1 - y / 180);
+  if (btt) {
+    if (y > 300) btt.classList.add('vis');
+    else btt.classList.remove('vis');
+    var footer = document.querySelector('footer');
+    if (footer) {
+      var fRect = footer.getBoundingClientRect();
+      var gap = 64;
+      if (fRect.top < window.innerHeight) {
+        btt.style.bottom = (window.innerHeight - fRect.top + gap) + 'px';
+      } else {
+        btt.style.bottom = '5rem';
+      }
+    }
+  }
+});
+
+document.getElementById('back-to-top').addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // Publications filter
@@ -898,7 +943,7 @@ if (!window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
 var groups = window._ntlGroups || [];
 
 var RADIUS   = 72;
-var MAX_DIST = 380;
+var MAX_DIST = 280;
 var HLR      = 2.4;
 var V        = 0.5;
 
@@ -930,24 +975,30 @@ var labels = groups.map(function(group) {
         content:       group.date,
         fillColor:     'white',
         fontFamily:    '"OpenSauceSans","Helvetica Neue",sans-serif',
-        fontWeight:    '300',
-        fontSize:      Math.round(RADIUS * 0.40),
+        fontWeight:    '400',
+        fontSize:      Math.round(RADIUS * 0.32),
         justification: 'center'
     });
+});
+
+// Group each circle with its label so they move together in z-order
+var ballGroups = groups.map(function(group, i) {
+    return new Group([circles[i], labels[i]]);
 });
 
 // Wire hover from every left-column item in each group
 groups.forEach(function(group, gi) {
     group.itemEls.forEach(function(el) {
         el.addEventListener('mouseenter', function() {
-            circles[gi]._isHovered     = true;
-            circles[gi].fillColor      = '#CC0000';
-            circles[gi]._targetRadius  = RADIUS * 1.25;
+            circles[gi]._isHovered    = true;
+            circles[gi].fillColor     = '#CC0000';
+            circles[gi]._targetRadius = RADIUS * 1.25;
+            ballGroups[gi].bringToFront();
         });
         el.addEventListener('mouseleave', function() {
-            circles[gi]._isHovered     = false;
-            circles[gi].fillColor      = 'black';
-            circles[gi]._targetRadius  = RADIUS;
+            circles[gi]._isHovered    = false;
+            circles[gi].fillColor     = 'black';
+            circles[gi]._targetRadius = RADIUS;
         });
     });
 });
@@ -1014,19 +1065,34 @@ function onFrame(event) {
     if (!document.getElementById('page-home').classList.contains('active')) return;
     if (!view.size.width) return;
     newsTime += event.delta;
-    var rect   = canvasEl.getBoundingClientRect();
-    var trackX = view.size.width / 2;
+    var rect    = canvasEl.getBoundingClientRect();
+    var trackX  = view.size.width / 2;
+    var centerY = view.size.height / 2;
 
     trackLine.segments[0].point = new Point(trackX, 0);
     trackLine.segments[1].point = new Point(trackX, view.size.height);
 
+    // First pass: compute anchor positions to find the active (center) ball
+    var anchorYs = circles.map(function(c) {
+        var aRect = c._group.itemEls[0].getBoundingClientRect();
+        return aRect.top + aRect.height * 0.5 - rect.top;
+    });
+
+    var activeIdx = 0, minDist = Infinity;
+    anchorYs.forEach(function(ay, i) {
+        var d = Math.abs(ay - centerY);
+        if (d < minDist) { minDist = d; activeIdx = i; }
+    });
+
     circles.forEach(function(c, i) {
-        var aRect   = c._group.itemEls[0].getBoundingClientRect();
-        var anchorY = aRect.top + aRect.height * 0.5 - rect.top;
+        var anchorY = anchorYs[i];
         var t  = newsTime;
         var fx = Math.sin(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseX) * 2;
         var fy = Math.cos(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseY) * 1.5;
-        c.position = new Point(trackX + fx, anchorY + fy);
+        var cy  = anchorY + fy;
+        var pad = c._currentRadius + 6;
+        cy = Math.max(pad, Math.min(view.size.height - pad, cy));
+        c.position = new Point(trackX + fx, cy);
 
         // Lerp radius and scale the circle path from its center
         c._currentRadius += (c._targetRadius - c._currentRadius) * 0.08;
@@ -1037,12 +1103,17 @@ function onFrame(event) {
 
         var lb = labels[i];
         if (lb) {
-            lb.fontSize = Math.round(c._currentRadius * 0.40);
+            lb.fontSize = Math.round(c._currentRadius * 0.32);
             lb.point = new Point(c.position.x, c.position.y);
             if (lb.bounds.height > 0) {
                 lb.point = new Point(c.position.x, c.position.y + (c.position.y - lb.bounds.center.y));
             }
         }
+    });
+
+    // Bring prev → next → active groups to front (each group: circle below its own label)
+    [activeIdx - 1, activeIdx + 1, activeIdx].forEach(function(idx) {
+        if (idx >= 0 && idx < ballGroups.length) ballGroups[idx].bringToFront();
     });
 
     regenerate();
@@ -1059,6 +1130,9 @@ function onMouseMove(event) {
             c._targetRadius = (i === hit) ? RADIUS * 1.25 : RADIUS;
         }
     });
+    if (hit >= 0) {
+        ballGroups[hit].bringToFront();
+    }
     view.element.style.cursor = (hit >= 0) ? 'pointer' : 'default';
 }
 
@@ -1069,5 +1143,6 @@ view.element.addEventListener('mouseleave', function() {
     view.element.style.cursor = 'default';
 });
 </script>
+
 </body>
 </html>
