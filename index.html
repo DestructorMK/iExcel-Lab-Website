@@ -1087,8 +1087,8 @@ function onFrame(event) {
     circles.forEach(function(c, i) {
         var anchorY = anchorYs[i];
         var t  = newsTime;
-        var fx = Math.sin(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseX) * 2;
-        var fy = Math.cos(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseY) * 1.5;
+        var fx = Math.sin(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseX) * 4;
+        var fy = Math.cos(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseY) * 3;
         var cy  = anchorY + fy;
         var pad = c._currentRadius + 6;
         cy = Math.max(pad, Math.min(view.size.height - pad, cy));
