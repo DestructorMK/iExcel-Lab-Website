@@ -303,7 +303,7 @@ footer a:hover{color:var(--white)}
 <!-- ════════════════ HOME ════════════════ -->
 <div id="page-home" class="page active">
 
-  <div id="hero">
+  <div id="hero" data-nav-theme="dark">
     <div id="hero-canvas-wrap">
       <canvas id="hero-canvas"></canvas>
     </div>
@@ -370,7 +370,7 @@ footer a:hover{color:var(--white)}
       </div>
     </div>
   </div>
-  <div id="team-section" style="background:#000;width:100%">
+  <div id="team-section" data-nav-theme="dark" style="background:#000;width:100%">
     <div style="max-width:1160px;margin:0 auto;padding:3rem 2rem">
       <div class="sec-header"><h2 class="sec-title" style="color:#fff">Team</h2></div>
       <div style="margin-bottom:2.5rem">
@@ -599,7 +599,7 @@ footer a:hover{color:var(--white)}
   <button onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" style="font-family:var(--display);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);border:none;border-radius:3px;padding:.45rem 1.1rem;cursor:pointer">Apply Now</button>
 </div>
 
-<footer>
+<footer data-nav-theme="dark">
   <div>
     <div class="fn">Dr. Aditi Mallavarapu</div>
     <div style="font-family:var(--display);font-weight:300;margin-top:.25rem">Assistant Professor · Computer Science · NC State University</div>
@@ -703,10 +703,16 @@ function frame() {
     bctx.fill();
   }
 
-  bctx.beginPath();
-  bctx.arc(mouse.x, mouse.y, CURSOR_R * scale, 0, Math.PI * 2);
-  bctx.fillStyle = hoveredBall ? '#cc0000' : '#ffffff';
-  bctx.fill();
+  if (mouse.x >= 0) {
+    var heroEdge = Math.min(mouse.x, W - mouse.x, mouse.y, H - mouse.y);
+    var heroCR = CURSOR_R * scale * Math.max(0, Math.min(1, heroEdge / 80));
+    if (heroCR > 0) {
+      bctx.beginPath();
+      bctx.arc(mouse.x, mouse.y, heroCR, 0, Math.PI * 2);
+      bctx.fillStyle = hoveredBall ? '#cc0000' : '#ffffff';
+      bctx.fill();
+    }
+  }
 
   lctx.clearRect(0, 0, W, H);
 
@@ -787,6 +793,21 @@ wrap.addEventListener('click', function() {
   });
 })();
 
+// Nav theme — switches on-dark/on-light based on what's under the bar
+function updateNavTheme() {
+  var nav = document.getElementById('main-nav');
+  if (!nav) return;
+  var navBottom = nav.getBoundingClientRect().bottom;
+  var dark = false;
+  document.querySelectorAll('[data-nav-theme="dark"]').forEach(function(el) {
+    var r = el.getBoundingClientRect();
+    if (r.top < navBottom && r.bottom > 0) dark = true;
+  });
+  nav.classList.toggle('on-dark', dark);
+  nav.classList.toggle('on-light', !dark);
+}
+window.addEventListener('scroll', updateNavTheme, { passive: true });
+
 // Page navigation
 function go(page) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
@@ -796,13 +817,7 @@ function go(page) {
   var link = document.querySelector('[data-page="' + page + '"]');
   if (link) link.classList.add('active');
   window.scrollTo(0, 0);
-  // Nav theme
-  var nav = document.getElementById('main-nav');
-  if (page === 'home') {
-    nav.classList.add('on-dark'); nav.classList.remove('on-light');
-  } else {
-    nav.classList.add('on-light'); nav.classList.remove('on-dark');
-  }
+  updateNavTheme();
   // Sticky apply bar
   var sa = document.getElementById('sticky-apply');
   if (sa) sa.style.display = (page === 'join') ? 'flex' : 'none';
@@ -1018,10 +1033,14 @@ function lbFrame() {
     bctx.fill();
   }
   if (lbMouse.x >= 0) {
-    bctx.beginPath();
-    bctx.arc(lbMouse.x, lbMouse.y, 36, 0, Math.PI * 2);
-    bctx.fillStyle = lbHovered ? '#cc0000' : '#000';
-    bctx.fill();
+    var lbEdge = Math.min(lbMouse.x, W - lbMouse.x, lbMouse.y, H - lbMouse.y);
+    var lbCR = 36 * Math.max(0, Math.min(1, lbEdge / 60));
+    if (lbCR > 0) {
+      bctx.beginPath();
+      bctx.arc(lbMouse.x, lbMouse.y, lbCR, 0, Math.PI * 2);
+      bctx.fillStyle = lbHovered ? '#cc0000' : '#000';
+      bctx.fill();
+    }
   }
 
   var lctx = labelC.getContext('2d');
@@ -1260,10 +1279,14 @@ teamDefs.forEach(function(def) {
     }
 
     if (tmx >= 0 && tmx <= W) {
-      bctx.beginPath();
-      bctx.arc(tmx, tmy, TEAM_CR, 0, Math.PI * 2);
-      bctx.fillStyle = '#fff';
-      bctx.fill();
+      var tmEdge = Math.min(tmx, W - tmx, tmy, H - tmy);
+      var tmCR = TEAM_CR * Math.max(0, Math.min(1, tmEdge / 80));
+      if (tmCR > 0) {
+        bctx.beginPath();
+        bctx.arc(tmx, tmy, tmCR, 0, Math.PI * 2);
+        bctx.fillStyle = '#fff';
+        bctx.fill();
+      }
     }
 
     var lctx = labelC.getContext('2d');
