@@ -33,7 +33,7 @@ html{scroll-behavior:smooth}
 body{font-family:var(--serif);font-size:16px;line-height:1.7;color:var(--wolf);background:var(--white);cursor:none}
 
 /* ── CURSOR ── */
-#cursor{position:fixed;width:10px;height:10px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s ease-out,opacity .2s;mix-blend-mode:difference}
+#cursor{position:fixed;width:10px;height:10px;background:var(--white);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:transform .1s ease-out,opacity .2s;mix-blend-mode:difference}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav);display:flex;align-items:center;padding:0 2rem;transition:background var(--t-mid),border-color var(--t-mid),box-shadow var(--t-mid);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -249,10 +249,20 @@ a:hover{text-decoration:underline}
 .rcard-title{font-family:var(--display);font-size:.9rem;font-weight:500;color:var(--wolf);line-height:1.4}
 .rcard-label{display:inline-block;margin-top:.5rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:var(--light);border:1px solid var(--border);border-radius:3px;padding:.15rem .5rem}
 
+/* ── LAB PAGE LAYOUT ── */
+.lab-header-layout{display:flex;align-items:center;gap:2.5rem;margin-bottom:2rem}
+.lab-desc-col{flex:1;min-width:0}
+.lab-mini-balls-col{flex-shrink:0;width:320px;height:320px;position:relative;border-radius:14px;overflow:hidden;background:#fff}
+#lab-links-blob{position:absolute;top:0;left:0;width:100%;height:100%}
+#lab-links-labels{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+.lab-about-layout{display:grid;grid-template-columns:280px 1fr;gap:3.5rem;align-items:start;padding:0;margin-bottom:3rem}
+.prof-blob-wrap{position:relative;width:280px;height:300px;flex-shrink:0}
+#prof-blob-canvas{display:block;width:100%;height:100%}
+
 /* ── FOOTER ── */
 footer{border-top:1px solid var(--border);background:var(--wolf);color:rgba(255,255,255,.6);padding:2rem;font-size:.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 footer .fn{font-family:var(--display);font-style:italic;font-weight:300;color:var(--white);font-size:1rem}
-footer a{color:rgba(255,255,255,.45);text-decoration:none;transition:color var(--t-fast)}
+footer a{color:#fff;text-decoration:none;transition:color var(--t-fast)}
 footer a:hover{color:var(--white)}
 
 @media(max-width:860px){
@@ -267,6 +277,10 @@ footer a:hover{color:var(--white)}
   .ntl-left{width:100%}
   .ntl-right{display:none}
   #hero-blurb{display:none}
+  .lab-header-layout{flex-direction:column}
+  .lab-mini-balls-col{width:100%;height:240px}
+  .lab-about-layout{grid-template-columns:1fr}
+  .prof-blob-wrap{width:200px;height:220px;margin:0 auto}
 }
 </style>
 </head>
@@ -334,61 +348,55 @@ footer a:hover{color:var(--white)}
 <!-- ════════════════ LAB ════════════════ -->
 <div id="page-lab" class="page">
   <div class="wrap">
-    <div class="sec-header"><h2 class="sec-title">iEXCEL Lab</h2><span class="sec-tag">NC State</span></div>
-    <p style="font-family:var(--serif);font-size:1rem;line-height:1.85;max-width:760px;margin-bottom:2rem">The iEXCEL Lab (Innovation for EXperiential Complex, open-Ended Learning) at NC State investigates how data and computation can revolutionize learning about open-ended STEM problems through immersive simulation, AR/VR, and AI.</p>
-    <div class="pill-row">
-      <a href="https://www.csc.ncsu.edu/people/amallav" class="pill" target="_blank">Faculty Page</a>
-      <a href="https://scholar.google.com/citations?user=o4XGBswAAAAJ&hl=en" class="pill" target="_blank">Google Scholar</a>
-      <a href="https://www.linkedin.com/in/aditi-mallavarapu1a691658/" class="pill" target="_blank">LinkedIn</a>
-      <a href="https://drive.google.com/file/d/1psiIs4QJ6cD6wMEkKoBw5WPuFls7eYLB/view" class="pill" target="_blank">CV</a>
+    <div class="sec-header"><h2 class="sec-title">iEXCEL Lab</h2></div>
+    <div class="lab-header-layout">
+      <div class="lab-desc-col">
+        <p style="font-family:var(--serif);font-size:1rem;line-height:1.85">The iEXCEL Lab (Innovation for EXperiential Complex, open-Ended Learning) at NC State investigates how data and computation can revolutionize learning about open-ended STEM problems through immersive simulation, AR/VR, and AI.</p>
+      </div>
+      <div class="lab-mini-balls-col" id="lab-mini-wrap">
+        <canvas id="lab-links-blob"></canvas>
+        <canvas id="lab-links-labels"></canvas>
+      </div>
     </div>
     <hr class="divider" style="margin-bottom:2.5rem">
-    <div class="about-inner" style="padding:0;margin-bottom:3rem">
+    <div class="lab-about-layout">
+      <div class="prof-blob-wrap">
+        <canvas id="prof-blob-canvas"></canvas>
+      </div>
       <div>
         <h1 class="about-name">Aditi Mallavarapu</h1>
         <p class="about-title">Assistant Professor · iEXCEL Lab Director · Department of Computer Science, NC State University</p>
         <p class="about-bio">I lead the <strong>iEXCEL Lab</strong> at NC State, working at the intersection of computer science, human-computer interaction, learning sciences, and complexity science. My research investigates how data and computation can revolutionize learning about open-ended STEM problems through immersive simulation, AR/VR, and AI.</p>
       </div>
-      <div class="contact-box">
-        <strong style="font-family:var(--display);font-size:.85rem;color:var(--wolf);display:block;margin-bottom:.75rem">Contact</strong>
-        <span class="contact-label">Phone</span> +1 (919) 513-7798<br>
-        <span class="contact-label">Email</span> <a href="mailto:amallav@ncsu.edu">amallav@ncsu.edu</a><br>
-        <span class="contact-label">Office</span> Dept. of Computer Science, NC State University, Raleigh, NC
+    </div>
+  </div>
+  <div id="team-section" style="background:#000;width:100%">
+    <div style="max-width:1160px;margin:0 auto;padding:3rem 2rem">
+      <div class="sec-header"><h2 class="sec-title" style="color:#fff">Team</h2></div>
+      <div style="margin-bottom:2.5rem">
+        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Graduate Researchers</p>
+        <div id="team-grad-wrap" style="position:relative;width:100%;height:560px">
+          <canvas id="team-grad-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
+          <canvas id="team-grad-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
+        </div>
+      </div>
+      <div style="margin-bottom:2.5rem">
+        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Undergraduate Researchers</p>
+        <div id="team-ugrad-wrap" style="position:relative;width:100%;height:560px">
+          <canvas id="team-ugrad-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
+          <canvas id="team-ugrad-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Alumni</p>
+        <div id="team-alumni-wrap" style="position:relative;width:100%;height:200px">
+          <canvas id="team-alumni-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
+          <canvas id="team-alumni-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
+        </div>
       </div>
     </div>
-    <hr class="divider" style="margin-bottom:2.5rem">
-    <div class="sec-header"><h2 class="sec-title">Team</h2></div>
-    <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem">Graduate Researchers</p>
-    <div class="team-grid">
-      <div class="member-card"><div class="member-name">Stephen Liu</div><div class="member-role">PhD Student</div></div>
-      <div class="member-card"><div class="member-name">Lavanya Middha</div><div class="member-role">MS Student</div></div>
-      <div class="member-card"><div class="member-name">Surabhi Nair</div><div class="member-role">MS Student</div></div>
-      <div class="member-card"><div class="member-name">Ory Wickizer</div><div class="member-role">MS Student</div></div>
-      <div class="member-card"><div class="member-name">Bipin Gowda</div><div class="member-role">MS Student</div></div>
-      <div class="member-card"><div class="member-name">Gaurav Sheth</div><div class="member-role">MS Student</div></div>
-      <div class="member-card"><div class="member-name">Yaswant Baddi</div><div class="member-role">MS Student</div></div>
-      <div class="member-card"><div class="member-name">Dharani Guda</div><div class="member-role">MS Student</div></div>
-      <div class="member-card"><div class="member-name">Ananya Patankar</div><div class="member-role">MS Student</div></div>
-    </div>
-    <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem;margin-top:2rem">Undergraduate Researchers</p>
-    <div class="team-grid">
-      <div class="member-card"><div class="member-name">Sairaj Gunda</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Ashwin Mahesh</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Petr Shevrev</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Justin Huang</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Mokshagna Kadiyala</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Neelesh Yaddanapudi</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Adam Biscoe</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Maithili Bhoop</div><div class="member-role">Undergraduate RA</div></div>
-      <div class="member-card"><div class="member-name">Carmella Holloway</div><div class="member-role">Undergraduate RA</div></div>
-    </div>
-    <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem;margin-top:2rem">Alumni</p>
-    <div class="team-grid">
-      <div class="member-card"><div class="member-name"><a href="https://trishagite-com.webnode.page/" target="_blank">Trisha Gite</a></div><div class="member-role">Graduated Dec 2025 · MS UNC Greensboro</div></div>
-      <div class="member-card"><div class="member-name">Nikhil Vasudeva</div><div class="member-role">Graduated Dec 2025 · MS Stanford University</div></div>
-      <div class="member-card"><div class="member-name">Dee Kandel</div><div class="member-role">Graduated May 2026</div></div>
-    </div>
-    <hr class="divider" style="margin:2.5rem 0">
+  </div>
+  <div class="wrap" style="padding-top:2.5rem">
     <div class="sec-header"><h2 class="sec-title">Media</h2></div>
     <div class="sec-header" style="margin-bottom:1rem"><h3 style="font-family:var(--display);font-size:1.2rem;font-weight:400;color:var(--wolf)">Presentations</h3></div>
     <div class="pres-item"><div class="pres-icon">TALK</div><div><div class="pres-title">Who Eats Whom: Interactive Data-Driven Game from Crowdsourced Data</div><div class="pres-meta">Women In Computer Science, 2026</div></div></div>
@@ -771,11 +779,13 @@ wrap.addEventListener('click', function() {
 
 <!-- ════════════════ NAVIGATION + INTERACTIONS ════════════════ -->
 <script>
-// Custom cursor
-document.addEventListener('mousemove', function(e) {
-  var c = document.getElementById('cursor');
-  if (c) { c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; }
-});
+// Custom cursor dot position tracking
+(function() {
+  var old = document.getElementById('cursor');
+  document.addEventListener('mousemove', function(e) {
+    if (old) { old.style.left = e.clientX + 'px'; old.style.top = e.clientY + 'px'; }
+  });
+})();
 
 // Page navigation
 function go(page) {
@@ -934,6 +944,354 @@ if (!window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
   }, { threshold: 0.1 });
   ntlItems.forEach(function(el) { io.observe(el); });
 }
+})();
+</script>
+
+<!-- ════════════════ LAB LINKS MINI METABALLS ════════════════ -->
+<script>
+(function() {
+var blobC  = document.getElementById('lab-links-blob');
+var labelC = document.getElementById('lab-links-labels');
+if (!blobC || !labelC) return;
+
+blobC.style.filter = 'blur(10px) contrast(20)';
+
+var labLinks = [
+  { label:'Faculty',  r:58, url:'https://www.csc.ncsu.edu/people/amallav',                                     fx:0.28, fy:0.26 },
+  { label:'Scholar',  r:48, url:'https://scholar.google.com/citations?user=o4XGBswAAAAJ&hl=en',                fx:0.72, fy:0.26 },
+  { label:'LinkedIn', r:54, url:'https://www.linkedin.com/in/aditi-mallavarapu1a691658/',                       fx:0.28, fy:0.74 },
+  { label:'CV',       r:44, url:'https://drive.google.com/file/d/1psiIs4QJ6cD6wMEkKoBw5WPuFls7eYLB/view',     fx:0.72, fy:0.74 },
+];
+
+var lbBalls = labLinks.map(function(ln) {
+  return {
+    ln: ln, x: 0, y: 0, r: ln.r,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.28 + Math.random() * 0.22,
+    ax: (Math.random() - 0.5) * 2,
+    ay: (Math.random() - 0.5) * 2,
+  };
+});
+
+var lbMouse = { x: -999, y: -999 };
+var lbHovered = null;
+var lbTime = 0;
+
+function lbResize() {
+  var wrap = document.getElementById('lab-mini-wrap');
+  if (!wrap) return;
+  blobC.width  = wrap.offsetWidth;  blobC.height  = wrap.offsetHeight;
+  labelC.width = wrap.offsetWidth;  labelC.height = wrap.offsetHeight;
+}
+
+function lbFrame() {
+  if (!document.getElementById('page-lab').classList.contains('active')) {
+    requestAnimationFrame(lbFrame); return;
+  }
+  lbTime += 0.016;
+  var W = blobC.width, H = blobC.height;
+  if (!W || !H) { lbResize(); requestAnimationFrame(lbFrame); return; }
+
+  for (var i = 0; i < lbBalls.length; i++) {
+    var b = lbBalls[i];
+    var bx = b.ln.fx * W, by = b.ln.fy * H;
+    var t  = lbTime * b.speed + b.phase;
+    var amp = 14 + 22 * (0.5 + 0.5 * Math.sin(lbTime * 0.25 + b.phase * 0.5));
+    b.x = bx + Math.sin(t)        * b.ax * amp;
+    b.y = by + Math.cos(t * 1.27) * b.ay * amp;
+  }
+
+  lbHovered = null;
+  for (var i = 0; i < lbBalls.length; i++) {
+    var dx = lbMouse.x - lbBalls[i].x, dy = lbMouse.y - lbBalls[i].y;
+    if (Math.sqrt(dx*dx + dy*dy) < lbBalls[i].r + 10) { lbHovered = lbBalls[i]; break; }
+  }
+
+  var bctx = blobC.getContext('2d');
+  bctx.fillStyle = '#fff';
+  bctx.fillRect(0, 0, W, H);
+  for (var i = 0; i < lbBalls.length; i++) {
+    var b = lbBalls[i];
+    bctx.beginPath();
+    bctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    bctx.fillStyle = (b === lbHovered) ? '#cc0000' : '#000';
+    bctx.fill();
+  }
+  if (lbMouse.x >= 0) {
+    bctx.beginPath();
+    bctx.arc(lbMouse.x, lbMouse.y, 36, 0, Math.PI * 2);
+    bctx.fillStyle = lbHovered ? '#cc0000' : '#000';
+    bctx.fill();
+  }
+
+  var lctx = labelC.getContext('2d');
+  lctx.clearRect(0, 0, W, H);
+  lctx.textAlign = 'center';
+  lctx.textBaseline = 'middle';
+  for (var i = 0; i < lbBalls.length; i++) {
+    var b = lbBalls[i];
+    lctx.font = '500 ' + Math.round(b.r * 0.28) + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
+    lctx.fillStyle = '#fff';
+    lctx.fillText(b.ln.label, b.x, b.y);
+  }
+
+  requestAnimationFrame(lbFrame);
+}
+
+var lbWrap = document.getElementById('lab-mini-wrap');
+lbWrap.addEventListener('mousemove', function(e) {
+  var rect = lbWrap.getBoundingClientRect();
+  lbMouse.x = e.clientX - rect.left;
+  lbMouse.y = e.clientY - rect.top;
+  lbWrap.style.cursor = lbHovered ? 'pointer' : 'none';
+  window._labLinksCursorActive = true;
+});
+lbWrap.addEventListener('mouseleave', function() {
+  lbMouse.x = -999; lbMouse.y = -999;
+  lbWrap.style.cursor = 'default';
+  window._labLinksCursorActive = false;
+});
+lbWrap.addEventListener('click', function() {
+  if (lbHovered) window.open(lbHovered.ln.url, '_blank');
+});
+
+lbResize();
+window.addEventListener('resize', lbResize);
+requestAnimationFrame(lbFrame);
+})();
+</script>
+
+<!-- ════════════════ PROFESSOR BLOB PHOTO ════════════════ -->
+<script>
+(function() {
+var canvas = document.getElementById('prof-blob-canvas');
+if (!canvas) return;
+var ctx = canvas.getContext('2d');
+
+var profImg = new Image();
+profImg.src = 'Assets/Prof-Mallavarapu.jpg';
+
+var N = 10;
+var blobT = 0;
+
+function blobPts(t, cx, cy, r) {
+  var pts = [];
+  for (var i = 0; i < N; i++) {
+    var angle = (i / N) * Math.PI * 2;
+    var rr = r * (
+      1
+      + 0.18 * Math.sin(t * 0.9  + i * 1.5  + 0.4)
+      + 0.10 * Math.cos(t * 0.65 + i * 2.1  + 1.1)
+      + 0.06 * Math.sin(t * 1.4  + i * 0.85 + 2.3)
+    );
+    pts.push({ x: cx + Math.cos(angle) * rr, y: cy + Math.sin(angle) * rr });
+  }
+  return pts;
+}
+
+function catmullPath(pts) {
+  var n = pts.length;
+  ctx.beginPath();
+  for (var i = 0; i < n; i++) {
+    var p0 = pts[(i - 1 + n) % n];
+    var p1 = pts[i];
+    var p2 = pts[(i + 1) % n];
+    var p3 = pts[(i + 2) % n];
+    var cp1x = p1.x + (p2.x - p0.x) / 6;
+    var cp1y = p1.y + (p2.y - p0.y) / 6;
+    var cp2x = p2.x - (p3.x - p1.x) / 6;
+    var cp2y = p2.y - (p3.y - p1.y) / 6;
+    if (i === 0) ctx.moveTo(p1.x, p1.y);
+    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+  }
+  ctx.closePath();
+}
+
+function animBlob() {
+  blobT += 0.008;
+  var W = canvas.offsetWidth  || 280;
+  var H = canvas.offsetHeight || 300;
+  if (canvas.width !== W || canvas.height !== H) {
+    canvas.width = W; canvas.height = H;
+  }
+  ctx.clearRect(0, 0, W, H);
+
+  var cx = W / 2 + Math.sin(blobT * 0.3) * 4;
+  var cy = H / 2 + Math.cos(blobT * 0.25) * 5;
+  var r  = Math.min(W, H) * 0.40;
+
+  var pts = blobPts(blobT, cx, cy, r);
+
+  ctx.save();
+  catmullPath(pts);
+  ctx.clip();
+
+  if (profImg.complete && profImg.naturalWidth > 0) {
+    var scale = Math.max(W / profImg.naturalWidth, H / profImg.naturalHeight) * 1.15;
+    var iw = profImg.naturalWidth * scale;
+    var ih = profImg.naturalHeight * scale;
+    ctx.drawImage(profImg, (W - iw) / 2, (H - ih) / 2, iw, ih);
+  } else {
+    var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r * 1.3);
+    grad.addColorStop(0, '#f0ede8');
+    grad.addColorStop(1, '#dbd8d2');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#b0aba4';
+    ctx.font = '300 13px "OpenSauceSans","Helvetica Neue",sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Photo', cx, cy);
+  }
+  ctx.restore();
+
+  ctx.save();
+  catmullPath(pts);
+  ctx.strokeStyle = 'rgba(0,0,0,0.09)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.restore();
+
+  requestAnimationFrame(animBlob);
+}
+
+animBlob();
+})();
+</script>
+
+<!-- ════════════════ TEAM METABALLS ════════════════ -->
+<script>
+(function() {
+var BALL_R = 72;
+
+var teamDefs = [
+  {
+    wrapId: 'team-grad-wrap', blobId: 'team-grad-blob', labelId: 'team-grad-labels', orbitDir: 1,
+    members: ['Stephen Liu','Lavanya Middha','Surabhi Nair','Ory Wickizer','Bipin Gowda','Gaurav Sheth','Yaswant Baddi','Dharani Guda','Ananya Patankar']
+  },
+  {
+    wrapId: 'team-ugrad-wrap', blobId: 'team-ugrad-blob', labelId: 'team-ugrad-labels', orbitDir: -1,
+    members: ['Sairaj Gunda','Ashwin Mahesh','Petr Shevrev','Justin Huang','Mokshagna Kadiyala','Neelesh Yaddanapudi','Adam Biscoe','Maithili Bhoop','Carmella Holloway']
+  },
+  {
+    wrapId: 'team-alumni-wrap', blobId: 'team-alumni-blob', labelId: 'team-alumni-labels', orbitDir: 1,
+    members: ['Trisha Gite','Nikhil Vasudeva','Dee Kandel']
+  }
+];
+
+teamDefs.forEach(function(def) {
+  var wrap   = document.getElementById(def.wrapId);
+  var blobC  = document.getElementById(def.blobId);
+  var labelC = document.getElementById(def.labelId);
+  if (!wrap || !blobC || !labelC) return;
+
+  blobC.style.filter = 'blur(10px) contrast(20)';
+
+  var n = def.members.length;
+
+  var balls = def.members.map(function(name, i) {
+    return {
+      name:         name,
+      initialAngle: (i / n) * Math.PI * 2 - Math.PI / 2,
+      x: 0, y: 0,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.18 + Math.random() * 0.18,
+      ax:    (Math.random() - 0.5) * 2,
+      ay:    (Math.random() - 0.5) * 2,
+    };
+  });
+
+  var time = 0;
+  var tmx = -999, tmy = -999;
+  var TEAM_CR = 36;
+
+  wrap.addEventListener('mousemove', function(e) {
+    var r = wrap.getBoundingClientRect();
+    tmx = e.clientX - r.left;
+    tmy = e.clientY - r.top;
+    window._teamCursorActive = true;
+  });
+  wrap.addEventListener('mouseleave', function() {
+    tmx = -999; tmy = -999;
+    window._teamCursorActive = false;
+  });
+
+  function resize() {
+    var W = wrap.offsetWidth;
+    var H = parseInt(wrap.style.height) || 560;
+    blobC.width  = W; labelC.width  = W;
+    blobC.height = H; labelC.height = H;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function frame() {
+    if (!document.getElementById('page-lab').classList.contains('active')) {
+      requestAnimationFrame(frame); return;
+    }
+    var wrapW = wrap.offsetWidth;
+    if (wrapW > 0 && blobC.width !== wrapW) resize();
+    var W = blobC.width, H = blobC.height;
+    if (!W || !H) { requestAnimationFrame(frame); return; }
+    time += 0.016;
+
+    for (var i = 0; i < balls.length; i++) {
+      var b   = balls[i];
+      var oa  = b.initialAngle + time * 0.08 * def.orbitDir;
+      var cx  = (0.5 + 0.38 * Math.cos(oa)) * W;
+      var cy  = (0.5 + 0.28 * Math.sin(oa)) * H;
+      var t   = time * b.speed + b.phase;
+      var amp = 6 + 14 * (0.5 + 0.5 * Math.sin(time * 0.2 + b.phase * 0.5));
+      b.x = cx + Math.sin(t)        * b.ax * amp;
+      b.y = cy + Math.cos(t * 1.27) * b.ay * amp;
+      b.x = Math.max(BALL_R + 4, Math.min(W - BALL_R - 4, b.x));
+      b.y = Math.max(BALL_R + 4, Math.min(H - BALL_R - 4, b.y));
+    }
+
+    var bctx = blobC.getContext('2d');
+    bctx.fillStyle = '#000';
+    bctx.fillRect(0, 0, W, H);
+    for (var i = 0; i < balls.length; i++) {
+      var b = balls[i];
+      bctx.beginPath();
+      bctx.arc(b.x, b.y, BALL_R, 0, Math.PI * 2);
+      bctx.fillStyle = '#fff';
+      bctx.fill();
+    }
+
+    if (tmx >= 0 && tmx <= W) {
+      bctx.beginPath();
+      bctx.arc(tmx, tmy, TEAM_CR, 0, Math.PI * 2);
+      bctx.fillStyle = '#fff';
+      bctx.fill();
+    }
+
+    var lctx = labelC.getContext('2d');
+    lctx.clearRect(0, 0, W, H);
+    lctx.textAlign    = 'center';
+    lctx.textBaseline = 'middle';
+    var fontSize = Math.round(BALL_R * 0.23);
+    lctx.font      = '500 ' + fontSize + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
+    lctx.fillStyle = '#000';
+    var lh = fontSize * 1.3;
+    for (var i = 0; i < balls.length; i++) {
+      var b      = balls[i];
+      var parts  = b.name.split(' ');
+      var first  = parts[0];
+      var rest   = parts.slice(1).join(' ');
+      if (rest) {
+        lctx.fillText(first, b.x, b.y - lh * 0.5);
+        lctx.fillText(rest,  b.x, b.y + lh * 0.5);
+      } else {
+        lctx.fillText(first, b.x, b.y);
+      }
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+});
 })();
 </script>
 
