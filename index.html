@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dr. Aditi Mallavarapu — NC State University</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.17/paper-full.min.js"></script>
 <style>
 @font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
@@ -23,14 +20,12 @@
   --red:#CC0000;--red-light:#fdf2f2;--red-mid:#e8a0a0;
   --wolf:#1a1a1a;--mid:#6b6b6b;--light:#f5f5f3;--border:#e0ddd8;
   --white:#fff;--black:#000;
-  --display:'OpenSauceSans','Helvetica Neue',sans-serif;
-  --serif:'OpenSauceSans','Helvetica Neue',sans-serif;
-  --mono:'OpenSauceSans','Helvetica Neue',sans-serif;
+  --font:'OpenSauceSans','Helvetica Neue',sans-serif;
   --nav:56px;
   --t-fast:160ms ease-out;--t-mid:260ms ease-out;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--serif);font-size:16px;line-height:1.7;color:var(--wolf);background:var(--white);cursor:none}
+body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--wolf);background:var(--white);cursor:none}
 
 /* ── CURSOR ── */
 #cursor{position:fixed;width:10px;height:10px;background:var(--white);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:transform .1s ease-out,opacity .2s;mix-blend-mode:difference}
@@ -46,7 +41,7 @@ nav.on-light .nav-logo{background:var(--wolf)}
 nav.on-dark .nav-logo:hover{box-shadow:0 0 16px rgba(255,255,255,0.3)}
 nav.on-light .nav-logo:hover{box-shadow:0 0 16px rgba(0,0,0,0.2)}
 .nav-links{display:flex;align-items:center}
-.nav-link{font-family:var(--display);font-size:.78rem;font-weight:400;letter-spacing:.05em;text-decoration:none;padding:0 1rem;height:var(--nav);display:flex;align-items:center;border-bottom:2px solid transparent;cursor:pointer;transition:color var(--t-fast),border-color var(--t-fast),text-shadow var(--t-fast);white-space:nowrap;position:relative}
+.nav-link{font-family:var(--font);font-size:.78rem;font-weight:400;letter-spacing:.05em;text-decoration:none;padding:0 1rem;height:var(--nav);display:flex;align-items:center;border-bottom:2px solid transparent;cursor:pointer;transition:color var(--t-fast),border-color var(--t-fast),text-shadow var(--t-fast);white-space:nowrap;position:relative}
 nav.on-dark .nav-link{color:rgba(255,255,255,.6)}
 nav.on-dark .nav-link:hover{color:#fff;border-bottom-color:rgba(255,255,255,.4);text-shadow:0 0 8px rgba(255,255,255,0.15)}
 nav.on-dark .nav-link.active{color:#fff;border-bottom-color:rgba(255,255,255,.4)}
@@ -57,8 +52,8 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
 /* ── PAGE SYSTEM ── */
 .page{display:none}
 .page.active{display:block}
-#page-home{padding-top:0}
-#page-lab,#page-projects,#page-publications,#page-teaching,#page-join{padding-top:var(--nav)}
+#page-home,#page-projects{padding-top:0}
+#page-lab,#page-publications,#page-teaching,#page-join{padding-top:var(--nav)}
 
 /* ── HERO ── */
 #hero{position:relative;width:100%;height:100vh;background:#000;overflow:hidden}
@@ -67,7 +62,7 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
 #hero-blurb{
   position:absolute;bottom:5rem;right:3rem;
   max-width:320px;
-  font-family:var(--serif);font-size:.88rem;line-height:1.8;
+  font-family:var(--font);font-size:.88rem;line-height:1.8;
   color:rgba(255, 255, 255, 0.75);
   z-index:3;pointer-events:none;
   will-change:transform;
@@ -111,7 +106,7 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
 #home-news{background:var(--white);padding:3rem 3rem 6rem 10rem;position:relative;z-index:10}
 .home-news-inner{max-width:1200px;margin:0px auto}
 .home-news-title{
-  font-family:var(--display);
+  font-family:var(--font);
   font-size:clamp(2.8rem,6vw,5rem);
   font-weight:300;color:var(--wolf);
   letter-spacing:-.03em;line-height:1;
@@ -128,19 +123,16 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
 .ntl-item{padding:1.5rem 2rem 1.5rem 0rem;border-bottom:1px solid var(--border);cursor:default;transition:background var(--t-fast);min-height:90px;display:flex;flex-direction:column;justify-content:center}
 .ntl-item:last-child{border-bottom:none}
 .ntl-item:hover{background:rgba(245,240,232,0.4)}
-.ntl-date{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem}
-.ntl-cat{display:inline-block;font-family:var(--mono);font-size:.55rem;font-weight:500;letter-spacing:.07em;padding:.15rem .35rem;border-radius:3px;white-space:nowrap;border:1px solid;margin-bottom:.45rem;align-self:flex-start}
+.ntl-date{font-family:var(--font);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem}
+.ntl-cat{display:inline-block;font-family:var(--font);font-size:.55rem;font-weight:500;letter-spacing:.07em;padding:.15rem .35rem;border-radius:3px;white-space:nowrap;border:1px solid;margin-bottom:.45rem;align-self:flex-start}
 .ntl-cat.evt{background:rgba(255,159,64,0.15);color:#ff9f40;border-color:#ffc090}
 .ntl-cat.pub{background:rgba(54,162,235,0.15);color:#36a2eb;border-color:#8dd0ff}
 .ntl-cat.awd{background:rgba(75,192,75,0.15);color:#4bc04b;border-color:#a0e0a0}
 .ntl-cat.ppl{background:rgba(153,102,255,0.15);color:#9966ff;border-color:#d0a0ff}
 .ntl-cat.tch{background:rgba(255,206,86,0.15);color:#ffce56;border-color:#ffde8c}
-.ntl-text{font-family:var(--serif);font-size:.9rem;line-height:1.65;color:var(--wolf);margin:0}
+.ntl-text{font-family:var(--font);font-size:.9rem;line-height:1.65;color:var(--wolf);margin:0}
 .ntl-text a{color:var(--red);text-decoration:none}
 .ntl-text a:hover{text-decoration:underline}
-
-/* Scroll Reveal */
-.sr{opacity:0;transform:translateY(12px);transition:opacity 400ms ease-out,transform 400ms ease-out}
 
 /* scroll reveal */
 .sr{opacity:0;transform:translateY(12px);transition:opacity 400ms ease-out,transform 400ms ease-out}
@@ -150,104 +142,86 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
 /* ── SHARED ── */
 .wrap{max-width:1160px;margin:0 auto;padding:4rem 2rem}
 .sec-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem}
-.sec-title{font-family:var(--display);font-size:2rem;font-weight:600;color:var(--wolf);letter-spacing:-.01em}
+.sec-title{font-family:var(--font);font-size:2rem;font-weight:600;color:var(--wolf);letter-spacing:-.01em}
 .sec-title::before{content:'';display:block;width:28px;height:2px;background:var(--red);margin-bottom:.6rem}
-.sec-tag{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:var(--red-light);border:1px solid var(--red-mid);border-radius:3px;padding:.2rem .6rem}
+.sec-tag{font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red);background:var(--red-light);border:1px solid var(--red-mid);border-radius:3px;padding:.2rem .6rem}
 .divider{border:none;border-top:1px solid var(--border)}
 a{color:var(--red);text-decoration:none}
 a:hover{text-decoration:underline}
 
 /* pill links */
 .pill-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem}
-.pill{font-family:var(--display);display:inline-flex;align-items:center;gap:.35rem;font-size:.8rem;font-weight:400;color:var(--wolf);background:var(--light);border:1px solid var(--border);border-radius:100px;padding:.3rem .85rem;text-decoration:none;transition:background var(--t-fast),border-color var(--t-fast)}
+.pill{font-family:var(--font);display:inline-flex;align-items:center;gap:.35rem;font-size:.8rem;font-weight:400;color:var(--wolf);background:var(--light);border:1px solid var(--border);border-radius:100px;padding:.3rem .85rem;text-decoration:none;transition:background var(--t-fast),border-color var(--t-fast)}
 .pill:hover{background:var(--red-light);border-color:var(--red-mid);color:var(--red);text-decoration:none}
 
 /* About strip */
 .about-strip{background:var(--white);border-bottom:1px solid var(--border)}
 .about-inner{max-width:1160px;margin:0 auto;padding:3rem 2rem;display:grid;grid-template-columns:1fr 340px;gap:4rem;align-items:start}
-.about-name{font-family:var(--serif);font-size:2.5rem;line-height:1.1;margin-bottom:.4rem}
-.about-title{font-family:var(--display);font-size:.95rem;color:var(--mid);font-weight:300;font-style:italic;margin-bottom:1.5rem}
-.about-bio{font-family:var(--serif);font-size:1rem;line-height:1.85;color:var(--wolf)}
-.contact-box{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.5rem 1.75rem;font-family:var(--serif);font-size:.875rem;color:var(--mid);line-height:2.2;box-shadow:0 2px 12px rgba(0,0,0,.04)}
-.contact-label{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);display:inline-block;width:48px}
+.about-name{font-family:var(--font);font-size:2.5rem;line-height:1.1;margin-bottom:.4rem}
+.about-title{font-family:var(--font);font-size:.95rem;color:var(--mid);font-weight:300;font-style:italic;margin-bottom:1.5rem}
+.about-bio{font-family:var(--font);font-size:1rem;line-height:1.85;color:var(--wolf)}
+.contact-box{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.5rem 1.75rem;font-family:var(--font);font-size:.875rem;color:var(--mid);line-height:2.2;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.contact-label{font-family:var(--font);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);display:inline-block;width:48px}
 
-/* news (old two-col — kept for non-home pages if referenced) */
-.news-wrap{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.news-col-hd{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);background:var(--light);padding:.75rem 1.25rem;border-bottom:1px solid var(--border)}
-.news-col-hd:first-child{border-right:1px solid var(--border)}
-.news-col{padding:.75rem 1.25rem;display:flex;flex-direction:column}
-.news-col:first-child{border-right:1px solid var(--border)}
-.ni{display:grid;grid-template-columns:22px 1fr;gap:.6rem;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.86rem;line-height:1.5}
-.ni:last-child{border-bottom:none}
-.ni-date{font-family:var(--mono);font-size:.7rem;color:var(--mid);margin-bottom:.1rem}
-
-/* research interests */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
-.card{background:var(--light);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:border-color var(--t-mid),box-shadow var(--t-mid)}
-.card:hover{border-color:var(--red-mid);box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.card-title{font-family:var(--display);font-size:.9rem;font-weight:600;margin-bottom:.25rem}
-.card-desc{font-family:var(--serif);font-size:.8rem;color:var(--mid);line-height:1.6}
-
-/* agenda */
-.agenda{display:grid;grid-template-columns:3fr 2fr;gap:3rem;align-items:start}
-.agenda-text{font-family:var(--serif);font-size:1rem;line-height:1.85}
-.agenda-text p+p{margin-top:1rem}
-.sidebar-dark{background:var(--wolf);color:var(--white);border-radius:12px;padding:1.75rem}
-.sidebar-dark h3{font-family:var(--display);font-size:1.1rem;font-weight:300;margin-bottom:1rem;opacity:.9}
 .phd-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.phd-list li{font-family:var(--serif);font-size:.82rem;color:rgba(255,255,255,.75);padding-left:1rem;position:relative;line-height:1.5}
+.phd-list li{font-family:var(--font);font-size:.82rem;color:rgba(255,255,255,.75);padding-left:1rem;position:relative;line-height:1.5}
 .phd-list li::before{content:'→';position:absolute;left:0;color:var(--red);font-size:.7rem;top:3px}
-.cta-btn{display:inline-block;margin-top:1.25rem;font-family:var(--display);font-size:.8rem;font-weight:400;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.35rem .9rem;text-decoration:none;transition:background var(--t-fast),color var(--t-fast)}
-.cta-btn:hover{background:rgba(255,255,255,.1);color:var(--white);text-decoration:none}
 
 /* ── PUBLICATIONS ── */
 .pub-section{margin-bottom:2.5rem}
-.pub-type{font-family:var(--display);font-size:1.5rem;font-weight:600;color:var(--wolf);border-bottom:2px solid var(--red);padding-bottom:.4rem;margin-bottom:1.5rem}
-.pub-year{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin:1.2rem 0 .6rem;display:block}
-.pub-entry{font-family:var(--serif);font-size:.92rem;line-height:1.75;color:var(--wolf);padding:1rem 0 1rem 1.25rem;border-left:2px solid var(--border);margin-bottom:.9rem;transition:border-color var(--t-mid),background var(--t-mid),padding-left var(--t-mid)}
+.pub-type{font-family:var(--font);font-size:1.5rem;font-weight:600;color:var(--wolf);border-bottom:2px solid var(--red);padding-bottom:.4rem;margin-bottom:1.5rem}
+.pub-year{font-family:var(--font);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin:1.2rem 0 .6rem;display:block}
+.pub-entry{font-family:var(--font);font-size:.92rem;line-height:1.75;color:var(--wolf);padding:1rem 0 1rem 1.25rem;border-left:2px solid var(--border);margin-bottom:.9rem;transition:border-color var(--t-mid),background var(--t-mid),padding-left var(--t-mid)}
 .pub-entry:hover{border-left-color:var(--red);background:var(--red-light);padding-left:1.5rem}
 .pub-entry a{color:var(--red)}
-.pub-note{display:inline-block;margin-top:.3rem;font-family:var(--mono);font-size:.7rem;color:var(--red);background:var(--red-light);border:1px solid var(--red-mid);border-radius:100px;padding:.1rem .6rem}
+.pub-note{display:inline-block;margin-top:.3rem;font-family:var(--font);font-size:.7rem;color:var(--red);background:var(--red-light);border:1px solid var(--red-mid);border-radius:100px;padding:.1rem .6rem}
+
+/* ── PUBLICATIONS TIMELINE LAYOUT ── */
+.pub-timeline-layout{display:flex;align-items:flex-start;gap:0}
+.ptl-left{width:35%;position:sticky;top:var(--nav);height:calc(100vh - var(--nav));flex-shrink:0;align-self:flex-start;background:var(--white)}
+.ptl-right{width:65%;padding:3rem 3rem 6rem 2rem;min-width:0}
+#pub-canvas-wrap{position:relative;width:100%;height:100%}
+#pub-canvas{display:block;width:100%;height:100%}
 
 /* ── TEAM ── */
 .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
 .member-card{background:var(--light);border:1px solid var(--border);border-radius:10px;padding:1.5rem 1.25rem;transition:border-color var(--t-mid),box-shadow var(--t-mid)}
 .member-card:hover{border-color:var(--red-mid);box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.member-name{font-family:var(--display);font-size:.9rem;font-weight:500;color:var(--wolf)}
-.member-role{font-family:var(--mono);font-size:.72rem;color:var(--mid);margin-top:.25rem}
+.member-name{font-family:var(--font);font-size:.9rem;font-weight:500;color:var(--wolf)}
+.member-role{font-family:var(--font);font-size:.72rem;color:var(--mid);margin-top:.25rem}
 .project-item{padding:1rem 0 1rem 1.25rem;border-left:3px solid var(--border);margin-bottom:1rem;transition:border-color var(--t-mid)}
 .project-item:hover{border-left-color:var(--red)}
-.project-title{font-family:var(--display);font-size:.92rem;font-weight:500;color:var(--wolf);margin-bottom:.3rem}
-.project-meta{font-family:var(--serif);font-size:.8rem;color:var(--mid);line-height:1.6}
-.project-meta strong{font-family:var(--display);color:var(--wolf)}
+.project-title{font-family:var(--font);font-size:.92rem;font-weight:500;color:var(--wolf);margin-bottom:.3rem}
+.project-meta{font-family:var(--font);font-size:.8rem;color:var(--mid);line-height:1.6}
+.project-meta strong{font-family:var(--font);color:var(--wolf)}
 
 /* ── TEACHING ── */
 .course-card{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.25rem}
 .course-header{background:var(--light);padding:1rem 1.5rem;display:flex;align-items:baseline;gap:1rem;border-bottom:1px solid var(--border)}
-.course-code{font-family:var(--mono);font-size:1rem;font-weight:500;color:var(--red);letter-spacing:.04em}
-.course-name{font-family:var(--display);font-size:1rem;font-weight:400;color:var(--wolf)}
-.course-meta{font-family:var(--mono);font-size:.75rem;color:var(--mid);margin-left:auto;white-space:nowrap}
-.course-body{font-family:var(--serif);padding:1rem 1.5rem;font-size:.88rem;line-height:1.8;color:var(--wolf)}
+.course-code{font-family:var(--font);font-size:1rem;font-weight:500;color:var(--red);letter-spacing:.04em}
+.course-name{font-family:var(--font);font-size:1rem;font-weight:400;color:var(--wolf)}
+.course-meta{font-family:var(--font);font-size:.75rem;color:var(--mid);margin-left:auto;white-space:nowrap}
+.course-body{font-family:var(--font);padding:1rem 1.5rem;font-size:.88rem;line-height:1.8;color:var(--wolf)}
 .rec-letter{background:var(--light);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:2rem}
-.rec-letter h3{font-family:var(--display);font-size:1.25rem;font-weight:600;margin-bottom:1rem}
-.rec-letter ol{padding-left:1.25rem;font-family:var(--serif);font-size:.88rem;line-height:1.9;color:var(--wolf)}
+.rec-letter h3{font-family:var(--font);font-size:1.25rem;font-weight:600;margin-bottom:1rem}
+.rec-letter ol{padding-left:1.25rem;font-family:var(--font);font-size:.88rem;line-height:1.9;color:var(--wolf)}
 
 /* ── MEDIA ── */
 .pres-item{display:grid;grid-template-columns:52px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);align-items:start}
 .pres-item:last-child{border-bottom:none}
-.pres-icon{width:44px;height:26px;background:var(--red-light);border:1px solid var(--red-mid);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.56rem;font-weight:500;letter-spacing:.06em;color:var(--red);flex-shrink:0;margin-top:3px}
-.pres-title{font-family:var(--display);font-size:.9rem;font-weight:500;color:var(--wolf);margin-bottom:.2rem}
-.pres-meta{font-family:var(--mono);font-size:.75rem;color:var(--mid)}
+.pres-icon{width:44px;height:26px;background:var(--red-light);border:1px solid var(--red-mid);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.56rem;font-weight:500;letter-spacing:.06em;color:var(--red);flex-shrink:0;margin-top:3px}
+.pres-title{font-family:var(--font);font-size:.9rem;font-weight:500;color:var(--wolf);margin-bottom:.2rem}
+.pres-meta{font-family:var(--font);font-size:.75rem;color:var(--mid)}
 .pres-meta a{color:var(--red)}
 
 /* ── RESEARCH ── */
 .research-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
 .rcard{border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color var(--t-mid),box-shadow var(--t-mid);cursor:pointer}
 .rcard:hover{border-color:var(--red-mid);box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.rcard-img{height:80px;background:var(--light);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:2rem;color:var(--border);font-weight:500;letter-spacing:-.02em;overflow:hidden}
+.rcard-img{height:80px;background:var(--light);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);font-family:var(--font);font-size:2rem;color:var(--border);font-weight:500;letter-spacing:-.02em;overflow:hidden}
 .rcard-body{padding:1rem 1.1rem}
-.rcard-title{font-family:var(--display);font-size:.9rem;font-weight:500;color:var(--wolf);line-height:1.4}
-.rcard-label{display:inline-block;margin-top:.5rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:var(--light);border:1px solid var(--border);border-radius:3px;padding:.15rem .5rem}
+.rcard-title{font-family:var(--font);font-size:.9rem;font-weight:500;color:var(--wolf);line-height:1.4}
+.rcard-label{display:inline-block;margin-top:.5rem;font-family:var(--font);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:var(--light);border:1px solid var(--border);border-radius:3px;padding:.15rem .5rem}
 
 /* ── LAB PAGE LAYOUT ── */
 .lab-header-layout{display:flex;align-items:center;gap:2.5rem;margin-bottom:2rem}
@@ -259,28 +233,63 @@ a:hover{text-decoration:underline}
 .prof-blob-wrap{position:relative;width:280px;height:300px;flex-shrink:0}
 #prof-blob-canvas{display:block;width:100%;height:100%}
 
+/* ── PROJECTS PAGE — METABALL FIELD ── */
+#proj-field-wrap{position:relative;width:100%;height:1300px;background:#000;margin:0}
+#proj-canvas,#proj-labels{position:absolute;top:0;left:0;width:100%;height:100%;display:block}
+#proj-labels{pointer-events:none}
+.proj-cat-label{position:absolute;left:max(2rem, calc((100% - 1160px) / 2 + 2rem));font-family:var(--font);font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.32);pointer-events:none}
+
+.proj-detail{position:fixed;inset:0;z-index:500;background:var(--white);pointer-events:none;clip-path:circle(0px at 50% 50%);transition:clip-path .6s ease-in-out;overflow-y:auto}
+.proj-detail.active{pointer-events:auto}
+.proj-close-btn{position:fixed;top:1.25rem;right:1.5rem;z-index:501;font-family:var(--font);font-size:1.15rem;line-height:1;color:var(--wolf);background:var(--light);border:1px solid var(--border);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background var(--t-fast),border-color var(--t-fast)}
+.proj-close-btn:hover{background:var(--red-light);border-color:var(--red-mid);color:var(--red)}
+.proj-detail-inner{max-width:1160px;margin:0 auto;padding:5rem 2rem 6rem;opacity:0;transition:opacity var(--t-fast) ease-out}
+.proj-detail-inner.show{opacity:1}
+.proj-detail-grid{display:grid;grid-template-columns:1fr 380px;gap:3.5rem;align-items:start}
+.proj-badge{display:inline-block;font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;padding:.2rem .6rem;margin-bottom:1rem}
+.proj-badge.lab{color:var(--red);background:var(--red-light);border:1px solid var(--red-mid)}
+.proj-badge.legacy,.proj-badge.other{color:var(--mid);background:var(--light);border:1px solid var(--border)}
+.proj-d-name{font-family:var(--font);font-size:2.2rem;font-weight:600;color:var(--wolf);letter-spacing:-.01em;margin-bottom:1.5rem}
+.proj-image-box{width:100%;height:280px;border-radius:10px;border:1px solid var(--border);background:var(--light);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;overflow:hidden}
+.proj-image-box img{width:100%;height:100%;object-fit:cover}
+.proj-image-placeholder{font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.proj-d-desc{font-family:var(--font);font-size:1rem;line-height:1.85;color:var(--wolf)}
+.proj-d-desc.pending{color:var(--mid);font-style:italic}
+.proj-team-label{font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.75rem}
+.proj-team-wrap{position:relative;width:100%;height:280px;background:#fff;margin-bottom:1.5rem}
+.proj-team-empty{font-family:var(--font);font-size:.85rem;color:var(--mid);padding:2rem 0;text-align:center}
+.proj-collab-label{font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem}
+.proj-collab-list{list-style:none;font-family:var(--font);font-size:.85rem;color:var(--wolf);line-height:1.9;margin-bottom:1.5rem}
+.proj-github{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--font);font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:.4rem .85rem;margin-bottom:1.5rem;text-decoration:none}
+.proj-github.active{color:var(--red);background:var(--red-light);border:1px solid var(--red-mid)}
+.proj-github.disabled{color:var(--mid);background:var(--light);border:1px solid var(--border);cursor:default}
+.proj-pubs-label{font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.6rem}
+.proj-pub-item{font-family:var(--font);font-size:.82rem;line-height:1.65;color:var(--wolf);padding:.6rem 0;border-top:1px solid var(--border)}
+.proj-pub-item a{color:var(--red)}
+
 /* ── FOOTER ── */
 footer{border-top:1px solid var(--border);background:var(--wolf);color:rgba(255,255,255,.6);padding:2rem;font-size:.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-footer .fn{font-family:var(--display);font-style:italic;font-weight:300;color:var(--white);font-size:1rem}
+footer .fn{font-family:var(--font);font-style:italic;font-weight:300;color:var(--white);font-size:1rem}
 footer a{color:#fff;text-decoration:none;transition:color var(--t-fast)}
 footer a:hover{color:var(--white)}
 
 @media(max-width:860px){
   .about-inner{grid-template-columns:1fr;gap:2rem}
-  .news-wrap{grid-template-columns:1fr}
-  .news-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
-  .news-col-hd:first-child{border-right:none}
-  .agenda{grid-template-columns:1fr}
   .nav-link{padding:0 .5rem;font-size:.72rem}
   #home-news{padding:3rem 1.5rem 4rem}
   .news-timeline-layout{flex-direction:column}
   .ntl-left{width:100%}
   .ntl-right{display:none}
+  .ptl-left{display:none}
+  .ptl-right{width:100%;padding:1.5rem 1.5rem 4rem}
   #hero-blurb{display:none}
   .lab-header-layout{flex-direction:column}
   .lab-mini-balls-col{width:100%;height:240px}
   .lab-about-layout{grid-template-columns:1fr}
   .prof-blob-wrap{width:200px;height:220px;margin:0 auto}
+  #proj-field-wrap{height:1000px}
+  .proj-detail-grid{grid-template-columns:1fr}
+  .proj-detail-inner{padding:4.5rem 1.5rem 4rem}
 }
 </style>
 </head>
@@ -351,7 +360,7 @@ footer a:hover{color:var(--white)}
     <div class="sec-header"><h2 class="sec-title">iEXCEL Lab</h2></div>
     <div class="lab-header-layout">
       <div class="lab-desc-col">
-        <p style="font-family:var(--serif);font-size:1rem;line-height:1.85">The iEXCEL Lab (Innovation for EXperiential Complex, open-Ended Learning) at NC State investigates how data and computation can revolutionize learning about open-ended STEM problems through immersive simulation, AR/VR, and AI.</p>
+        <p style="font-family:var(--font);font-size:1rem;line-height:1.85">The iEXCEL Lab (Innovation for EXperiential Complex, open-Ended Learning) at NC State investigates how data and computation can revolutionize learning about open-ended STEM problems through immersive simulation, AR/VR, and AI.</p>
       </div>
       <div class="lab-mini-balls-col" id="lab-mini-wrap">
         <canvas id="lab-links-blob"></canvas>
@@ -374,21 +383,21 @@ footer a:hover{color:var(--white)}
     <div style="max-width:1160px;margin:0 auto;padding:3rem 2rem">
       <div class="sec-header"><h2 class="sec-title" style="color:#fff">Team</h2></div>
       <div style="margin-bottom:2.5rem">
-        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Graduate Researchers</p>
+        <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Graduate Researchers</p>
         <div id="team-grad-wrap" style="position:relative;width:100%;height:560px">
           <canvas id="team-grad-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
           <canvas id="team-grad-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
         </div>
       </div>
       <div style="margin-bottom:2.5rem">
-        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Undergraduate Researchers</p>
+        <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Undergraduate Researchers</p>
         <div id="team-ugrad-wrap" style="position:relative;width:100%;height:560px">
           <canvas id="team-ugrad-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
           <canvas id="team-ugrad-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
         </div>
       </div>
       <div>
-        <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Alumni</p>
+        <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Alumni</p>
         <div id="team-alumni-wrap" style="position:relative;width:100%;height:200px">
           <canvas id="team-alumni-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
           <canvas id="team-alumni-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
@@ -398,7 +407,7 @@ footer a:hover{color:var(--white)}
   </div>
   <div class="wrap" style="padding-top:2.5rem">
     <div class="sec-header"><h2 class="sec-title">Media</h2></div>
-    <div class="sec-header" style="margin-bottom:1rem"><h3 style="font-family:var(--display);font-size:1.2rem;font-weight:400;color:var(--wolf)">Presentations</h3></div>
+    <div class="sec-header" style="margin-bottom:1rem"><h3 style="font-family:var(--font);font-size:1.2rem;font-weight:400;color:var(--wolf)">Presentations</h3></div>
     <div class="pres-item"><div class="pres-icon">TALK</div><div><div class="pres-title">Who Eats Whom: Interactive Data-Driven Game from Crowdsourced Data</div><div class="pres-meta">Women In Computer Science, 2026</div></div></div>
     <div class="pres-item"><div class="pres-icon">TALK</div><div><div class="pres-title">NC State AI + Research Landscape</div><div class="pres-meta">AI+ Research Symposium, Office of Research and Innovation, NC State University</div></div></div>
     <div class="pres-item"><div class="pres-icon">TALK</div><div><div class="pres-title">Interdisciplinary Research Growth</div><div class="pres-meta"><a href="https://www.linkedin.com/posts/aditi-mallavarapu1a691658_last-week-i-had-the-privilege-of-presenting-activity-7259944748696371202-J7kX" target="_blank">Partnership for Smart Communities, Oct 2024</a></div></div></div>
@@ -408,14 +417,14 @@ footer a:hover{color:var(--white)}
     <div class="pres-item"><div class="pres-icon">TALK</div><div><div class="pres-title">Formative Fugues in Complex Systems Learning</div><div class="pres-meta">Complexity in Education SIG · AERA 2022</div></div></div>
     <div class="pres-item"><div class="pres-icon">TALK</div><div><div class="pres-title">Connected Worlds: Data-Driven Reflection for Open-Ended Simulation</div><div class="pres-meta">CHI 2019 · ACM</div></div></div>
     <div style="margin-top:2.5rem">
-      <p style="font-family:var(--display);font-weight:400;font-size:1rem;margin-bottom:1rem;color:var(--wolf)">Connected Worlds (YouTube)</p>
+      <p style="font-family:var(--font);font-weight:400;font-size:1rem;margin-bottom:1rem;color:var(--wolf)">Connected Worlds (YouTube)</p>
       <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;border:1px solid var(--border)">
         <iframe src="https://www.youtube.com/embed/M_6E_envpPA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
     <div style="margin-top:2.5rem">
-      <div class="sec-header"><h3 style="font-family:var(--display);font-size:1.2rem;font-weight:400;color:var(--wolf)">Community Reports</h3></div>
-      <div style="display:flex;flex-direction:column;gap:.6rem;font-family:var(--serif);font-size:.9rem">
+      <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.2rem;font-weight:400;color:var(--wolf)">Community Reports</h3></div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;font-family:var(--font);font-size:.9rem">
         <a href="https://circls.org/partnerships-for-change-existing-partnership-trends-in-the-circls-community" target="_blank">Partnerships for Change: Existing Partnership Trends in the CIRCLS Community</a>
         <a href="https://circls.org/unveiling-the-value-of-exploration-analysis-findings" target="_blank">Unveiling the Value of Exploration: Insights from NSF-Funded Research on Emerging Technologies for Teaching and Learning</a>
         <a href="https://circls.org/educatorcircls/humanizing-ai-research-in-education-by-broadening-community-engagement" target="_blank">Blog: Humanizing AI Research in Education by Broadening Community Engagement</a>
@@ -426,95 +435,105 @@ footer a:hover{color:var(--white)}
 
 <!-- ════════════════ PROJECTS ════════════════ -->
 <div id="page-projects" class="page">
-  <div class="wrap">
-    <div class="sec-header"><h2 class="sec-title">Projects</h2><span class="sec-tag">iEXCEL Lab</span></div>
-    <p style="font-family:var(--serif);font-size:1rem;color:var(--mid);max-width:720px;margin-bottom:2.5rem">Below are projects guiding research on open-ended learning environments and complex systems. We are constantly looking for hardworking and curious students — open slots are marked with a <strong style="color:var(--red)">+</strong>.</p>
-    <div class="sec-header" style="margin-bottom:1.5rem"><h3 style="font-family:var(--display);font-size:1.4rem;font-weight:400;color:var(--wolf)">Active Projects</h3></div>
-    <div class="research-grid">
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer;transition:background var(--t-fast),color var(--t-fast)" onclick="go('join')" title="Open position">+</div><div class="rcard-img">OELE</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/oele/futurescape" target="_blank">Advancing Human-AI Teaming through Video-Based Analytics for Environmental Science</a></div><span class="rcard-label">FutureScape · OELE</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer;transition:background var(--t-fast),color var(--t-fast)" onclick="go('join')" title="Open position">+</div><div class="rcard-img">NET</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/community-analysis/interdisciplinary-research-growth" target="_blank">Methodology for Mapping Interdisciplinary Research Growth within Research Units</a></div><span class="rcard-label">Community Analysis</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer;transition:background var(--t-fast),color var(--t-fast)" onclick="go('join')" title="Open position">+</div><div class="rcard-img">ECO</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/oele/who-eats-whom" target="_blank">Modeling the Complex Ecological Network to Investigate Patterns of Who Eats Whom</a></div><span class="rcard-label">OELE · Ecology</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer;transition:background var(--t-fast),color var(--t-fast)" onclick="go('join')" title="Open position">+</div><div class="rcard-img">HCI</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/oele/connected-worlds/non-textual-feedback" target="_blank">Non-Textual Formative Feedback</a></div><span class="rcard-label">Connected Worlds · OELE</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer;transition:background var(--t-fast),color var(--t-fast)" onclick="go('join')" title="Open position">+</div><div class="rcard-img">DATA</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/community-analysis" target="_blank">EdTech Research Community Analysis</a></div><span class="rcard-label">Community Analysis</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer;transition:background var(--t-fast),color var(--t-fast)" onclick="go('join')" title="Open position">+</div><div class="rcard-img">AMR</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/oele/amr" target="_blank">Interactive Game for Antimicrobial Resistance (AMR)</a></div><span class="rcard-label">AMR · Serious Games</span></div></div>
+  <div data-nav-theme="dark" style="background:#000;min-height:100vh;padding-top:var(--nav)">
+    <div style="max-width:1160px;margin:0 auto;padding:3rem 2rem 1.5rem">
+      <div class="sec-header"><h2 class="sec-title" style="color:#fff">Projects</h2></div>
+      <p style="font-family:var(--font);font-size:1rem;color:rgba(255,255,255,.55);max-width:720px;margin-bottom:1.5rem">Current lab projects, Dr. Mallavarapu's legacy work, and other lab-adjacent efforts — click any project to explore it.</p>
     </div>
+    <div id="proj-field-wrap">
+      <canvas id="proj-canvas"></canvas>
+      <canvas id="proj-labels"></canvas>
+      <div class="proj-cat-label" style="top:calc(10% - 110px)">Current Projects</div>
+      <div class="proj-cat-label" style="top:calc(50% - 110px)">Legacy Projects</div>
+      <div class="proj-cat-label" style="top:calc(83% - 110px)">Other</div>
+    </div>
+  </div>
+</div>
 
-    <div class="sec-header" style="margin-top:4rem;margin-bottom:1.5rem"><h3 style="font-family:var(--display);font-size:1.4rem;font-weight:400;color:var(--wolf)">Completed Projects</h3></div>
-    <div style="position:relative;padding-left:72px">
-      <div style="position:absolute;left:23px;top:0;bottom:0;width:3px;background:var(--border);border-radius:2px"></div>
-      <div style="position:relative;margin-bottom:3rem">
-        <div style="position:absolute;left:-49px;top:0;width:46px;height:46px;border-radius:50%;background:var(--wolf);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.6rem;font-weight:500;letter-spacing:.04em;border:3px solid #fff;box-shadow:0 0 0 2px var(--border)">2024</div>
-        <div class="project-item"><div class="project-title">LLM for Systematic Research</div><div class="project-meta"><strong>Students:</strong> Trisha Gite, Nikhil Vasudeva, Dee Kandel<br><strong>Collaborators:</strong> <a href="https://www.shan-zhang.com/" target="_blank">Shan Zhang</a>, <a href="https://learndialogue.org/person.php?id=noah" target="_blank">Noah Schroeder</a> (University of Florida)</div></div>
+<!-- Projects detail overlay (full-screen zoom target) -->
+<div id="proj-detail" class="proj-detail">
+  <button id="proj-close" class="proj-close-btn" aria-label="Close project detail">&times;</button>
+  <div class="proj-detail-inner">
+    <div class="proj-detail-grid">
+      <div class="proj-col-left">
+        <span id="proj-d-badge" class="proj-badge"></span>
+        <h1 id="proj-d-name" class="proj-d-name"></h1>
+        <div id="proj-d-image" class="proj-image-box"></div>
+        <p id="proj-d-desc" class="proj-d-desc"></p>
       </div>
-    </div>
-
-    <hr class="divider" style="margin:3rem 0">
-    <div class="sec-header"><h2 class="sec-title">Research Areas</h2></div>
-    <div class="research-grid">
-      <div class="rcard"><div class="rcard-img">OELE</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/oele" target="_blank">Open-Ended Learning Environments (OELE)</a></div><span class="rcard-label">Core Research Area</span></div></div>
-      <div class="rcard"><div class="rcard-img">AI/ML</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/aiml" target="_blank">Artificial Intelligence, Machine Learning & Data Mining for Education</a></div><span class="rcard-label">AI/ML</span></div></div>
-      <div class="rcard"><div class="rcard-img">DATA</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/data-repository" target="_blank">Data and Model Sharing Repository</a></div><span class="rcard-label">Open Data</span></div></div>
-      <div class="rcard"><div class="rcard-img">VIZ</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/visualizations" target="_blank">Visualizations</a></div><span class="rcard-label">Interactive Data Viz</span></div></div>
-      <div class="rcard"><div class="rcard-img">DSN</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/design" target="_blank">Design</a></div><span class="rcard-label">Human-Centered Design</span></div></div>
-      <div class="rcard"><div class="rcard-img">SIM</div><div class="rcard-body"><div class="rcard-title"><a href="https://sites.google.com/ncsu.edu/draditimallavarapu/research/simulation-modelling" target="_blank">Simulation Modelling</a></div><span class="rcard-label">Agent-Based Models</span></div></div>
+      <div class="proj-col-right">
+        <div class="proj-team-label">Team</div>
+        <div id="proj-team-wrap" class="proj-team-wrap"></div>
+        <div id="proj-d-collab"></div>
+        <div id="proj-d-github"></div>
+        <div id="proj-d-pubs"></div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ════════════════ PUBLICATIONS ════════════════ -->
 <div id="page-publications" class="page">
-  <div class="wrap">
-    <div class="sec-header"><h2 class="sec-title">Publications</h2><span class="sec-tag">2014–2026</span></div>
-    <p style="font-family:var(--serif);font-size:.95rem;color:var(--mid);margin-bottom:1.5rem">Published research organized by type and year. For questions on any specific publication, feel free to <a href="mailto:amallav@ncsu.edu">send a message</a>.</p>
-    <div style="margin-bottom:2rem"><a href="https://scholar.google.com/citations?user=o4XGBswAAAAJ&hl=en" target="_blank" class="pill">View Google Scholar</a></div>
-    <div class="filter-bar" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem">
-      <button class="filter-btn active" data-filter="all" style="font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--wolf);border:1px solid var(--wolf);border-radius:3px;padding:.35rem .85rem;cursor:pointer">All</button>
-      <button class="filter-btn" data-filter="awards" style="font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Awards</button>
-      <button class="filter-btn" data-filter="book" style="font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Book Chapters</button>
-      <button class="filter-btn" data-filter="journal" style="font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Journals</button>
-      <button class="filter-btn" data-filter="conference" style="font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Conference</button>
+  <div class="pub-timeline-layout">
+    <div class="ptl-left">
+      <div id="pub-canvas-wrap">
+        <canvas id="pub-canvas" resize></canvas>
+      </div>
     </div>
-    <div class="pub-section" data-type="awards">
-      <div class="pub-type">Awards</div>
-      <div style="padding:1rem 1.25rem;border-left:3px solid var(--red);background:var(--red-light);margin-bottom:.75rem;border-radius:0 4px 4px 0"><div style="font-family:var(--display);font-weight:400;font-size:.95rem;color:var(--wolf)">Best Late Breaking Results Paper Award</div><div style="font-family:var(--mono);font-size:.72rem;color:var(--mid);margin-top:.25rem">AIED 2025 · "Tell Me Who Your Students Are"</div></div>
-    </div>
-    <div class="pub-section" data-type="book">
-      <div class="pub-type">Book Chapters</div>
-      <span class="pub-year">2021</span>
-      <div class="pub-entry">Beheshti, E., Lyons, L., Mallavarapu, A., Thompson, W., Wallingford, B., & Uzzo, S. (2021). Co-designing Learning Dashboards for Informal Educators in H. Ba, K. McMillan Culp, and M. Honey (Eds.), <em>Design Make Play for Equity, Inclusion, and Agency</em>, Routledge.</div>
-    </div>
-    <div class="pub-section" data-type="journal">
-      <div class="pub-type">Journal Articles</div>
-      <span class="pub-year">2026</span>
-      <div class="pub-entry">Risha, Z., Mallavarapu, A., Farzan, R., Booth, J., Sondel, B., Walker, E. "A Better Fit: Using Data Roles to Appeal to More Learners and Promote Critical Data Literacy." <em>International Journal of STEM Education</em> (2026). <span class="pub-note">In Press</span></div>
-      <div class="pub-entry">Mallavarapu, A., Nair, S., Middha, L., Dunn, R., Allf, B., Uzzo, S. "A Complex Systems Approach to Modeling Global Patterns of Who Eats Whom from Crowdsourced Data." <em>Complex Systems</em> (2026). <span class="pub-note">Under Review</span></div>
-      <div class="pub-entry">Ameen, M., Shahriar, T., Mallavarapu, A., Jiang, S., Matsuda, N. "Beyond prior knowledge: The predictive role of knowledge-building in Tutor Learning." <em>Behaviormetrika</em> (2026), pp. 1–24. <a href="https://doi.org/10.1007/s41237-026-00294-9" target="_blank">DOI</a></div>
-      <span class="pub-year">2022</span>
-      <div class="pub-entry">Mallavarapu, A., Lyons, L., & Uzzo, S. (2022). Exploring the Utility of Social-Network Derived Collaborative Opportunity Temperature Readings for Informing Design and Research of Large-Group Immersive Learning Environments. <em>Journal of Learning Analytics</em>, 9(1), 53–76. <a href="https://doi.org/10.18608/jla.2022.7419" target="_blank">DOI</a></div>
-      <span class="pub-year">2021</span>
-      <div class="pub-entry">Mallavarapu, A., Uzzo, S., & Lyons, L. (2021). Formative Fugues: Reconceptualizing Formative Feedback for Complex Systems Learning Environments. <em>International Journal of Complexity in Education</em>, 2(2), 4–46.</div>
-      <div class="pub-entry">Lyons, L., & Mallavarapu, A. (2021). Collective Usability: Using Simulation Tools to Explore Embodied Design Challenges in Immersive, Shared Mixed-Reality Experiences. <em>Journal of Educational Technology & Society</em>, 24(2).</div>
-      <span class="pub-year">2015</span>
-      <div class="pub-entry">Mallavarapu, A., Lyons, L., Slattery, B., Shelley, T., Minor, E., & Zellner, M. (2015). Developing Computational Methods to Measure and Track Learners' Spatial Reasoning in an Open-Ended Simulation. <em>Journal of Educational Data Mining</em> 7(2), 49–82.</div>
-    </div>
-    <div class="pub-section" data-type="conference">
-      <div class="pub-type">Conference Papers</div>
-      <span class="pub-year">2025</span>
-      <div class="pub-entry">Mallavarapu, A., Uzzo, S., Vasudeva, N., Dunn, R., Allf, B. "Who Eats Whom: Modeling trophic interaction networks with large-scale, crowdsourced ecological data." <em>COMPLEX NETWORKS 2025</em>. Springer. Dec. 2025.</div>
-      <span class="pub-year">2024</span>
-      <div class="pub-entry">Sehgal, S., Bhavya, B., Chivukula, K., Zhai, C., & Mallavarapu, A. (2024). Exploring AI-powered Multimodal Analogies for Science Education. <em>EDM 2024</em>.</div>
-      <span class="pub-year">2023</span>
-      <div class="pub-entry">Mallavarapu, A., Walker, E., Cassandra, K., Gardner, S., Roschelle, J. & Uzzo, S. (2023). Network based methodology for characterizing interdisciplinary expertise in emerging research. <em>International Conference of Complex Networks and their Applications</em>, Menton, France. Springer.</div>
-      <span class="pub-year">2022</span>
-      <div class="pub-entry">Wen, N., Mallavarapu, A., Biehl, J., Walker, E., & Babichenko, D. (2022). Understanding Barriers of Missing Data in Personal Informatics Systems. <em>PervasiveHealth 2022</em> (pp. 603–618). Springer.</div>
-      <div class="pub-entry">Risha, Z., Mallavarapu, A., Rosta, F., Jaime, B., Dondal, B., & Walker, E. (2022). Proposing a Role-Based Framework for Data Literacy. <em>ICLS 2022</em>. Hiroshima, Japan.</div>
-      <span class="pub-year">2021</span>
-      <div class="pub-entry">Levy-Cohen, R., Mallavarapu, A., Lyons, L., & Uzzo, S. (2021). Studying Shared Regulation in Immersive Learning Environments. <em>CSCL 2021</em> (pp. 100–115).</div>
-      <span class="pub-year">2020</span>
-      <div class="pub-entry">Mallavarapu, A., & Lyons, L. (2020). Exploration Maps, Beyond Top Scores: Designing Formative Feedback for Open-Ended Problems. <em>EDM 2020</em>, 790–795.</div>
-      <div class="pub-entry">Beheshti, E., Lyons, L., Mallavarapu, A., Wallingford, B., & Uzzo, S. (2020). Design Considerations for Data-Driven Dashboards. <em>CHI 2020 Extended Abstracts</em> (pp. 1–9).</div>
-      <span class="pub-year">2019</span>
-      <div class="pub-entry">Mallavarapu, A., Lyons, L., Uzzo, S., Thompson, W., Levy-Cohen, R., & Slattery, B. (2019). Connect-to-Connected Worlds: Piloting a Mobile, Data-Driven Reflection Tool for an Open-Ended Simulation at a Museum. <em>CHI 2019</em> (pp. 1–14). ACM Press.</div>
+    <div class="ptl-right">
+      <div class="sec-header"><h2 class="sec-title">Publications</h2></div>
+      <p style="font-family:var(--font);font-size:.95rem;color:var(--mid);margin-bottom:1.5rem">Published research organized by type and year. For questions on any specific publication, feel free to <a href="mailto:amallav@ncsu.edu">send a message</a>.</p>
+      <div style="margin-bottom:2rem"><a href="https://scholar.google.com/citations?user=o4XGBswAAAAJ&hl=en" target="_blank" class="pill">View Google Scholar</a></div>
+      <div class="filter-bar" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem">
+        <button class="filter-btn active" data-filter="all" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--wolf);border:1px solid var(--wolf);border-radius:3px;padding:.35rem .85rem;cursor:pointer">All</button>
+        <button class="filter-btn" data-filter="awards" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Awards</button>
+        <button class="filter-btn" data-filter="book" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Book Chapters</button>
+        <button class="filter-btn" data-filter="journal" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Journals</button>
+        <button class="filter-btn" data-filter="conference" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Conference</button>
+      </div>
+      <div class="pub-section" data-type="awards">
+        <div class="pub-type">Awards</div>
+        <div style="padding:1rem 1.25rem;border-left:3px solid var(--red);background:var(--red-light);margin-bottom:.75rem;border-radius:0 4px 4px 0"><div style="font-family:var(--font);font-weight:400;font-size:.95rem;color:var(--wolf)">Best Late Breaking Results Paper Award</div><div style="font-family:var(--font);font-size:.72rem;color:var(--mid);margin-top:.25rem">AIED 2025 · "Tell Me Who Your Students Are"</div></div>
+      </div>
+      <div id="pub-all-sorted" style="display:none"></div>
+      <div class="pub-section" data-type="book">
+        <div class="pub-type">Book Chapters</div>
+        <span class="pub-year">2021</span>
+        <div class="pub-entry">Beheshti, E., Lyons, L., Mallavarapu, A., Thompson, W., Wallingford, B., & Uzzo, S. (2021). Co-designing Learning Dashboards for Informal Educators in H. Ba, K. McMillan Culp, and M. Honey (Eds.), <em>Design Make Play for Equity, Inclusion, and Agency</em>, Routledge.</div>
+      </div>
+      <div class="pub-section" data-type="journal">
+        <div class="pub-type">Journal Articles</div>
+        <span class="pub-year">2026</span>
+        <div class="pub-entry">Risha, Z., Mallavarapu, A., Farzan, R., Booth, J., Sondel, B., Walker, E. "A Better Fit: Using Data Roles to Appeal to More Learners and Promote Critical Data Literacy." <em>International Journal of STEM Education</em> (2026). <span class="pub-note">In Press</span></div>
+        <div class="pub-entry">Mallavarapu, A., Nair, S., Middha, L., Dunn, R., Allf, B., Uzzo, S. "A Complex Systems Approach to Modeling Global Patterns of Who Eats Whom from Crowdsourced Data." <em>Complex Systems</em> (2026). <span class="pub-note">Under Review</span></div>
+        <div class="pub-entry">Ameen, M., Shahriar, T., Mallavarapu, A., Jiang, S., Matsuda, N. "Beyond prior knowledge: The predictive role of knowledge-building in Tutor Learning." <em>Behaviormetrika</em> (2026), pp. 1–24. <a href="https://doi.org/10.1007/s41237-026-00294-9" target="_blank">DOI</a></div>
+        <span class="pub-year">2022</span>
+        <div class="pub-entry">Mallavarapu, A., Lyons, L., & Uzzo, S. (2022). Exploring the Utility of Social-Network Derived Collaborative Opportunity Temperature Readings for Informing Design and Research of Large-Group Immersive Learning Environments. <em>Journal of Learning Analytics</em>, 9(1), 53–76. <a href="https://doi.org/10.18608/jla.2022.7419" target="_blank">DOI</a></div>
+        <span class="pub-year">2021</span>
+        <div class="pub-entry">Mallavarapu, A., Uzzo, S., & Lyons, L. (2021). Formative Fugues: Reconceptualizing Formative Feedback for Complex Systems Learning Environments. <em>International Journal of Complexity in Education</em>, 2(2), 4–46.</div>
+        <div class="pub-entry">Lyons, L., & Mallavarapu, A. (2021). Collective Usability: Using Simulation Tools to Explore Embodied Design Challenges in Immersive, Shared Mixed-Reality Experiences. <em>Journal of Educational Technology & Society</em>, 24(2).</div>
+        <span class="pub-year">2015</span>
+        <div class="pub-entry">Mallavarapu, A., Lyons, L., Slattery, B., Shelley, T., Minor, E., & Zellner, M. (2015). Developing Computational Methods to Measure and Track Learners' Spatial Reasoning in an Open-Ended Simulation. <em>Journal of Educational Data Mining</em> 7(2), 49–82.</div>
+      </div>
+      <div class="pub-section" data-type="conference">
+        <div class="pub-type">Conference Papers</div>
+        <span class="pub-year">2025</span>
+        <div class="pub-entry">Mallavarapu, A., Uzzo, S., Vasudeva, N., Dunn, R., Allf, B. "Who Eats Whom: Modeling trophic interaction networks with large-scale, crowdsourced ecological data." <em>COMPLEX NETWORKS 2025</em>. Springer. Dec. 2025.</div>
+        <span class="pub-year">2024</span>
+        <div class="pub-entry">Sehgal, S., Bhavya, B., Chivukula, K., Zhai, C., & Mallavarapu, A. (2024). Exploring AI-powered Multimodal Analogies for Science Education. <em>EDM 2024</em>.</div>
+        <span class="pub-year">2023</span>
+        <div class="pub-entry">Mallavarapu, A., Walker, E., Cassandra, K., Gardner, S., Roschelle, J. & Uzzo, S. (2023). Network based methodology for characterizing interdisciplinary expertise in emerging research. <em>International Conference of Complex Networks and their Applications</em>, Menton, France. Springer.</div>
+        <span class="pub-year">2022</span>
+        <div class="pub-entry">Wen, N., Mallavarapu, A., Biehl, J., Walker, E., & Babichenko, D. (2022). Understanding Barriers of Missing Data in Personal Informatics Systems. <em>PervasiveHealth 2022</em> (pp. 603–618). Springer.</div>
+        <div class="pub-entry">Risha, Z., Mallavarapu, A., Rosta, F., Jaime, B., Dondal, B., & Walker, E. (2022). Proposing a Role-Based Framework for Data Literacy. <em>ICLS 2022</em>. Hiroshima, Japan.</div>
+        <span class="pub-year">2021</span>
+        <div class="pub-entry">Levy-Cohen, R., Mallavarapu, A., Lyons, L., & Uzzo, S. (2021). Studying Shared Regulation in Immersive Learning Environments. <em>CSCL 2021</em> (pp. 100–115).</div>
+        <span class="pub-year">2020</span>
+        <div class="pub-entry">Mallavarapu, A., & Lyons, L. (2020). Exploration Maps, Beyond Top Scores: Designing Formative Feedback for Open-Ended Problems. <em>EDM 2020</em>, 790–795.</div>
+        <div class="pub-entry">Beheshti, E., Lyons, L., Mallavarapu, A., Wallingford, B., & Uzzo, S. (2020). Design Considerations for Data-Driven Dashboards. <em>CHI 2020 Extended Abstracts</em> (pp. 1–9).</div>
+        <span class="pub-year">2019</span>
+        <div class="pub-entry">Mallavarapu, A., Lyons, L., Uzzo, S., Thompson, W., Levy-Cohen, R., & Slattery, B. (2019). Connect-to-Connected Worlds: Piloting a Mobile, Data-Driven Reflection Tool for an Open-Ended Simulation at a Museum. <em>CHI 2019</em> (pp. 1–14). ACM Press.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -523,8 +542,8 @@ footer a:hover{color:var(--white)}
 <div id="page-teaching" class="page">
   <div class="wrap">
     <div class="sec-header"><h2 class="sec-title">Teaching</h2></div>
-    <p style="font-family:var(--serif);font-size:.95rem;color:var(--mid);margin-bottom:2rem">Please sign up for courses on the <a href="http://csc.ncsu.edu" target="_blank">department website</a>. For specific questions, feel free to <a href="mailto:amallav@ncsu.edu">send an email</a>.</p>
-    <p style="font-family:var(--serif);font-size:.85rem;color:var(--mid);margin-bottom:2rem;background:var(--light);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem"><strong>Spring 2026 office hours:</strong> By email only. Please email if you need to meet.</p>
+    <p style="font-family:var(--font);font-size:.95rem;color:var(--mid);margin-bottom:2rem">Please sign up for courses on the <a href="http://csc.ncsu.edu" target="_blank">department website</a>. For specific questions, feel free to <a href="mailto:amallav@ncsu.edu">send an email</a>.</p>
+    <p style="font-family:var(--font);font-size:.85rem;color:var(--mid);margin-bottom:2rem;background:var(--light);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem"><strong>Spring 2026 office hours:</strong> By email only. Please email if you need to meet.</p>
     <div class="course-card">
       <div class="course-header"><div><div class="course-code">CSC 791</div><div class="course-name">Multimodal Data Analysis</div></div><div class="course-meta">Spring · 2026</div></div>
       <div class="course-body">Multimodal data analysis is an advanced course that explores how meaning is made across data spanning multiple modalities such as language, visuals, sound, gesture, and digital media. Students engage with leading theories and hands-on methods for analyzing complex, real-world data from social media, videos, scientific images, and interactive platforms.</div>
@@ -539,8 +558,8 @@ footer a:hover{color:var(--white)}
     </div>
     <div class="rec-letter">
       <h3>Recommendation Letters</h3>
-      <p style="font-family:var(--serif);font-size:.88rem;color:var(--mid);margin-bottom:1rem">You should have either taken a class with me or worked with me on a project. Note the difference between a letter of reference and a strong letter of reference, which needs specific evidence.</p>
-      <p style="font-family:var(--display);font-size:.88rem;font-weight:400;margin-bottom:.5rem">Please email the following:</p>
+      <p style="font-family:var(--font);font-size:.88rem;color:var(--mid);margin-bottom:1rem">You should have either taken a class with me or worked with me on a project. Note the difference between a letter of reference and a strong letter of reference, which needs specific evidence.</p>
+      <p style="font-family:var(--font);font-size:.88rem;font-weight:400;margin-bottom:.5rem">Please email the following:</p>
       <ol>
         <li>A picture of you, to help me remember our interactions.</li>
         <li>Your UnityID — I can use this to look up your academic record.</li>
@@ -549,7 +568,7 @@ footer a:hover{color:var(--white)}
         <li>Any required forms.</li>
         <li>A personal statement: why your background is a good match for this opportunity, any exceptional work done in my classes, and specific evidence of your characteristics such as motivation, analytical thought, technical knowledge, creativity, research skills, teamwork, or leadership.</li>
       </ol>
-      <p style="font-family:var(--serif);font-size:.8rem;color:var(--mid);margin-top:1rem">After we've agreed that I will write you a letter, if you haven't heard from me, please contact me a week before the deadline.</p>
+      <p style="font-family:var(--font);font-size:.8rem;color:var(--mid);margin-top:1rem">After we've agreed that I will write you a letter, if you haven't heard from me, please contact me a week before the deadline.</p>
     </div>
   </div>
 </div>
@@ -558,8 +577,8 @@ footer a:hover{color:var(--white)}
 <div id="page-join" class="page">
   <div class="wrap">
     <div class="sec-header"><h2 class="sec-title" style="font-size:2.5rem">Join the iEXCEL Lab</h2></div>
-    <p style="font-family:var(--serif);font-size:1rem;color:var(--mid);max-width:640px;margin-bottom:3rem;line-height:1.85">We are actively looking for curious, motivated students to join ongoing research at the intersection of computer science, learning sciences, and design.</p>
-    <div class="sec-header"><h3 style="font-family:var(--display);font-size:1.4rem;font-weight:400;color:var(--wolf)">Who We're Looking For</h3></div>
+    <p style="font-family:var(--font);font-size:1rem;color:var(--mid);max-width:640px;margin-bottom:3rem;line-height:1.85">We are actively looking for curious, motivated students to join ongoing research at the intersection of computer science, learning sciences, and design.</p>
+    <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">Who We're Looking For</h3></div>
     <ul class="phd-list" style="background:var(--wolf);border-radius:12px;padding:1.75rem;margin-bottom:3rem;list-style:none">
       <li>Complex systems problems</li>
       <li>Visual representations & interactive data visualizations</li>
@@ -570,41 +589,41 @@ footer a:hover{color:var(--white)}
       <li>Applied AI in grand challenges</li>
       <li>Human-AI teaming</li>
     </ul>
-    <div class="sec-header"><h3 style="font-family:var(--display);font-size:1.4rem;font-weight:400;color:var(--wolf)">Open Projects</h3></div>
-    <p style="font-family:var(--serif);font-size:.9rem;color:var(--mid);margin-bottom:1.5rem">The following projects currently have open positions. Click any project to learn more, or apply below.</p>
+    <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">Open Projects</h3></div>
+    <p style="font-family:var(--font);font-size:.9rem;color:var(--mid);margin-bottom:1.5rem">The following projects currently have open positions. Click any project to learn more, or apply below.</p>
     <div class="research-grid" style="margin-bottom:3rem">
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">OELE</div><div class="rcard-body"><div class="rcard-title">Advancing Human-AI Teaming through Video-Based Analytics for Environmental Science</div><span class="rcard-label">FutureScape</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">ECO</div><div class="rcard-body"><div class="rcard-title">Modeling the Complex Ecological Network: Who Eats Whom</div><span class="rcard-label">OELE · Ecology</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">AMR</div><div class="rcard-body"><div class="rcard-title">Interactive Game for Antimicrobial Resistance (AMR)</div><span class="rcard-label">Serious Games</span></div></div>
+      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">OELE</div><div class="rcard-body"><div class="rcard-title">Advancing Human-AI Teaming through Video-Based Analytics for Environmental Science</div><span class="rcard-label">FutureScape</span></div></div>
+      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">ECO</div><div class="rcard-body"><div class="rcard-title">Modeling the Complex Ecological Network: Who Eats Whom</div><span class="rcard-label">OELE · Ecology</span></div></div>
+      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">AMR</div><div class="rcard-body"><div class="rcard-title">Interactive Game for Antimicrobial Resistance (AMR)</div><span class="rcard-label">Serious Games</span></div></div>
     </div>
-    <div class="sec-header"><h3 style="font-family:var(--display);font-size:1.4rem;font-weight:400;color:var(--wolf)">What to Expect</h3></div>
-    <p style="font-family:var(--serif);font-size:1rem;line-height:1.85;max-width:700px;margin-bottom:3rem">Working in the iEXCEL Lab means joining a collaborative, interdisciplinary team. You'll work on real problems that sit at the intersection of computation, data, and human learning — publishing research, developing technical and communication skills, and contributing to socially meaningful work.</p>
+    <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">What to Expect</h3></div>
+    <p style="font-family:var(--font);font-size:1rem;line-height:1.85;max-width:700px;margin-bottom:3rem">Working in the iEXCEL Lab means joining a collaborative, interdisciplinary team. You'll work on real problems that sit at the intersection of computation, data, and human learning — publishing research, developing technical and communication skills, and contributing to socially meaningful work.</p>
     <div id="apply-block" style="max-width:640px;padding:3rem 0 6rem">
-      <h2 style="font-family:var(--display);font-size:2rem;font-weight:400;margin-bottom:.5rem">Apply</h2>
-      <p style="font-family:var(--serif);font-size:.95rem;color:var(--mid);line-height:1.8;margin-bottom:2rem">Send a message to get in touch. In your email, please include two papers you liked most from the publication list and explain each paper's main thesis in your own words.</p>
+      <h2 style="font-family:var(--font);font-size:2rem;font-weight:400;margin-bottom:.5rem">Apply</h2>
+      <p style="font-family:var(--font);font-size:.95rem;color:var(--mid);line-height:1.8;margin-bottom:2rem">Send a message to get in touch. In your email, please include two papers you liked most from the publication list and explain each paper's main thesis in your own words.</p>
       <div style="display:flex;flex-direction:column;gap:1rem">
-        <input type="text" placeholder="Your name" style="font-family:var(--serif);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
-        <input type="email" placeholder="Your email address" style="font-family:var(--serif);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
-        <textarea rows="6" placeholder="Introduce yourself, describe your background, and tell us which project(s) interest you most..." style="font-family:var(--serif);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none;resize:vertical"></textarea>
-        <a href="mailto:amallav@ncsu.edu" style="font-family:var(--display);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--wolf);border-radius:4px;padding:.85rem 1.5rem;text-decoration:none;text-align:center;display:block;transition:background var(--t-fast)">Send via Email</a>
+        <input type="text" placeholder="Your name" style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
+        <input type="email" placeholder="Your email address" style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
+        <textarea rows="6" placeholder="Introduce yourself, describe your background, and tell us which project(s) interest you most..." style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none;resize:vertical"></textarea>
+        <a href="mailto:amallav@ncsu.edu" style="font-family:var(--font);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--wolf);border-radius:4px;padding:.85rem 1.5rem;text-decoration:none;text-align:center;display:block;transition:background var(--t-fast)">Send via Email</a>
       </div>
-      <p style="font-family:var(--mono);font-size:.72rem;color:var(--mid);margin-top:1rem">Clicking will open your email client pre-filled to <a href="mailto:amallav@ncsu.edu">amallav@ncsu.edu</a></p>
+      <p style="font-family:var(--font);font-size:.72rem;color:var(--mid);margin-top:1rem">Clicking will open your email client pre-filled to <a href="mailto:amallav@ncsu.edu">amallav@ncsu.edu</a></p>
     </div>
   </div>
 </div>
 
 <!-- Sticky Apply Bar -->
 <div id="sticky-apply" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;background:var(--wolf);align-items:center;justify-content:space-between;padding:.85rem 2rem;border-top:1px solid rgba(255,255,255,.1)">
-  <span style="font-family:var(--display);font-size:.82rem;font-weight:300;color:rgba(255,255,255,.7)">Ready to join the iEXCEL Lab?</span>
-  <button onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" style="font-family:var(--display);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);border:none;border-radius:3px;padding:.45rem 1.1rem;cursor:pointer">Apply Now</button>
+  <span style="font-family:var(--font);font-size:.82rem;font-weight:300;color:rgba(255,255,255,.7)">Ready to join the iEXCEL Lab?</span>
+  <button onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" style="font-family:var(--font);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);border:none;border-radius:3px;padding:.45rem 1.1rem;cursor:pointer">Apply Now</button>
 </div>
 
 <footer data-nav-theme="dark">
   <div>
     <div class="fn">Dr. Aditi Mallavarapu</div>
-    <div style="font-family:var(--display);font-weight:300;margin-top:.25rem">Assistant Professor · Computer Science · NC State University</div>
+    <div style="font-family:var(--font);font-weight:300;margin-top:.25rem">Assistant Professor · Computer Science · NC State University</div>
   </div>
-  <div style="text-align:right;line-height:2;font-family:var(--serif)">
+  <div style="text-align:right;line-height:2;font-family:var(--font)">
     <div><a href="mailto:amallav@ncsu.edu">amallav@ncsu.edu</a> · +1 (919) 513-7798</div>
     <div><a href="https://sites.google.com/ncsu.edu/draditimallavarapu" target="_blank">Original Google Site</a> · <a href="https://www.csc.ncsu.edu/people/amallav" target="_blank">NC State Faculty Page</a></div>
   </div>
@@ -871,24 +890,16 @@ document.querySelectorAll('.filter-btn').forEach(function(btn) {
     this.style.background = 'var(--wolf)';
     this.style.color = '#fff';
     this.style.borderColor = 'var(--wolf)';
+    var allSorted = document.getElementById('pub-all-sorted');
+    if (allSorted) allSorted.style.display = (f === 'all') ? 'block' : 'none';
     document.querySelectorAll('.pub-section').forEach(function(s) {
-      s.style.display = (f === 'all' || s.dataset.type === f) ? 'block' : 'none';
+      var show = (f === 'all' && s.dataset.type === 'awards') ||
+                 (f !== 'all' && s.dataset.type === f);
+      s.style.display = show ? 'block' : 'none';
     });
   });
 });
 
-// Scroll reveal on news items
-(function() {
-  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  var items = document.querySelectorAll('.hni');
-  items.forEach(function(el) { el.classList.add('sr'); });
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) { e.target.classList.add('sr-vis'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.08 });
-  items.forEach(function(el) { io.observe(el); });
-})();
 
 // ════════════════ NEWS TIMELINE — DOM BUILD (Paper.js canvas in paperscript below) ════════════════
 (function() {
@@ -1063,12 +1074,10 @@ lbWrap.addEventListener('mousemove', function(e) {
   lbMouse.x = e.clientX - rect.left;
   lbMouse.y = e.clientY - rect.top;
   lbWrap.style.cursor = lbHovered ? 'pointer' : 'none';
-  window._labLinksCursorActive = true;
 });
 lbWrap.addEventListener('mouseleave', function() {
   lbMouse.x = -999; lbMouse.y = -999;
   lbWrap.style.cursor = 'default';
-  window._labLinksCursorActive = false;
 });
 lbWrap.addEventListener('click', function() {
   if (lbHovered) window.open(lbHovered.ln.url, '_blank');
@@ -1178,32 +1187,23 @@ animBlob();
 })();
 </script>
 
-<!-- ════════════════ TEAM METABALLS ════════════════ -->
+<!-- ════════════════ TEAM METABALLS (rotation-in-circle, reusable via window._buildOrbit) ════════════════ -->
 <script>
 (function() {
-var BALL_R = 72;
 
-var teamDefs = [
-  {
-    wrapId: 'team-grad-wrap', blobId: 'team-grad-blob', labelId: 'team-grad-labels', orbitDir: 1,
-    members: ['Stephen Liu','Lavanya Middha','Surabhi Nair','Ory Wickizer','Bipin Gowda','Gaurav Sheth','Yaswant Baddi','Dharani Guda','Ananya Patankar']
-  },
-  {
-    wrapId: 'team-ugrad-wrap', blobId: 'team-ugrad-blob', labelId: 'team-ugrad-labels', orbitDir: -1,
-    members: ['Sairaj Gunda','Ashwin Mahesh','Petr Shevrev','Justin Huang','Mokshagna Kadiyala','Neelesh Yaddanapudi','Adam Biscoe','Maithili Bhoop','Carmella Holloway']
-  },
-  {
-    wrapId: 'team-alumni-wrap', blobId: 'team-alumni-blob', labelId: 'team-alumni-labels', orbitDir: 1,
-    members: ['Trisha Gite','Nikhil Vasudeva','Dee Kandel']
-  }
-];
-
-teamDefs.forEach(function(def) {
+function buildOrbit(def) {
   var wrap   = document.getElementById(def.wrapId);
   var blobC  = document.getElementById(def.blobId);
   var labelC = document.getElementById(def.labelId);
-  if (!wrap || !blobC || !labelC) return;
+  if (!wrap || !blobC || !labelC) return null;
 
+  var BALL_R = def.ballR || 72;
+  var dark = def.dark !== false;
+  var bgFill = dark ? '#000' : '#fff';
+  var ballFill = dark ? '#fff' : '#1a1a1a';
+  var textFill = dark ? '#000' : '#fff';
+  var orbitRx = def.orbitRx || 0.38;
+  var orbitRy = def.orbitRy || 0.28;
   blobC.style.filter = 'blur(10px) contrast(20)';
 
   var n = def.members.length;
@@ -1223,21 +1223,20 @@ teamDefs.forEach(function(def) {
   var time = 0;
   var tmx = -999, tmy = -999;
   var TEAM_CR = 36;
+  var stopped = false;
 
   wrap.addEventListener('mousemove', function(e) {
     var r = wrap.getBoundingClientRect();
     tmx = e.clientX - r.left;
     tmy = e.clientY - r.top;
-    window._teamCursorActive = true;
   });
   wrap.addEventListener('mouseleave', function() {
     tmx = -999; tmy = -999;
-    window._teamCursorActive = false;
   });
 
   function resize() {
     var W = wrap.offsetWidth;
-    var H = parseInt(wrap.style.height) || 560;
+    var H = parseInt(wrap.style.height) || wrap.offsetHeight || 560;
     blobC.width  = W; labelC.width  = W;
     blobC.height = H; labelC.height = H;
   }
@@ -1245,7 +1244,8 @@ teamDefs.forEach(function(def) {
   window.addEventListener('resize', resize);
 
   function frame() {
-    if (!document.getElementById('page-lab').classList.contains('active')) {
+    if (stopped) return;
+    if (def.isActive && !def.isActive()) {
       requestAnimationFrame(frame); return;
     }
     var wrapW = wrap.offsetWidth;
@@ -1257,8 +1257,8 @@ teamDefs.forEach(function(def) {
     for (var i = 0; i < balls.length; i++) {
       var b   = balls[i];
       var oa  = b.initialAngle + time * 0.08 * def.orbitDir;
-      var cx  = (0.5 + 0.38 * Math.cos(oa)) * W;
-      var cy  = (0.5 + 0.28 * Math.sin(oa)) * H;
+      var cx  = (0.5 + orbitRx * Math.cos(oa)) * W;
+      var cy  = (0.5 + orbitRy * Math.sin(oa)) * H;
       var t   = time * b.speed + b.phase;
       var amp = 6 + 14 * (0.5 + 0.5 * Math.sin(time * 0.2 + b.phase * 0.5));
       b.x = cx + Math.sin(t)        * b.ax * amp;
@@ -1268,13 +1268,13 @@ teamDefs.forEach(function(def) {
     }
 
     var bctx = blobC.getContext('2d');
-    bctx.fillStyle = '#000';
+    bctx.fillStyle = bgFill;
     bctx.fillRect(0, 0, W, H);
     for (var i = 0; i < balls.length; i++) {
       var b = balls[i];
       bctx.beginPath();
       bctx.arc(b.x, b.y, BALL_R, 0, Math.PI * 2);
-      bctx.fillStyle = '#fff';
+      bctx.fillStyle = ballFill;
       bctx.fill();
     }
 
@@ -1284,7 +1284,7 @@ teamDefs.forEach(function(def) {
       if (tmCR > 0) {
         bctx.beginPath();
         bctx.arc(tmx, tmy, tmCR, 0, Math.PI * 2);
-        bctx.fillStyle = '#fff';
+        bctx.fillStyle = ballFill;
         bctx.fill();
       }
     }
@@ -1295,7 +1295,7 @@ teamDefs.forEach(function(def) {
     lctx.textBaseline = 'middle';
     var fontSize = Math.round(BALL_R * 0.23);
     lctx.font      = '500 ' + fontSize + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
-    lctx.fillStyle = '#000';
+    lctx.fillStyle = textFill;
     var lh = fontSize * 1.3;
     for (var i = 0; i < balls.length; i++) {
       var b      = balls[i];
@@ -1314,8 +1314,533 @@ teamDefs.forEach(function(def) {
   }
 
   requestAnimationFrame(frame);
-});
+  return { stop: function() { stopped = true; } };
+}
+window._buildOrbit = buildOrbit;
+
+var teamDefs = [
+  {
+    wrapId: 'team-grad-wrap', blobId: 'team-grad-blob', labelId: 'team-grad-labels', orbitDir: 1,
+    isActive: function() { return document.getElementById('page-lab').classList.contains('active'); },
+    members: ['Stephen Liu','Lavanya Middha','Surabhi Nair','Ory Wickizer','Bipin Gowda','Gaurav Sheth','Yaswant Baddi','Dharani Guda','Ananya Patankar']
+  },
+  {
+    wrapId: 'team-ugrad-wrap', blobId: 'team-ugrad-blob', labelId: 'team-ugrad-labels', orbitDir: -1,
+    isActive: function() { return document.getElementById('page-lab').classList.contains('active'); },
+    members: ['Sairaj Gunda','Ashwin Mahesh','Petr Shevrev','Justin Huang','Mokshagna Kadiyala','Neelesh Yaddanapudi','Adam Biscoe','Maithili Bhoop','Carmella Holloway']
+  },
+  {
+    wrapId: 'team-alumni-wrap', blobId: 'team-alumni-blob', labelId: 'team-alumni-labels', orbitDir: 1,
+    isActive: function() { return document.getElementById('page-lab').classList.contains('active'); },
+    members: ['Trisha Gite','Nikhil Vasudeva','Dee Kandel']
+  }
+];
+
+teamDefs.forEach(buildOrbit);
 })();
+</script>
+
+<!-- ════════════════ PROJECTS DATA ════════════════ -->
+<script>
+var projectsData = [
+  // ---- CATEGORY: lab (Current iEXCEL Lab Projects) ----
+  {
+    id: "amr",
+    category: "lab",
+    name: "AMR — Antimicrobial Resistance Game Design",
+    shortName: "AMR",
+    description: "Antimicrobial resistance (AMR) is a critical One Health challenge spanning food, water, human, and animal systems. This project designs a scientifically accurate, engaging serious game that immerses players in the full connected complexity of AMR within food and water systems, incorporating AI/ML to track player strategies and give real-time feedback. Two systematic literature reviews are complete, one expert participatory design session has been conducted, and the team is designing a collaborative, immersive interaction built on real AMR data and a causal model of the system.",
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: ["Dr. Catherine Sanders (CALS)", "Dr. Arnav Jhala", "Dr. Min Chi"],
+    team: ["Ory Wickizer", "Sairaj Gunda", "Mokshagna Kadiyala"],
+    publications: []
+  },
+  {
+    id: "who-eats-whom",
+    category: "lab",
+    name: "Who Eats Whom",
+    shortName: "Who Eats Whom",
+    description: "Who Eats Whom builds and analyzes a predator-prey network spanning thousands of interactions and taxonomic groups, using scientifically validated, crowd-sourced observations from an iNaturalist feeding-behavior project — among the first efforts to model a real-time, scalable, empirical trophic network from validated citizen-science data. Public site: whoeatswhom.org. Sub-projects include a website/accessibility redesign, a Planetary Interactive Food Web (graph database + D3), BioVerify (computer-vision validation of crowdsourced observations), human-in-the-loop validation for BioVerify misses, and an independent backend so the tool no longer depends on live iNaturalist queries.",
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: ["Bradley Allf", "Dr. Rob Dunn", "Dr. Stephen Uzzo"],
+    team: ["Nikhil Vasudeva", "Surabhi Nair", "Lavanya Middha"],
+    publications: [
+      "Mallavarapu, A., Uzzo, S., Vasudeva, N., Dunn, R., Allf, B. Who Eats Whom: Modeling trophic interaction networks with large-scale, crowdsourced ecological data. Proceedings of Complex Networks 2025. Springer.",
+      "Mallavarapu, A., Nair, S., Middha, L., Dunn, R., Allf, B., Uzzo, S. A Complex Systems Approach to Modeling Global Patterns of Who Eats Whom from Crowdsourced Data. Complex Systems (2026), Special Issue of Complex Networks."
+    ]
+  },
+  {
+    id: "futurescape",
+    category: "lab",
+    name: "FutureScape",
+    shortName: "FutureScape",
+    description: "FutureScape pairs the tangibility of a board game with the power of simulation to elicit real human decision-making under climate change, simulating policy deliberation under imperfect information, limited resources, and time pressure. The project uses computer vision and AI/ML on gameplay video to detect players' actions, extract real-time intelligence on costs and benefits of choices, and link that intelligence to established climate models — building toward human-AI teaming for environmental research. Six sessions have been run with ENV 101 classes (Fall 2025).",
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: [],
+    team: [],
+    publications: []
+  },
+  {
+    id: "idr-mapping",
+    category: "lab",
+    name: "Interdisciplinary Research Growth & Community Analysis",
+    shortName: "IDR Mapping",
+    description: "This project develops a generalizable, human-centered methodology for mapping interdisciplinary research (IDR) collaborations and expertise within a research community, using publication and collaboration data rather than manually coded survey data — combining automated bibliographic collection via OpenAlex, graph-based analysis (Neo4j), and network-based IDR metrics. Applied at two levels: a focused case study within NC State's Plant Sciences Institute, and a university-wide study of how interdisciplinarity has changed over roughly two decades.",
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: ["Jason Ronallo (NC State Libraries)", "Lauren Maynard (NC State Libraries)", "Dr. Rob Dunn (OUIP)"],
+    team: ["Khush Bawal", "Trisha Gite", "Dharani Guda", "Stephen Liu"],
+    publications: [
+      "Mallavarapu, A., Walker, E., Cassandra, K., Gardner, S., Roschelle, J., & Uzzo, S. (2023). Network based methodology for characterizing interdisciplinary expertise in emerging research. Proceedings of Complex Networks 2023. Springer."
+    ]
+  },
+  {
+    id: "nodum",
+    category: "lab",
+    name: "Knowledge Mapping — Nodum",
+    shortName: "Nodum",
+    description: "Systematic reviews are rigorous but slow — researchers spend days manually scanning hundreds or thousands of papers against inclusion/exclusion criteria. This project turns the output of a systematic review into an evidence map, with a companion LLM-powered tool, Nodum, that guides researchers through the review process and lets them incorporate new questions that emerge after the review is complete.",
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: [],
+    team: [],
+    publications: []
+  },
+
+  // ---- CATEGORY: legacy (Dr. Mallavarapu's individual pre-lab work — NOT lab projects) ----
+  {
+    id: "eco-collage",
+    category: "legacy",
+    name: "Eco-Collage",
+    shortName: "Eco-Collage",
+    description: "A collaborative simulation game helping learners understand the spatial-reasoning principles that matter for environmental science and urban planning — placing green infrastructure in an urban neighborhood to reduce surface flooding, and testing different 2D spatial arrangements against a simulation of each solution's impact. The work used Ripley's K statistic combined with regression to characterize learners' spatial-reasoning strategies, and a companion dashboard let learners compare arrangements and outcomes.",
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: [],
+    team: [],
+    publications: [
+      "Mallavarapu, A., Lyons, L., Slattery, B., Shelley, T., Minor, E., & Zellner, M. (2015). Developing Computational Methods to Measure and Track Learners' Spatial Reasoning in an Open-Ended Simulation. Journal of Educational Data Mining, 7(2), 49-82."
+    ]
+  },
+  {
+    id: "connected-worlds",
+    category: "legacy",
+    name: "Connected Worlds",
+    shortName: "Connected Worlds",
+    description: "A 250 m² immersive digital exhibit at the New York Hall of Science inviting up to 50 simultaneous visitors into an open-ended, visitor-driven simulation of ecosystem interaction across four biomes. Dr. Mallavarapu's dissertation designed the computational methods and tools that extract data from visitor interactions and turn it into formative feedback, including Formative Fugues (a novel feedback framework), a computational pipeline combining causal modeling with pattern matching, and the MID methodology for validating computational outputs with expert practitioners. Related sub-projects included OpenPose visitor-tracking, Collaborative Temperature, the CtCW mobile dashboard, participatory co-design with museum educators, and mining/visualizing visitor-interaction patterns.",
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: [],
+    team: [],
+    publications: [
+      "Mallavarapu, A., Uzzo, S., & Lyons, L. (2021). Formative Fugues: Reconceptualizing Formative Feedback for Complex Systems Learning Environments. International Journal of Complexity in Education, 2(2), 4-46.",
+      "Mallavarapu, A., Lyons, L., & Uzzo, S. (2022). Exploring the Utility of Social-Network Derived Collaborative Opportunity Temperature Readings for Informing Design and Research of Large-Group Immersive Learning Environments. Journal of Learning Analytics, 9(1), 53-76.",
+      "Lyons, L., & Mallavarapu, A. (2021). Collective Usability: Using Simulation Tools to Explore Embodied Design Challenges in Immersive, Shared Mixed-Reality Experiences. Journal of Educational Technology & Society, 24(2).",
+      "Mallavarapu, A., Lyons, L., Uzzo, S., Thompson, W., Levy-Cohen, R., & Slattery, B. (2019). Connect-to-Connected Worlds: Piloting a Mobile, Data-Driven Reflection Tool for an Open-Ended Simulation at a Museum. Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems.",
+      "Mallavarapu, A., & Lyons, L. (2020). Exploration Maps, Beyond Top Scores: Designing Formative Feedback for Open-Ended Problems. International Conference on Educational Data Mining (EDM 2020), 790-795.",
+      "Levy-Cohen, R., Mallavarapu, A., Lyons, L., & Uzzo, S. (2021). Studying Shared Regulation in Immersive Learning Environments. Proceedings of CSCL 2021, 100-115.",
+      "Beheshti, E., Lyons, L., Mallavarapu, A., Wallingford, B., & Uzzo, S. (2020). Design Considerations for Data-Driven Dashboards: Supporting Facilitation Tasks for Open-Ended Learning. Extended Abstracts, CHI 2020.",
+      "Beheshti, E., Lyons, L., Mallavarapu, A., Thompson, W., Wallingford, B., & Uzzo, S. (2021). Co-designing Learning Dashboards for Informal Educators. In Design Make Play for Equity, Inclusion, and Agency. Routledge."
+    ]
+  },
+
+  // ---- CATEGORY: other (lab-adjacent / stub entries) ----
+  {
+    id: "social-networks-teaching",
+    category: "other",
+    name: "Social Networks — Teaching Resource",
+    shortName: "Social Networks",
+    description: null,
+    image: null,
+    github: null,
+    coPI: null,
+    collaborators: [],
+    team: [],
+    publications: []
+  }
+];
+</script>
+
+<!-- ════════════════ PROJECTS METABALL FIELD (same technique as Lab Links mini metaballs) ════════════════ -->
+<script>
+(function() {
+var blobC  = document.getElementById('proj-canvas');
+var labelC = document.getElementById('proj-labels');
+if (!blobC || !labelC) return;
+
+blobC.style.filter = 'blur(12px) contrast(20)';
+
+var CAT_BAND = {
+  lab:    { x0: 0.08, x1: 0.92, y0: 0.10, y1: 0.33 },
+  legacy: { x0: 0.10, x1: 0.90, y0: 0.50, y1: 0.65 },
+  other:  { x0: 0.30, x1: 0.70, y0: 0.83, y1: 0.87 }
+};
+
+var fieldWrapEl = document.getElementById('proj-field-wrap');
+var scatterW = fieldWrapEl.offsetWidth || 1160, scatterH = fieldWrapEl.offsetHeight || 1300;
+
+// Font size is fixed (not scaled per ball) — ball radius is instead sized to the label's
+// actual measured width at that fixed size, so the word always fits inside its ball.
+var PROJ_FONT = 20;
+var sizeCtx = blobC.getContext('2d');
+function labelWidth(text) {
+  sizeCtx.font = '500 ' + PROJ_FONT + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
+  return sizeCtx.measureText(text).width;
+}
+projectsData.forEach(function(p) {
+  var w = labelWidth(p.shortName);
+  p._r = Math.max(56, Math.min(150, w / 2 + 22));
+});
+
+// Spawn each category's balls near its band's center, spaced apart just enough not to
+// overlap at rest (no gravity pulling them there — they simply start there and float).
+var scatterPlaced = [];
+function scatterCategory(arr, band) {
+  var cx = (band.x0 + band.x1) / 2, cy = (band.y0 + band.y1) / 2;
+  var spreadX = (band.x1 - band.x0) * 0.30, spreadY = (band.y1 - band.y0) * 0.30;
+  arr.forEach(function(p) {
+    var fx, fy, px, py, tries = 0;
+    do {
+      fx = cx + (Math.random() - 0.5) * 2 * spreadX;
+      fy = cy + (Math.random() - 0.5) * 2 * spreadY;
+      px = fx * scatterW; py = fy * scatterH;
+      tries++;
+    } while (tries < 100 && scatterPlaced.some(function(q) { return Math.hypot(px - q.px, py - q.py) < p._r + q.r + 16; }));
+    scatterPlaced.push({ px: px, py: py, r: p._r });
+    p._fx = fx;
+    p._fy = fy;
+  });
+}
+
+var byCat = {};
+projectsData.forEach(function(p) { (byCat[p.category] = byCat[p.category] || []).push(p); });
+Object.keys(byCat).forEach(function(cat) { scatterCategory(byCat[cat], CAT_BAND[cat]); });
+
+var pjBalls = projectsData.map(function(p) {
+  return {
+    p: p, x: 0, y: 0, r: p._r,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.20 + Math.random() * 0.2,
+    ax: (Math.random() - 0.5) * 2,
+    ay: (Math.random() - 0.5) * 2,
+  };
+});
+
+var pjMouse = { x: -999, y: -999 };
+var pjHovered = null;
+var pjTime = 0;
+
+function pjResize() {
+  var wrap = document.getElementById('proj-field-wrap');
+  if (!wrap) return;
+  blobC.width  = wrap.offsetWidth;  blobC.height  = wrap.offsetHeight;
+  labelC.width = wrap.offsetWidth;  labelC.height = wrap.offsetHeight;
+}
+
+function pjFrame() {
+  if (!document.getElementById('page-projects').classList.contains('active')) {
+    requestAnimationFrame(pjFrame); return;
+  }
+  pjTime += 0.016;
+  var W = blobC.width, H = blobC.height;
+  if (!W || !H) { pjResize(); requestAnimationFrame(pjFrame); return; }
+
+  for (var i = 0; i < pjBalls.length; i++) {
+    var b = pjBalls[i];
+    var bx = b.p._fx * W, by = b.p._fy * H;
+    var t  = pjTime * b.speed + b.phase;
+    var amp = 14 + 22 * (0.5 + 0.5 * Math.sin(pjTime * 0.22 + b.phase * 0.5));
+    b.x = bx + Math.sin(t)        * b.ax * amp;
+    b.y = by + Math.cos(t * 1.27) * b.ay * amp;
+  }
+
+  pjHovered = null;
+  for (var i = 0; i < pjBalls.length; i++) {
+    var dx = pjMouse.x - pjBalls[i].x, dy = pjMouse.y - pjBalls[i].y;
+    if (Math.sqrt(dx*dx + dy*dy) < pjBalls[i].r + 10) { pjHovered = pjBalls[i]; break; }
+  }
+
+  var bctx = blobC.getContext('2d');
+  bctx.fillStyle = '#000';
+  bctx.fillRect(0, 0, W, H);
+  for (var i = 0; i < pjBalls.length; i++) {
+    var b = pjBalls[i];
+    bctx.beginPath();
+    bctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    bctx.fillStyle = (b === pjHovered) ? '#cc0000' : '#fff';
+    bctx.fill();
+  }
+  if (pjMouse.x >= 0) {
+    var pjEdge = Math.min(pjMouse.x, W - pjMouse.x, pjMouse.y, H - pjMouse.y);
+    var pjCR = 36 * Math.max(0, Math.min(1, pjEdge / 60));
+    if (pjCR > 0) {
+      bctx.beginPath();
+      bctx.arc(pjMouse.x, pjMouse.y, pjCR, 0, Math.PI * 2);
+      bctx.fillStyle = pjHovered ? '#cc0000' : '#fff';
+      bctx.fill();
+    }
+  }
+
+  var lctx = labelC.getContext('2d');
+  lctx.clearRect(0, 0, W, H);
+  lctx.textAlign = 'center'; lctx.textBaseline = 'middle';
+  for (var i = 0; i < pjBalls.length; i++) {
+    var b = pjBalls[i];
+    lctx.font = '500 ' + PROJ_FONT + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
+    lctx.fillStyle = (b === pjHovered) ? '#fff' : '#000';
+    lctx.fillText(b.p.shortName, b.x, b.y);
+  }
+
+  requestAnimationFrame(pjFrame);
+}
+
+var pjWrap = document.getElementById('proj-field-wrap');
+pjWrap.addEventListener('mousemove', function(e) {
+  var rect = pjWrap.getBoundingClientRect();
+  pjMouse.x = e.clientX - rect.left; pjMouse.y = e.clientY - rect.top;
+  pjWrap.style.cursor = pjHovered ? 'pointer' : 'none';
+});
+pjWrap.addEventListener('mouseleave', function() { pjMouse.x = -999; pjMouse.y = -999; pjWrap.style.cursor = 'default'; });
+pjWrap.addEventListener('click', function(e) {
+  if (pjHovered && window.openProject) window.openProject(pjHovered.p.id, e.clientX, e.clientY);
+});
+
+pjResize();
+window.addEventListener('resize', pjResize);
+requestAnimationFrame(pjFrame);
+})();
+</script>
+
+<!-- ════════════════ PROJECTS DETAIL PANEL ════════════════ -->
+<script>
+(function() {
+var overlay   = document.getElementById('proj-detail');
+var closeBtn  = document.getElementById('proj-close');
+var teamWrap  = document.getElementById('proj-team-wrap');
+var curOrbit  = null;
+var orbitSeq  = 0;
+var lastX = window.innerWidth / 2, lastY = window.innerHeight / 2;
+
+var CAT_TEXT = { lab: 'LAB PROJECT', legacy: 'LEGACY — DR. MALLAVARAPU', other: 'OTHER' };
+
+function findPubMatch(citation) {
+  var entries = document.querySelectorAll('#page-publications .pub-entry');
+  var yearMatch = citation.match(/\b(20\d{2})\b/);
+  var year = yearMatch ? yearMatch[1] : null;
+  var firstAuthor = citation.split(',')[0].trim();
+  var quoted = citation.match(/"([^"]{8,})"/) || citation.match(/\.\s([A-Z][^.]{10,60})\./);
+  var titleWords = quoted ? quoted[1].trim().split(/\s+/).slice(0, 4).join(' ') : null;
+
+  if (titleWords) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].textContent.toLowerCase().indexOf(titleWords.toLowerCase()) !== -1) return entries[i];
+    }
+  }
+  for (var i = 0; i < entries.length; i++) {
+    var txt = entries[i].textContent;
+    if (firstAuthor && txt.indexOf(firstAuthor) !== -1 && (!year || txt.indexOf(year) !== -1)) return entries[i];
+  }
+  return null;
+}
+
+function renderTeam(project) {
+  if (curOrbit) { curOrbit.stop(); curOrbit = null; }
+  teamWrap.innerHTML = '';
+  teamWrap.style.background = '#fff';
+  if (!project.team.length) {
+    var empty = document.createElement('div');
+    empty.className = 'proj-team-empty';
+    empty.textContent = 'No team members listed yet.';
+    teamWrap.appendChild(empty);
+    return;
+  }
+  orbitSeq++;
+  var blobId = 'proj-team-blob-' + orbitSeq, labelId = 'proj-team-labels-' + orbitSeq;
+  teamWrap.innerHTML =
+    '<canvas id="' + blobId + '" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>' +
+    '<canvas id="' + labelId + '" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>';
+  curOrbit = window._buildOrbit({
+    wrapId: 'proj-team-wrap', blobId: blobId, labelId: labelId, orbitDir: 1, ballR: 46,
+    dark: false, orbitRx: 0.24, orbitRy: 0.18,
+    isActive: function() { return overlay.classList.contains('active'); },
+    members: project.team
+  });
+}
+
+function renderCollab(project) {
+  var el = document.getElementById('proj-d-collab');
+  if (!project.collaborators.length) { el.innerHTML = ''; return; }
+  var html = '<div class="proj-collab-label">Collaborators</div><ul class="proj-collab-list">';
+  project.collaborators.forEach(function(c) { html += '<li>' + c + '</li>'; });
+  html += '</ul>';
+  el.innerHTML = html;
+}
+
+function renderGithub(project) {
+  var el = document.getElementById('proj-d-github');
+  if (project.github) {
+    el.innerHTML = '<a class="proj-github active" href="' + project.github + '" target="_blank">Repository →</a>';
+  } else {
+    el.innerHTML = '<span class="proj-github disabled">Repo Pending</span>';
+  }
+}
+
+function renderPubs(project) {
+  var el = document.getElementById('proj-d-pubs');
+  if (!project.publications.length) { el.innerHTML = ''; return; }
+  var html = '<div class="proj-pubs-label">Publications</div>';
+  project.publications.forEach(function(pub, i) {
+    var match = findPubMatch(pub);
+    html += '<div class="proj-pub-item">' + (match ? '<a href="javascript:void(0)" data-goto-pub="' + i + '">' + pub + '</a>' : pub) + '</div>';
+  });
+  el.innerHTML = html;
+  el.querySelectorAll('[data-goto-pub]').forEach(function(a) {
+    a.addEventListener('click', function() {
+      var pubIdx = parseInt(a.dataset.gotoPub, 10);
+      closeProject();
+      window.go('publications');
+      var match = findPubMatch(project.publications[pubIdx]);
+      if (match) {
+        setTimeout(function() {
+          match.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          match.style.background = 'var(--red-light)';
+          setTimeout(function() { match.style.background = ''; }, 1500);
+        }, 300);
+      }
+    });
+  });
+}
+
+function openProject(id, clickX, clickY) {
+  var project = projectsData.filter(function(p) { return p.id === id; })[0];
+  if (!project) return;
+
+  document.getElementById('proj-d-badge').textContent = CAT_TEXT[project.category];
+  document.getElementById('proj-d-badge').className = 'proj-badge ' + project.category;
+  document.getElementById('proj-d-name').textContent = project.name;
+
+  var imgEl = document.getElementById('proj-d-image');
+  imgEl.innerHTML = project.image
+    ? '<img src="' + project.image + '" alt="' + project.name + '">'
+    : '<span class="proj-image-placeholder">Image Pending</span>';
+
+  var descEl = document.getElementById('proj-d-desc');
+  if (project.description) {
+    descEl.textContent = project.description;
+    descEl.className = 'proj-d-desc';
+  } else {
+    descEl.textContent = 'Description coming soon.';
+    descEl.className = 'proj-d-desc pending';
+  }
+
+  renderTeam(project);
+  renderCollab(project);
+  renderGithub(project);
+  renderPubs(project);
+
+  lastX = (typeof clickX === 'number') ? clickX : window.innerWidth / 2;
+  lastY = (typeof clickY === 'number') ? clickY : window.innerHeight / 2;
+  var r = Math.hypot(Math.max(lastX, window.innerWidth - lastX), Math.max(lastY, window.innerHeight - lastY));
+
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  // Force the "0 radius at the click point" frame to commit before animating,
+  // otherwise the browser collapses both style changes into one and the zoom snaps instead of easing.
+  overlay.style.transition = 'none';
+  overlay.style.clipPath = 'circle(0px at ' + lastX + 'px ' + lastY + 'px)';
+  overlay.getBoundingClientRect();
+  overlay.style.transition = '';
+  overlay.style.clipPath = 'circle(' + r + 'px at ' + lastX + 'px ' + lastY + 'px)';
+
+  var inner = overlay.querySelector('.proj-detail-inner');
+  inner.classList.remove('show');
+  clearTimeout(window._projShowTimer);
+  window._projShowTimer = setTimeout(function() { inner.classList.add('show'); }, 480);
+}
+
+function closeProject() {
+  overlay.style.clipPath = 'circle(0px at ' + lastX + 'px ' + lastY + 'px)';
+  overlay.classList.remove('active');
+  overlay.querySelector('.proj-detail-inner').classList.remove('show');
+  clearTimeout(window._projShowTimer);
+  document.body.style.overflow = '';
+  if (curOrbit) { curOrbit.stop(); curOrbit = null; }
+}
+
+closeBtn.addEventListener('click', closeProject);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && overlay.classList.contains('active')) closeProject();
+});
+
+// Close the detail overlay if the user navigates away via nav links
+var _go = window.go;
+window.go = function(page) {
+  closeProject();
+  _go(page);
+};
+
+window.openProject = openProject;
+})();
+</script>
+
+<!-- ════════════════ SHARED METABALL MATH ════════════════ -->
+<script>
+window._makeMetaball = function(MAX_DIST, HLR, V) {
+  return function(Point, Path) {
+    function getVector(radians, length) {
+      return new Point({ angle: radians * 180 / Math.PI, length: length });
+    }
+    function metaball(c1, c2) {
+      var center1 = c1.position, center2 = c2.position;
+      var r1 = c1.bounds.width / 2, r2 = c2.bounds.width / 2;
+      var pi2 = Math.PI / 2;
+      var d = center1.getDistance(center2);
+      if (!r1 || !r2 || d > MAX_DIST || d <= Math.abs(r1 - r2)) return;
+      var u1 = 0, u2 = 0;
+      if (d < r1 + r2) {
+        u1 = Math.acos((r1*r1 + d*d - r2*r2) / (2*r1*d));
+        u2 = Math.acos((r2*r2 + d*d - r1*r1) / (2*r2*d));
+      }
+      var ang  = center2.subtract(center1).getAngleInRadians();
+      var ang2 = Math.acos((r1 - r2) / d);
+      var a1a  = ang + u1 + (ang2 - u1) * V;
+      var a1b  = ang - u1 - (ang2 - u1) * V;
+      var a2a  = ang + Math.PI - u2 - (Math.PI - u2 - ang2) * V;
+      var a2b  = ang - Math.PI + u2 + (Math.PI - u2 - ang2) * V;
+      var p1a  = center1.add(getVector(a1a, r1));
+      var p1b  = center1.add(getVector(a1b, r1));
+      var p2a  = center2.add(getVector(a2a, r2));
+      var p2b  = center2.add(getVector(a2b, r2));
+      var totalR = r1 + r2;
+      var d2 = Math.min(V * HLR, p1a.subtract(p2a).length / totalR);
+      d2 *= Math.min(1, d * 2 / totalR);
+      var r1h = r1 * d2, r2h = r2 * d2;
+      var useRed = c1.fillColor.red > 0.5 || c2.fillColor.red > 0.5;
+      var path = new Path({
+        segments: [p1a, p2a, p2b, p1b],
+        fillColor: useRed ? '#CC0000' : 'black',
+        closed: true
+      });
+      path.segments[0].handleOut = getVector(a1a - pi2, r1h);
+      path.segments[1].handleIn  = getVector(a2a + pi2, r2h);
+      path.segments[2].handleOut = getVector(a2b - pi2, r2h);
+      path.segments[3].handleIn  = getVector(a1b + pi2, r1h);
+      return path;
+    }
+    return { getVector: getVector, metaball: metaball };
+  };
+};
 </script>
 
 <!-- ════════════════ NEWS METABALL CANVAS (Paper.js) ════════════════ -->
@@ -1385,50 +1910,9 @@ groups.forEach(function(group, gi) {
     });
 });
 
-// ---- Metaball bezier math (SATO Hiroyuki / Paper.js port) ----
-function getVector(radians, length) {
-    return new Point({ angle: radians * 180 / Math.PI, length: length });
-}
-
-function metaball(c1, c2) {
-    var center1 = c1.position;
-    var center2 = c2.position;
-    var r1  = c1.bounds.width / 2;
-    var r2  = c2.bounds.width / 2;
-    var pi2 = Math.PI / 2;
-    var d   = center1.getDistance(center2);
-    if (!r1 || !r2 || d > MAX_DIST || d <= Math.abs(r1 - r2)) return;
-    var u1, u2;
-    if (d < r1 + r2) {
-        u1 = Math.acos((r1*r1 + d*d - r2*r2) / (2*r1*d));
-        u2 = Math.acos((r2*r2 + d*d - r1*r1) / (2*r2*d));
-    } else { u1 = 0; u2 = 0; }
-    var ang  = (center2 - center1).getAngleInRadians();
-    var ang2 = Math.acos((r1 - r2) / d);
-    var a1a  = ang + u1 + (ang2 - u1) * V;
-    var a1b  = ang - u1 - (ang2 - u1) * V;
-    var a2a  = ang + Math.PI - u2 - (Math.PI - u2 - ang2) * V;
-    var a2b  = ang - Math.PI + u2 + (Math.PI - u2 - ang2) * V;
-    var p1a  = center1 + getVector(a1a, r1);
-    var p1b  = center1 + getVector(a1b, r1);
-    var p2a  = center2 + getVector(a2a, r2);
-    var p2b  = center2 + getVector(a2b, r2);
-    var totalR = r1 + r2;
-    var d2 = Math.min(V * HLR, (p1a - p2a).length / totalR);
-    d2 *= Math.min(1, d * 2 / totalR);
-    var r1h = r1 * d2, r2h = r2 * d2;
-    var useRed = c1.fillColor.red > 0.5 || c2.fillColor.red > 0.5;
-    var path = new Path({
-        segments:  [p1a, p2a, p2b, p1b],
-        fillColor: useRed ? '#CC0000' : 'black',
-        closed:    true
-    });
-    path.segments[0].handleOut = getVector(a1a - pi2, r1h);
-    path.segments[1].handleIn  = getVector(a2a + pi2, r2h);
-    path.segments[2].handleOut = getVector(a2b - pi2, r2h);
-    path.segments[3].handleIn  = getVector(a1b + pi2, r1h);
-    return path;
-}
+var _mb = window._makeMetaball(MAX_DIST, HLR, V)(Point, Path);
+var getVector = _mb.getVector;
+var metaball  = _mb.metaball;
 
 function regenerate() {
     connectionsGroup.removeChildren();
@@ -1515,6 +1999,268 @@ function onMouseMove(event) {
     if (hit >= 0) {
         ballGroups[hit].bringToFront();
     }
+    view.element.style.cursor = (hit >= 0) ? 'pointer' : 'default';
+}
+
+view.element.addEventListener('mouseleave', function() {
+    circles.forEach(function(c) {
+        if (!c._isHovered) { c.fillColor = 'black'; c._targetRadius = RADIUS; }
+    });
+    view.element.style.cursor = 'default';
+});
+</script>
+
+<!-- ════════════════ PUBLICATIONS YEAR GROUPS + SORTED VIEW ════════════════ -->
+<script>
+(function() {
+// Collect ALL .pub-year spans, grouped by year (all occurrences across sections)
+var yearMap = {};
+var yearOrder = [];
+document.querySelectorAll('.pub-year').forEach(function(el) {
+  var yr = el.textContent.trim();
+  if (!yearMap[yr]) {
+    yearMap[yr] = { year: yr, yearEls: [], entryEls: [] };
+    yearOrder.push(yr);
+  }
+  yearMap[yr].yearEls.push(el);
+});
+
+// Assign original pub-entry elements to their year group for metaball hover wiring
+document.querySelectorAll('.pub-section').forEach(function(section) {
+  var currentYr = null;
+  Array.prototype.slice.call(section.children).forEach(function(child) {
+    if (child.classList.contains('pub-year')) {
+      currentYr = child.textContent.trim();
+    } else if (child.classList.contains('pub-entry') && currentYr && yearMap[currentYr]) {
+      yearMap[currentYr].entryEls.push(child);
+    }
+  });
+});
+
+// Collect all pub-entries (excluding awards) with their year for sorted view
+var allPubs = [];
+document.querySelectorAll('.pub-section').forEach(function(section) {
+  if (section.dataset.type === 'awards') return;
+  var currentYr = null;
+  Array.prototype.slice.call(section.children).forEach(function(child) {
+    if (child.classList.contains('pub-year')) {
+      currentYr = child.textContent.trim();
+    } else if (child.classList.contains('pub-entry') && currentYr) {
+      allPubs.push({ year: parseInt(currentYr), el: child });
+    }
+  });
+});
+allPubs.sort(function(a, b) { return b.year - a.year; });
+
+// Build #pub-all-sorted and register its year spans with yearMap
+var container = document.getElementById('pub-all-sorted');
+if (container) {
+  var heading = document.createElement('div');
+  heading.className = 'pub-type';
+  heading.textContent = 'Publications';
+  container.appendChild(heading);
+  var lastYr = null;
+  allPubs.forEach(function(pub) {
+    var yrKey = String(pub.year);
+    if (pub.year !== lastYr) {
+      lastYr = pub.year;
+      var yrSpan = document.createElement('span');
+      yrSpan.className = 'pub-year';
+      yrSpan.textContent = yrKey;
+      container.appendChild(yrSpan);
+      if (yearMap[yrKey]) yearMap[yrKey].yearEls.push(yrSpan);
+    }
+    var clone = pub.el.cloneNode(true);
+    container.appendChild(clone);
+    if (yearMap[yrKey]) yearMap[yrKey].entryEls.push(clone);
+  });
+  // Set initial state: show sorted view, hide section lists (keep awards)
+  container.style.display = 'block';
+}
+document.querySelectorAll('.pub-section').forEach(function(s) {
+  s.style.display = s.dataset.type === 'awards' ? 'block' : 'none';
+});
+
+// Sort years descending and export for metaball canvas
+yearOrder.sort(function(a, b) { return parseInt(b) - parseInt(a); });
+window._pubYearGroups = yearOrder.map(function(yr) { return yearMap[yr]; });
+})();
+</script>
+
+<!-- ════════════════ PUBLICATIONS METABALL CANVAS (Paper.js) ════════════════ -->
+<script type="text/paperscript" canvas="pub-canvas">
+var groups = window._pubYearGroups || [];
+
+var RADIUS   = 72;
+var MAX_DIST = 280;
+var HLR      = 2.4;
+var V        = 0.5;
+
+var trackLine = new Path.Line({
+    from: new Point(0, 0),
+    to:   new Point(0, 0),
+    strokeColor: new Color(0, 0, 0, 0.1),
+    strokeWidth: 1
+});
+
+var connectionsGroup = new Group();
+
+var circles = groups.map(function(group) {
+    var c = new Path.Circle({ center: new Point(-9999, -9999), radius: RADIUS });
+    c.fillColor       = 'black';
+    c._group          = group;
+    c._floatPhaseX    = Math.random() * Math.PI * 2;
+    c._floatPhaseY    = Math.random() * Math.PI * 2;
+    c._floatPeriod    = 3 + Math.random() * 3;
+    c._isHovered      = false;
+    c._currentRadius  = RADIUS;
+    c._targetRadius   = RADIUS;
+    return c;
+});
+
+var labels = groups.map(function(group) {
+    return new PointText({
+        content:       group.year,
+        fillColor:     'white',
+        fontFamily:    '"OpenSauceSans","Helvetica Neue",sans-serif',
+        fontWeight:    '400',
+        fontSize:      Math.round(RADIUS * 0.32),
+        justification: 'center'
+    });
+});
+
+var ballGroups = groups.map(function(group, i) {
+    return new Group([circles[i], labels[i]]);
+});
+
+// Wire hover from pub-entry elements in each year group
+groups.forEach(function(group, gi) {
+    group.entryEls.forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+            circles[gi]._isHovered    = true;
+            circles[gi].fillColor     = '#CC0000';
+            circles[gi]._targetRadius = RADIUS * 1.25;
+            ballGroups[gi].bringToFront();
+        });
+        el.addEventListener('mouseleave', function() {
+            circles[gi]._isHovered    = false;
+            circles[gi].fillColor     = 'black';
+            circles[gi]._targetRadius = RADIUS;
+        });
+    });
+});
+
+var _mb = window._makeMetaball(MAX_DIST, HLR, V)(Point, Path);
+var getVector = _mb.getVector;
+var metaball  = _mb.metaball;
+
+function regenerate() {
+    connectionsGroup.removeChildren();
+    for (var i = 0; i < circles.length; i++) {
+        for (var j = i - 1; j >= 0; j--) {
+            if (circles[i].position.x < -500 || circles[j].position.x < -500) continue;
+            var p = metaball(circles[i], circles[j]);
+            if (p) connectionsGroup.addChild(p);
+        }
+    }
+}
+
+var pubTime = 0;
+var canvasEl = document.getElementById('pub-canvas');
+
+function onFrame(event) {
+    if (!document.getElementById('page-publications').classList.contains('active')) return;
+    // Sync canvas buffer to CSS container when page becomes visible
+    var _wrap = document.getElementById('pub-canvas-wrap');
+    if (_wrap && _wrap.offsetWidth > 0) {
+        var _W = _wrap.offsetWidth, _H = _wrap.offsetHeight;
+        if (view.viewSize.width !== _W || view.viewSize.height !== _H) {
+            view.viewSize = new Size(_W, _H);
+        }
+    }
+    if (!view.size.width) return;
+    pubTime += event.delta;
+    var rect    = canvasEl.getBoundingClientRect();
+    var trackX  = view.size.width / 2;
+    var centerY = view.size.height / 2;
+
+    trackLine.segments[0].point = new Point(trackX, 0);
+    trackLine.segments[1].point = new Point(trackX, view.size.height);
+
+    var anchorYs = circles.map(function(c) {
+        // Pick the visible span for this year closest to canvas center
+        var best = -9999, bestDist = Infinity;
+        c._group.yearEls.forEach(function(yearEl) {
+            if (yearEl.offsetParent === null) return;
+            var aRect = yearEl.getBoundingClientRect();
+            if (aRect.height === 0) return;
+            var y = aRect.top + aRect.height * 0.5 - rect.top;
+            var dist = Math.abs(y - centerY);
+            if (dist < bestDist) { bestDist = dist; best = y; }
+        });
+        return best;
+    });
+
+    var activeIdx = 0, minDist = Infinity;
+    anchorYs.forEach(function(ay, i) {
+        if (ay < -100) return;
+        var d = Math.abs(ay - centerY);
+        if (d < minDist) { minDist = d; activeIdx = i; }
+    });
+
+    circles.forEach(function(c, i) {
+        var anchorY = anchorYs[i];
+        if (anchorY < -100) {
+            c.position = new Point(-9999, -9999);
+            if (labels[i]) labels[i].visible = false;
+            return;
+        }
+        if (labels[i]) labels[i].visible = true;
+
+        var t  = pubTime;
+        var fx = Math.sin(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseX) * 4;
+        var fy = Math.cos(t * (Math.PI * 2 / c._floatPeriod) + c._floatPhaseY) * 3;
+        var cy  = anchorY + fy;
+        var pad = c._currentRadius + 6;
+        cy = Math.max(pad, Math.min(view.size.height - pad, cy));
+        c.position = new Point(trackX + fx, cy);
+
+        c._currentRadius += (c._targetRadius - c._currentRadius) * 0.08;
+        var curR = c.bounds.width / 2;
+        if (curR > 0 && Math.abs(curR - c._currentRadius) > 0.1) {
+            c.scale(c._currentRadius / curR, c.position);
+        }
+
+        var lb = labels[i];
+        if (lb) {
+            lb.fontSize = Math.round(c._currentRadius * 0.32);
+            lb.point = new Point(c.position.x, c.position.y);
+            if (lb.bounds.height > 0) {
+                lb.point = new Point(c.position.x, c.position.y + (c.position.y - lb.bounds.center.y));
+            }
+        }
+    });
+
+    [activeIdx - 1, activeIdx + 1, activeIdx].forEach(function(idx) {
+        if (idx >= 0 && idx < ballGroups.length) ballGroups[idx].bringToFront();
+    });
+
+    regenerate();
+}
+
+function onMouseMove(event) {
+    var hit = -1;
+    for (var i = 0; i < circles.length; i++) {
+        if (circles[i].position.x < -100) continue;
+        if (event.point.getDistance(circles[i].position) <= circles[i]._currentRadius) { hit = i; break; }
+    }
+    circles.forEach(function(c, i) {
+        if (!c._isHovered) {
+            c.fillColor     = (i === hit) ? '#CC0000' : 'black';
+            c._targetRadius = (i === hit) ? RADIUS * 1.25 : RADIUS;
+        }
+    });
+    if (hit >= 0) ballGroups[hit].bringToFront();
     view.element.style.cursor = (hit >= 0) ? 'pointer' : 'default';
 }
 
