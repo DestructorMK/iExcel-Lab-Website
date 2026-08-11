@@ -10,6 +10,10 @@ DESIGN_LANGUAGE.md
 *.fig
 *.xd
 
+# ── Unused doc exports (not referenced by the site) ────────
+*.docx
+*.docx.pdf
+
 # ── Loose/unnamed font files (superseded by OpenSauce set) ─
 italic.ttf
 regular.ttf

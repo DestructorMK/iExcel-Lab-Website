@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dr. Aditi Mallavarapu — NC State University</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.17/paper-full.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap}
 @font-face{font-family:'OpenSauceSans';src:url('Fonts/OpenSauceSans-LightItalic.ttf') format('truetype');font-weight:300;font-style:italic;font-display:swap}
@@ -21,6 +24,7 @@
   --wolf:#1a1a1a;--mid:#6b6b6b;--light:#f5f5f3;--border:#e0ddd8;
   --white:#fff;--black:#000;
   --font:'OpenSauceSans','Helvetica Neue',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
   --nav:56px;
   --t-fast:160ms ease-out;--t-mid:260ms ease-out;
 }
@@ -52,13 +56,24 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
 /* ── PAGE SYSTEM ── */
 .page{display:none}
 .page.active{display:block}
-#page-home,#page-projects{padding-top:0}
-#page-lab,#page-publications,#page-teaching,#page-join{padding-top:var(--nav)}
+#page-home,#page-projects,#page-join{padding-top:0}
+#page-lab,#page-publications,#page-teaching{padding-top:var(--nav)}
 
 /* ── HERO ── */
 #hero{position:relative;width:100%;height:100vh;background:#000;overflow:hidden}
 #hero-canvas-wrap{position:absolute;inset:0;z-index:1}
 #hero-canvas{width:100%;height:100%;display:block}
+
+/* ── JOIN HERO ── */
+#join-hero{position:relative;width:100%;height:100vh;background:#000;overflow:hidden}
+#join-hero-canvas-wrap{position:absolute;inset:0}
+#join-hero-canvas{width:100%;height:100%;display:block}
+
+/* ── APPLY MODAL ── */
+.apply-modal-backdrop{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity var(--t-mid)}
+.apply-modal-backdrop.active{opacity:1;pointer-events:auto}
+.apply-modal{position:relative;background:var(--white);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;border-radius:40px;padding:3rem;box-shadow:0 20px 60px rgba(0,0,0,.25);transform:scale(.92);transition:transform var(--t-mid)}
+.apply-modal-backdrop.active .apply-modal{transform:scale(1)}
 #hero-blurb{
   position:absolute;bottom:5rem;right:3rem;
   max-width:320px;
@@ -120,19 +135,16 @@ nav.on-light .nav-link.active{color:var(--wolf);border-bottom-color:var(--red)}
 .ntl-right{width:45%;position:sticky;top:var(--nav);height:calc(100vh - var(--nav));flex-shrink:0;align-self:flex-start;background:var(--white)}
 #news-canvas-wrap{position:relative;width:100%;height:100%}
 #news-canvas{display:block;width:100%;height:100%}
-.ntl-item{padding:1.5rem 2rem 1.5rem 0rem;border-bottom:1px solid var(--border);cursor:default;transition:background var(--t-fast);min-height:90px;display:flex;flex-direction:column;justify-content:center}
-.ntl-item:last-child{border-bottom:none}
-.ntl-item:hover{background:rgba(245,240,232,0.4)}
-.ntl-date{font-family:var(--font);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem}
-.ntl-cat{display:inline-block;font-family:var(--font);font-size:.55rem;font-weight:500;letter-spacing:.07em;padding:.15rem .35rem;border-radius:3px;white-space:nowrap;border:1px solid;margin-bottom:.45rem;align-self:flex-start}
-.ntl-cat.evt{background:rgba(255,159,64,0.15);color:#ff9f40;border-color:#ffc090}
-.ntl-cat.pub{background:rgba(54,162,235,0.15);color:#36a2eb;border-color:#8dd0ff}
-.ntl-cat.awd{background:rgba(75,192,75,0.15);color:#4bc04b;border-color:#a0e0a0}
-.ntl-cat.ppl{background:rgba(153,102,255,0.15);color:#9966ff;border-color:#d0a0ff}
-.ntl-cat.tch{background:rgba(255,206,86,0.15);color:#ffce56;border-color:#ffde8c}
-.ntl-text{font-family:var(--font);font-size:.9rem;line-height:1.65;color:var(--wolf);margin:0}
-.ntl-text a{color:var(--red);text-decoration:none}
+.ntl-item{padding:1.5rem 3rem;cursor:default;min-height:90px;display:flex;flex-direction:column;justify-content:center}
+.ntl-date-row{display:flex;align-items:baseline;gap:.4rem;margin-bottom:.4rem}
+.ntl-date{font-family:var(--font);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);transition:color var(--t-fast)}
+.ntl-dot{font-family:var(--font);font-size:.65rem;color:var(--mid);transition:color var(--t-fast)}
+.ntl-cat{font-family:var(--font);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);white-space:nowrap;transition:color var(--t-fast)}
+.ntl-text{font-family:var(--font);font-size:.9rem;line-height:1.65;color:var(--wolf);margin:0;transition:color var(--t-fast)}
+.ntl-text a{color:var(--red);text-decoration:none;transition:color var(--t-fast)}
 .ntl-text a:hover{text-decoration:underline}
+.ntl-item:hover .ntl-date,.ntl-item:hover .ntl-dot,.ntl-item:hover .ntl-cat,.ntl-item:hover .ntl-text,.ntl-item:hover .ntl-text a{color:#fff}
+.pub-entry:hover .ntl-date,.pub-entry:hover .ntl-dot,.pub-entry:hover .ntl-cat{color:#fff}
 
 /* scroll reveal */
 .sr{opacity:0;transform:translateY(12px);transition:opacity 400ms ease-out,transform 400ms ease-out}
@@ -167,13 +179,26 @@ a:hover{text-decoration:underline}
 .phd-list li{font-family:var(--font);font-size:.82rem;color:rgba(255,255,255,.75);padding-left:1rem;position:relative;line-height:1.5}
 .phd-list li::before{content:'→';position:absolute;left:0;color:var(--red);font-size:.7rem;top:3px}
 
+/* ── BLOB HOVER (shared utility — see window.initBlobHover) ── */
+/* Goo layer sits BEHIND the row's own content (z-index:-1) so text is never obscured;
+   only the growing red blob + revealed label render on top of it. */
+.blob-hover-row{position:relative;overflow:hidden}
+.blob-hover-goo{position:absolute;inset:0;z-index:-1;pointer-events:none;filter:url(#blob-hover-goo-filter)}
+.blob-hover-part{position:absolute;background:var(--red)}
+.blob-hover-label{position:absolute;top:0;bottom:0;right:1rem;z-index:1;display:flex;align-items:center;pointer-events:none;font-family:var(--font-mono);font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,.85);opacity:0;transition:opacity var(--t-fast)}
+
+/* subtle cousin of Blob Hover — filter chip select morph, small amplitude only */
+.filter-btn{transition:background var(--t-fast),color var(--t-fast),border-color var(--t-fast)}
+@keyframes filter-morph-pulse{0%{border-radius:100px}50%{border-radius:24px}100%{border-radius:100px}}
+.filter-btn.morphing{animation:filter-morph-pulse 220ms ease-out}
+
 /* ── PUBLICATIONS ── */
 .pub-section{margin-bottom:2.5rem}
 .pub-type{font-family:var(--font);font-size:1.5rem;font-weight:600;color:var(--wolf);border-bottom:2px solid var(--red);padding-bottom:.4rem;margin-bottom:1.5rem}
-.pub-year{font-family:var(--font);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin:1.2rem 0 .6rem;display:block}
-.pub-entry{font-family:var(--font);font-size:.92rem;line-height:1.75;color:var(--wolf);padding:1rem 0 1rem 1.25rem;border-left:2px solid var(--border);margin-bottom:.9rem;transition:border-color var(--t-mid),background var(--t-mid),padding-left var(--t-mid)}
-.pub-entry:hover{border-left-color:var(--red);background:var(--red-light);padding-left:1.5rem}
-.pub-entry a{color:var(--red)}
+.pub-year{display:block;height:1px;overflow:hidden;margin:0;padding:0;font-size:0;line-height:0}
+.pub-entry{font-family:var(--font);font-size:.92rem;line-height:1.75;color:var(--wolf);padding:1rem 3rem;margin-bottom:.9rem;transition:color var(--t-fast)}
+.pub-entry a{color:var(--red);transition:color var(--t-fast)}
+.pub-entry:hover,.pub-entry:hover a{color:#fff}
 .pub-note{display:inline-block;margin-top:.3rem;font-family:var(--font);font-size:.7rem;color:var(--red);background:var(--red-light);border:1px solid var(--red-mid);border-radius:100px;padding:.1rem .6rem}
 
 /* ── PUBLICATIONS TIMELINE LAYOUT ── */
@@ -209,19 +234,10 @@ a:hover{text-decoration:underline}
 /* ── MEDIA ── */
 .pres-item{display:grid;grid-template-columns:52px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);align-items:start}
 .pres-item:last-child{border-bottom:none}
-.pres-icon{width:44px;height:26px;background:var(--red-light);border:1px solid var(--red-mid);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.56rem;font-weight:500;letter-spacing:.06em;color:var(--red);flex-shrink:0;margin-top:3px}
+.pres-icon{width:44px;height:26px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.56rem;font-weight:500;letter-spacing:.06em;color:var(--red);flex-shrink:0;margin-top:3px}
 .pres-title{font-family:var(--font);font-size:.9rem;font-weight:500;color:var(--wolf);margin-bottom:.2rem}
 .pres-meta{font-family:var(--font);font-size:.75rem;color:var(--mid)}
 .pres-meta a{color:var(--red)}
-
-/* ── RESEARCH ── */
-.research-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.rcard{border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color var(--t-mid),box-shadow var(--t-mid);cursor:pointer}
-.rcard:hover{border-color:var(--red-mid);box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.rcard-img{height:80px;background:var(--light);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);font-family:var(--font);font-size:2rem;color:var(--border);font-weight:500;letter-spacing:-.02em;overflow:hidden}
-.rcard-body{padding:1rem 1.1rem}
-.rcard-title{font-family:var(--font);font-size:.9rem;font-weight:500;color:var(--wolf);line-height:1.4}
-.rcard-label{display:inline-block;margin-top:.5rem;font-family:var(--font);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:var(--light);border:1px solid var(--border);border-radius:3px;padding:.15rem .5rem}
 
 /* ── LAB PAGE LAYOUT ── */
 .lab-header-layout{display:flex;align-items:center;gap:2.5rem;margin-bottom:2rem}
@@ -296,6 +312,17 @@ footer a:hover{color:var(--white)}
 <body>
 
 <div id="cursor"></div>
+
+<!-- Shared SVG goo filter for Blob Hover (see window.initBlobHover) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="blob-hover-goo-filter" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+      <feComposite in2="goo" in="SourceGraphic" />
+    </filter>
+  </defs>
+</svg>
 
 <nav id="main-nav" class="on-dark">
   <div class="nav-logo"></div>
@@ -398,10 +425,11 @@ footer a:hover{color:var(--white)}
       </div>
       <div>
         <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Alumni</p>
-        <div id="team-alumni-wrap" style="position:relative;width:100%;height:200px">
-          <canvas id="team-alumni-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
-          <canvas id="team-alumni-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
-        </div>
+        <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 2rem">
+          <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Trisha Gite</li>
+          <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Nikhil Vasudeva</li>
+          <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Dee Kandel</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -485,11 +513,11 @@ footer a:hover{color:var(--white)}
       <p style="font-family:var(--font);font-size:.95rem;color:var(--mid);margin-bottom:1.5rem">Published research organized by type and year. For questions on any specific publication, feel free to <a href="mailto:amallav@ncsu.edu">send a message</a>.</p>
       <div style="margin-bottom:2rem"><a href="https://scholar.google.com/citations?user=o4XGBswAAAAJ&hl=en" target="_blank" class="pill">View Google Scholar</a></div>
       <div class="filter-bar" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem">
-        <button class="filter-btn active" data-filter="all" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--wolf);border:1px solid var(--wolf);border-radius:3px;padding:.35rem .85rem;cursor:pointer">All</button>
-        <button class="filter-btn" data-filter="awards" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Awards</button>
-        <button class="filter-btn" data-filter="book" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Book Chapters</button>
-        <button class="filter-btn" data-filter="journal" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Journals</button>
-        <button class="filter-btn" data-filter="conference" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:3px;padding:.35rem .85rem;cursor:pointer">Conference</button>
+        <button class="filter-btn active" data-filter="all" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--wolf);border:1px solid var(--wolf);border-radius:100px;padding:.35rem .85rem;cursor:pointer">All</button>
+        <button class="filter-btn" data-filter="awards" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:100px;padding:.35rem .85rem;cursor:pointer">Awards</button>
+        <button class="filter-btn" data-filter="book" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:100px;padding:.35rem .85rem;cursor:pointer">Book Chapters</button>
+        <button class="filter-btn" data-filter="journal" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:100px;padding:.35rem .85rem;cursor:pointer">Journals</button>
+        <button class="filter-btn" data-filter="conference" style="font-family:var(--font);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);background:transparent;border:1px solid var(--border);border-radius:100px;padding:.35rem .85rem;cursor:pointer">Conference</button>
       </div>
       <div class="pub-section" data-type="awards">
         <div class="pub-type">Awards</div>
@@ -575,8 +603,14 @@ footer a:hover{color:var(--white)}
 
 <!-- ════════════════ JOIN ════════════════ -->
 <div id="page-join" class="page">
-  <div class="wrap">
-    <div class="sec-header"><h2 class="sec-title" style="font-size:2.5rem">Join the iEXCEL Lab</h2></div>
+
+  <div id="join-hero" data-nav-theme="dark">
+    <div id="join-hero-canvas-wrap">
+      <canvas id="join-hero-canvas"></canvas>
+    </div>
+  </div>
+
+  <div class="wrap" id="join-next-section">
     <p style="font-family:var(--font);font-size:1rem;color:var(--mid);max-width:640px;margin-bottom:3rem;line-height:1.85">We are actively looking for curious, motivated students to join ongoing research at the intersection of computer science, learning sciences, and design.</p>
     <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">Who We're Looking For</h3></div>
     <ul class="phd-list" style="background:var(--wolf);border-radius:12px;padding:1.75rem;margin-bottom:3rem;list-style:none">
@@ -590,32 +624,38 @@ footer a:hover{color:var(--white)}
       <li>Human-AI teaming</li>
     </ul>
     <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">Open Projects</h3></div>
-    <p style="font-family:var(--font);font-size:.9rem;color:var(--mid);margin-bottom:1.5rem">The following projects currently have open positions. Click any project to learn more, or apply below.</p>
-    <div class="research-grid" style="margin-bottom:3rem">
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">OELE</div><div class="rcard-body"><div class="rcard-title">Advancing Human-AI Teaming through Video-Based Analytics for Environmental Science</div><span class="rcard-label">FutureScape</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">ECO</div><div class="rcard-body"><div class="rcard-title">Modeling the Complex Ecological Network: Who Eats Whom</div><span class="rcard-label">OELE · Ecology</span></div></div>
-      <div class="rcard" style="position:relative"><div style="position:absolute;top:.75rem;right:.75rem;width:26px;height:26px;border-radius:50%;background:var(--red-light);border:1.5px solid var(--red-mid);display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:.75rem;color:var(--red);cursor:pointer" onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" title="Apply for this project">+</div><div class="rcard-img">AMR</div><div class="rcard-body"><div class="rcard-title">Interactive Game for Antimicrobial Resistance (AMR)</div><span class="rcard-label">Serious Games</span></div></div>
+    <p style="font-family:var(--font);font-size:.9rem;color:var(--mid);margin-bottom:1.5rem">The following projects currently have open positions. Click any project to explore it.</p>
+    <div id="join-proj-wrap" style="position:relative;width:100%;height:260px;background:#000;border-radius:14px;overflow:hidden;margin-bottom:3rem">
+      <canvas id="join-proj-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
+      <canvas id="join-proj-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
     </div>
     <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">What to Expect</h3></div>
     <p style="font-family:var(--font);font-size:1rem;line-height:1.85;max-width:700px;margin-bottom:3rem">Working in the iEXCEL Lab means joining a collaborative, interdisciplinary team. You'll work on real problems that sit at the intersection of computation, data, and human learning — publishing research, developing technical and communication skills, and contributing to socially meaningful work.</p>
-    <div id="apply-block" style="max-width:640px;padding:3rem 0 6rem">
-      <h2 style="font-family:var(--font);font-size:2rem;font-weight:400;margin-bottom:.5rem">Apply</h2>
-      <p style="font-family:var(--font);font-size:.95rem;color:var(--mid);line-height:1.8;margin-bottom:2rem">Send a message to get in touch. In your email, please include two papers you liked most from the publication list and explain each paper's main thesis in your own words.</p>
-      <div style="display:flex;flex-direction:column;gap:1rem">
-        <input type="text" placeholder="Your name" style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
-        <input type="email" placeholder="Your email address" style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
-        <textarea rows="6" placeholder="Introduce yourself, describe your background, and tell us which project(s) interest you most..." style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none;resize:vertical"></textarea>
-        <a href="mailto:amallav@ncsu.edu" style="font-family:var(--font);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--wolf);border-radius:4px;padding:.85rem 1.5rem;text-decoration:none;text-align:center;display:block;transition:background var(--t-fast)">Send via Email</a>
-      </div>
-      <p style="font-family:var(--font);font-size:.72rem;color:var(--mid);margin-top:1rem">Clicking will open your email client pre-filled to <a href="mailto:amallav@ncsu.edu">amallav@ncsu.edu</a></p>
-    </div>
+    <div id="apply-open-btn" role="button" tabindex="0" style="display:inline-block;font-family:var(--font);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:var(--wolf);background:var(--white);border:1px solid var(--border);border-radius:4px;padding:.9rem 1.75rem;cursor:pointer;margin-bottom:6rem">Ready to join us?</div>
   </div>
 </div>
 
 <!-- Sticky Apply Bar -->
 <div id="sticky-apply" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;background:var(--wolf);align-items:center;justify-content:space-between;padding:.85rem 2rem;border-top:1px solid rgba(255,255,255,.1)">
   <span style="font-family:var(--font);font-size:.82rem;font-weight:300;color:rgba(255,255,255,.7)">Ready to join the iEXCEL Lab?</span>
-  <button onclick="document.getElementById('apply-block').scrollIntoView({behavior:'smooth'})" style="font-family:var(--font);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);border:none;border-radius:3px;padding:.45rem 1.1rem;cursor:pointer">Apply Now</button>
+  <button onclick="window.openApplyModal()" style="font-family:var(--font);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--red);border:none;border-radius:3px;padding:.45rem 1.1rem;cursor:pointer">Apply Now</button>
+</div>
+
+<!-- Apply Modal (bloby organic-edge modal, reuses body-scroll-lock technique from openProject) -->
+<div id="apply-modal-backdrop" class="apply-modal-backdrop">
+  <div class="apply-modal">
+    <button id="apply-modal-close" class="proj-close-btn" style="position:absolute;top:1rem;right:1rem" aria-label="Close apply form">&times;</button>
+    <h2 style="font-family:var(--font);font-size:2rem;font-weight:400;margin-bottom:.5rem">Apply</h2>
+    <p style="font-family:var(--font);font-size:.95rem;color:var(--mid);line-height:1.8;margin-bottom:2rem">Send a message to get in touch. In your email, please include two papers you liked most from the publication list and explain each paper's main thesis in your own words.</p>
+    <div style="display:flex;flex-direction:column;gap:1rem">
+      <input type="text" placeholder="Your name" style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
+      <input type="email" placeholder="Your email address" style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none">
+      <textarea rows="6" placeholder="Introduce yourself, describe your background, and tell us which project(s) interest you most..." style="font-family:var(--font);font-size:.95rem;border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;background:var(--white);width:100%;outline:none;resize:vertical"></textarea>
+      <!-- TODO: swap mailto for a real form-submission endpoint once one exists -->
+      <a href="mailto:amallav@ncsu.edu" style="font-family:var(--font);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--wolf);border-radius:4px;padding:.85rem 1.5rem;text-decoration:none;text-align:center;display:block;transition:background var(--t-fast)">Send via Email</a>
+    </div>
+    <p style="font-family:var(--font);font-size:.72rem;color:var(--mid);margin-top:1rem">Clicking will open your email client pre-filled to <a href="mailto:amallav@ncsu.edu">amallav@ncsu.edu</a></p>
+  </div>
 </div>
 
 <footer data-nav-theme="dark">
@@ -879,8 +919,15 @@ document.getElementById('back-to-top').addEventListener('click', function() {
 });
 
 // Publications filter
+window.blobMorphFilter = function(btn) {
+  btn.classList.remove('morphing');
+  void btn.offsetWidth;
+  btn.classList.add('morphing');
+};
+
 document.querySelectorAll('.filter-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
+    window.blobMorphFilter(this);
     var f = this.dataset.filter;
     document.querySelectorAll('.filter-btn').forEach(function(b) {
       b.style.background = 'transparent';
@@ -943,16 +990,15 @@ timelineData.forEach(function(item) {
   groups[idx].items.push(item);
 });
 
+var CAT_LABELS = {EVT:'Event',PUB:'Publication',AWD:'Award',PPL:'People',TCH:'Teaching'};
 var leftCol = document.getElementById('ntl-left');
 var ntlItems = [];
 groups.forEach(function(group) {
   group.items.forEach(function(item) {
     var el = document.createElement('div');
     el.className = 'ntl-item sr';
-    var catClass = item.category.toLowerCase();
     el.innerHTML =
-      '<div class="ntl-date">' + item.date + '</div>' +
-      '<span class="ntl-cat ' + catClass + '">' + item.category + '</span>' +
+      '<div class="ntl-date-row"><span class="ntl-date">' + item.date + '</span><span class="ntl-dot">&middot;</span><span class="ntl-cat">' + (CAT_LABELS[item.category] || item.category) + '</span></div>' +
       '<p class="ntl-text">' + item.text + '</p>';
     leftCol.appendChild(el);
     group.itemEls.push(el);
@@ -1328,11 +1374,6 @@ var teamDefs = [
     wrapId: 'team-ugrad-wrap', blobId: 'team-ugrad-blob', labelId: 'team-ugrad-labels', orbitDir: -1,
     isActive: function() { return document.getElementById('page-lab').classList.contains('active'); },
     members: ['Sairaj Gunda','Ashwin Mahesh','Petr Shevrev','Justin Huang','Mokshagna Kadiyala','Neelesh Yaddanapudi','Adam Biscoe','Maithili Bhoop','Carmella Holloway']
-  },
-  {
-    wrapId: 'team-alumni-wrap', blobId: 'team-alumni-blob', labelId: 'team-alumni-labels', orbitDir: 1,
-    isActive: function() { return document.getElementById('page-lab').classList.contains('active'); },
-    members: ['Trisha Gite','Nikhil Vasudeva','Dee Kandel']
   }
 ];
 
@@ -1794,6 +1835,276 @@ window.openProject = openProject;
 })();
 </script>
 
+<!-- ════════════════ JOIN HERO METABALLS (same technique as Home hero, no watermark layer) ════════════════ -->
+<script>
+(function() {
+var wrap = document.getElementById('join-hero-canvas-wrap');
+var blobCanvas = document.getElementById('join-hero-canvas');
+if (!wrap || !blobCanvas) return;
+var labelCanvas = document.createElement('canvas');
+labelCanvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none';
+wrap.appendChild(labelCanvas);
+var bctx = blobCanvas.getContext('2d');
+var lctx = labelCanvas.getContext('2d');
+blobCanvas.style.filter = 'blur(14px) contrast(18)';
+
+function resize() {
+  var w = wrap.offsetWidth, h = wrap.offsetHeight;
+  blobCanvas.width  = w; blobCanvas.height  = h;
+  labelCanvas.width = w; labelCanvas.height = h;
+}
+resize();
+window.addEventListener('resize', resize);
+
+var nodeData = [
+  { label:'Join the Lab', r:110, fx:0.50, fy:0.50, action:'scroll' },
+  { r:34, fx:0.20, fy:0.24 },
+  { r:26, fx:0.78, fy:0.22 },
+  { r:30, fx:0.16, fy:0.76 },
+  { r:22, fx:0.83, fy:0.72 },
+  { r:38, fx:0.50, fy:0.87 },
+];
+var balls = nodeData.map(function(nd) {
+  return {
+    nd: nd, x:0, y:0, bx:0, by:0,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.20 + Math.random() * 0.2,
+    ax: (Math.random() - 0.5) * 2,
+    ay: (Math.random() - 0.5) * 2,
+  };
+});
+
+var mouse = { x: -999, y: -999 };
+var CURSOR_R = 36;
+var hoveredBall = null;
+var time = 0;
+
+function frame() {
+  if (!document.getElementById('page-join').classList.contains('active')) {
+    requestAnimationFrame(frame); return;
+  }
+  var W = blobCanvas.width, H = blobCanvas.height;
+  if (!W || !H) { resize(); requestAnimationFrame(frame); return; }
+  time += 0.016;
+  var scale = Math.min(W, H) / 700;
+
+  for (var i = 0; i < balls.length; i++) {
+    var b = balls[i];
+    b.bx = b.nd.fx * W; b.by = b.nd.fy * H;
+    var t = time * b.speed + b.phase;
+    var amp = 15 + 50 * (0.5 + 0.5 * Math.sin(time * 0.18 + b.phase * 0.5));
+    b.x = b.bx + Math.sin(t)        * b.ax * amp;
+    b.y = b.by + Math.cos(t * 1.27) * b.ay * amp;
+  }
+
+  hoveredBall = null;
+  for (var i = 0; i < balls.length; i++) {
+    if (!balls[i].nd.action) continue;
+    var dx = mouse.x - balls[i].x, dy = mouse.y - balls[i].y;
+    if (Math.sqrt(dx*dx + dy*dy) < balls[i].nd.r * scale + 10) { hoveredBall = balls[i]; break; }
+  }
+
+  bctx.fillStyle = '#000000';
+  bctx.fillRect(0, 0, W, H);
+  for (var i = 0; i < balls.length; i++) {
+    var b = balls[i];
+    bctx.beginPath();
+    bctx.arc(b.x, b.y, b.nd.r * scale, 0, Math.PI * 2);
+    bctx.fillStyle = (b === hoveredBall) ? '#cc0000' : '#ffffff';
+    bctx.fill();
+  }
+
+  if (mouse.x >= 0) {
+    var edge = Math.min(mouse.x, W - mouse.x, mouse.y, H - mouse.y);
+    var cr = CURSOR_R * scale * Math.max(0, Math.min(1, edge / 80));
+    if (cr > 0) {
+      bctx.beginPath();
+      bctx.arc(mouse.x, mouse.y, cr, 0, Math.PI * 2);
+      bctx.fillStyle = hoveredBall ? '#cc0000' : '#ffffff';
+      bctx.fill();
+    }
+  }
+
+  lctx.clearRect(0, 0, W, H);
+  for (var i = 0; i < balls.length; i++) {
+    var b = balls[i], nd = b.nd;
+    if (!nd.label) continue;
+    var fontSize = Math.round(20 * scale);
+    lctx.save();
+    lctx.font = '500 ' + fontSize + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
+    lctx.textAlign    = 'center';
+    lctx.textBaseline = 'middle';
+    lctx.fillStyle = (b === hoveredBall) ? '#ffffff' : '#000000';
+    lctx.fillText(nd.label, b.x, b.y);
+    lctx.restore();
+  }
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+wrap.addEventListener('mousemove', function(e) {
+  var rect = wrap.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+  wrap.style.cursor = hoveredBall ? 'pointer' : 'none';
+});
+wrap.addEventListener('mouseleave', function() {
+  mouse.x = -999; mouse.y = -999;
+  wrap.style.cursor = 'none';
+});
+wrap.addEventListener('click', function() {
+  if (hoveredBall && hoveredBall.nd.action === 'scroll') {
+    document.getElementById('join-next-section').scrollIntoView({ behavior: 'smooth' });
+  }
+});
+})();
+</script>
+
+<!-- ════════════════ JOIN OPEN PROJECTS METABALLS (same technique as Lab Links mini metaballs) ════════════════ -->
+<script>
+(function() {
+var blobC  = document.getElementById('join-proj-blob');
+var labelC = document.getElementById('join-proj-labels');
+if (!blobC || !labelC) return;
+blobC.style.filter = 'blur(10px) contrast(20)';
+
+var openIds = ['futurescape', 'who-eats-whom', 'amr'];
+var openProjects = (window.projectsData || []).filter(function(p) { return openIds.indexOf(p.id) !== -1; });
+
+var JP_FONT = 15;
+var jpSizeCtx = blobC.getContext('2d');
+function jpLabelWidth(text) {
+  jpSizeCtx.font = '500 ' + JP_FONT + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
+  return jpSizeCtx.measureText(text).width;
+}
+
+var jpBalls = openProjects.map(function(p, i) {
+  return {
+    p: p, x: 0, y: 0, r: Math.max(48, jpLabelWidth(p.shortName) / 2 + 20),
+    fx: (i + 0.5) / openProjects.length, fy: 0.5,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.24 + Math.random() * 0.2,
+    ax: (Math.random() - 0.5) * 2,
+    ay: (Math.random() - 0.5) * 2,
+  };
+});
+
+var jpMouse = { x: -999, y: -999 };
+var jpHovered = null;
+var jpTime = 0;
+
+function jpResize() {
+  var wrap = document.getElementById('join-proj-wrap');
+  if (!wrap) return;
+  blobC.width  = wrap.offsetWidth;  blobC.height  = wrap.offsetHeight;
+  labelC.width = wrap.offsetWidth;  labelC.height = wrap.offsetHeight;
+}
+
+function jpFrame() {
+  if (!document.getElementById('page-join').classList.contains('active')) {
+    requestAnimationFrame(jpFrame); return;
+  }
+  jpTime += 0.016;
+  var W = blobC.width, H = blobC.height;
+  if (!W || !H) { jpResize(); requestAnimationFrame(jpFrame); return; }
+
+  for (var i = 0; i < jpBalls.length; i++) {
+    var b = jpBalls[i];
+    var bx = b.fx * W, by = b.fy * H;
+    var t  = jpTime * b.speed + b.phase;
+    var amp = 10 + 16 * (0.5 + 0.5 * Math.sin(jpTime * 0.22 + b.phase * 0.5));
+    b.x = bx + Math.sin(t)        * b.ax * amp;
+    b.y = by + Math.cos(t * 1.27) * b.ay * amp;
+  }
+
+  jpHovered = null;
+  for (var i = 0; i < jpBalls.length; i++) {
+    var dx = jpMouse.x - jpBalls[i].x, dy = jpMouse.y - jpBalls[i].y;
+    if (Math.sqrt(dx*dx + dy*dy) < jpBalls[i].r + 10) { jpHovered = jpBalls[i]; break; }
+  }
+
+  var bctx = blobC.getContext('2d');
+  bctx.fillStyle = '#000';
+  bctx.fillRect(0, 0, W, H);
+  for (var i = 0; i < jpBalls.length; i++) {
+    var b = jpBalls[i];
+    bctx.beginPath();
+    bctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    bctx.fillStyle = (b === jpHovered) ? '#cc0000' : '#fff';
+    bctx.fill();
+  }
+  if (jpMouse.x >= 0) {
+    var edge = Math.min(jpMouse.x, W - jpMouse.x, jpMouse.y, H - jpMouse.y);
+    var cr = 30 * Math.max(0, Math.min(1, edge / 50));
+    if (cr > 0) {
+      bctx.beginPath();
+      bctx.arc(jpMouse.x, jpMouse.y, cr, 0, Math.PI * 2);
+      bctx.fillStyle = jpHovered ? '#cc0000' : '#fff';
+      bctx.fill();
+    }
+  }
+
+  var lctx = labelC.getContext('2d');
+  lctx.clearRect(0, 0, W, H);
+  lctx.textAlign = 'center'; lctx.textBaseline = 'middle';
+  for (var i = 0; i < jpBalls.length; i++) {
+    var b = jpBalls[i];
+    lctx.font = '500 15px "OpenSauceSans","Helvetica Neue",sans-serif';
+    lctx.fillStyle = (b === jpHovered) ? '#fff' : '#000';
+    lctx.fillText(b.p.shortName, b.x, b.y);
+  }
+
+  requestAnimationFrame(jpFrame);
+}
+
+var jpWrap = document.getElementById('join-proj-wrap');
+jpWrap.addEventListener('mousemove', function(e) {
+  var rect = jpWrap.getBoundingClientRect();
+  jpMouse.x = e.clientX - rect.left; jpMouse.y = e.clientY - rect.top;
+  jpWrap.style.cursor = jpHovered ? 'pointer' : 'none';
+});
+jpWrap.addEventListener('mouseleave', function() { jpMouse.x = -999; jpMouse.y = -999; jpWrap.style.cursor = 'default'; });
+jpWrap.addEventListener('click', function(e) {
+  if (jpHovered && window.openProject) window.openProject(jpHovered.p.id, e.clientX, e.clientY);
+});
+
+jpResize();
+window.addEventListener('resize', jpResize);
+requestAnimationFrame(jpFrame);
+})();
+</script>
+
+<!-- ════════════════ APPLY MODAL (reuses body-overflow-lock technique from Projects Detail Panel) ════════════════ -->
+<script>
+(function() {
+var backdrop = document.getElementById('apply-modal-backdrop');
+var closeBtn = document.getElementById('apply-modal-close');
+var openBtn  = document.getElementById('apply-open-btn');
+if (!backdrop) return;
+
+function openApplyModal() {
+  backdrop.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeApplyModal() {
+  backdrop.classList.remove('active');
+  document.body.style.overflow = '';
+}
+window.openApplyModal = openApplyModal;
+
+if (openBtn) {
+  openBtn.addEventListener('click', openApplyModal);
+  openBtn.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openApplyModal(); } });
+}
+if (closeBtn) closeBtn.addEventListener('click', closeApplyModal);
+backdrop.addEventListener('click', function(e) { if (e.target === backdrop) closeApplyModal(); });
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && backdrop.classList.contains('active')) closeApplyModal();
+});
+})();
+</script>
+
 <!-- ════════════════ SHARED METABALL MATH ════════════════ -->
 <script>
 window._makeMetaball = function(MAX_DIST, HLR, V) {
@@ -1840,6 +2151,91 @@ window._makeMetaball = function(MAX_DIST, HLR, V) {
     }
     return { getVector: getVector, metaball: metaball };
   };
+};
+</script>
+
+<!-- ════════════════ BLOB HOVER (shared DOM hover utility — reuses metaball blur/contrast + 0.08-style lerp) ════════════════ -->
+<script>
+window.initBlobHover = function(container, opts) {
+  opts = opts || {};
+  var rows = (container || document).querySelectorAll(opts.rowSelector);
+  rows.forEach(function(row) {
+    row.classList.add('blob-hover-row');
+
+    var goo = document.createElement('div');
+    goo.className = 'blob-hover-goo';
+    row.insertBefore(goo, row.firstChild);
+
+    var s = document.createElement('div'); s.className = 'blob-hover-part'; s.style.borderRadius = '50%';
+    var e = document.createElement('div'); e.className = 'blob-hover-part'; e.style.borderRadius = '50%';
+    var bar = document.createElement('div'); bar.className = 'blob-hover-part';
+    goo.appendChild(s); goo.appendChild(bar); goo.appendChild(e);
+
+    var label = null;
+    if (opts.labelSource) {
+      label = document.createElement('div');
+      label.className = 'blob-hover-label';
+      row.appendChild(label);
+    }
+
+    // Two circles + a connecting bar, all under the SVG goo filter: the circles
+    // start together at the cursor's entry point and stretch apart to the row's
+    // two edges, so the meniscus between them reads as one liquid blob emerging
+    // from that point rather than a rectangle just resizing.
+    var cur = { sx: 0, sy: 0, ex: 0, ey: 0, r: 0 };
+    var tgt = { sx: 0, sy: 0, ex: 0, ey: 0, r: 0 };
+    var raf = null, active = false;
+
+    function apply() {
+      var d = cur.r * 2;
+      s.style.left = (cur.sx - cur.r) + 'px'; s.style.top = (cur.sy - cur.r) + 'px';
+      s.style.width = d + 'px'; s.style.height = d + 'px';
+      e.style.left = (cur.ex - cur.r) + 'px'; e.style.top = (cur.ey - cur.r) + 'px';
+      e.style.width = d + 'px'; e.style.height = d + 'px';
+      var barX = Math.min(cur.sx, cur.ex), barW = Math.abs(cur.ex - cur.sx);
+      bar.style.left = barX + 'px'; bar.style.top = (cur.sy - cur.r) + 'px';
+      bar.style.width = barW + 'px'; bar.style.height = d + 'px';
+
+      if (label) {
+        var rowW = row.clientWidth;
+        var coverage = rowW > 0 ? (barW + d) / rowW : 0;
+        label.style.opacity  = (active && coverage > 0.55) ? '1' : '0';
+        label.style.fontSize = Math.max(10, Math.min(cur.r * 0.7, 40)) + 'px';
+        label.textContent = typeof opts.labelSource === 'function' ? opts.labelSource(row) : opts.labelSource;
+      }
+    }
+
+    function loop() {
+      var k = 0.18;
+      cur.sx += (tgt.sx - cur.sx) * k; cur.sy += (tgt.sy - cur.sy) * k;
+      cur.ex += (tgt.ex - cur.ex) * k; cur.ey += (tgt.ey - cur.ey) * k;
+      cur.r  += (tgt.r  - cur.r)  * k;
+      apply();
+      var rem = Math.abs(tgt.sx - cur.sx) + Math.abs(tgt.ex - cur.ex) + Math.abs(tgt.r - cur.r);
+      if (rem > 0.3) { raf = requestAnimationFrame(loop); }
+      else { raf = null; }
+    }
+
+    row.addEventListener('mouseenter', function(ev) {
+      var rect = row.getBoundingClientRect();
+      var ex0 = ev.clientX - rect.left, ey0 = ev.clientY - rect.top;
+      var edgeGap = 4;
+      var capR = rect.height / 2 - edgeGap;
+      cur.sx = ex0; cur.sy = ey0; cur.ex = ex0; cur.ey = ey0; cur.r = 6;
+      tgt.sx = capR + edgeGap; tgt.sy = rect.height / 2;
+      tgt.ex = rect.width - capR - edgeGap; tgt.ey = rect.height / 2;
+      tgt.r = capR;
+      active = true;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    row.addEventListener('mouseleave', function(ev) {
+      var rect = row.getBoundingClientRect();
+      var mx = ev.clientX - rect.left, my = ev.clientY - rect.top;
+      active = false;
+      tgt.sx = mx; tgt.sy = my; tgt.ex = mx; tgt.ey = my; tgt.r = 0;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+  });
 };
 </script>
 
@@ -2037,15 +2433,22 @@ document.querySelectorAll('.pub-section').forEach(function(section) {
   });
 });
 
-// Collect all pub-entries (excluding awards) with their year for sorted view
+// Collect all pub-entries (excluding awards) with their year for sorted view,
+// and prepend a "YEAR · TYPE" label to each (same style as the news date row)
+var TYPE_LABELS = { book: 'Book Chapter', journal: 'Journal', conference: 'Conference' };
 var allPubs = [];
 document.querySelectorAll('.pub-section').forEach(function(section) {
   if (section.dataset.type === 'awards') return;
+  var typeLabel = TYPE_LABELS[section.dataset.type] || '';
   var currentYr = null;
   Array.prototype.slice.call(section.children).forEach(function(child) {
     if (child.classList.contains('pub-year')) {
       currentYr = child.textContent.trim();
     } else if (child.classList.contains('pub-entry') && currentYr) {
+      var label = document.createElement('div');
+      label.className = 'ntl-date-row';
+      label.innerHTML = '<span class="ntl-date">' + currentYr + '</span><span class="ntl-dot">&middot;</span><span class="ntl-cat">' + typeLabel + '</span>';
+      child.insertBefore(label, child.firstChild);
       allPubs.push({ year: parseInt(currentYr), el: child });
     }
   });
@@ -2270,6 +2673,31 @@ view.element.addEventListener('mouseleave', function() {
     });
     view.element.style.cursor = 'default';
 });
+</script>
+
+<!-- ════════════════ BLOB HOVER — PAGE WIRING ════════════════ -->
+<script>
+(function() {
+  // 3a — Home news badges (additive to the existing news-canvas hover listeners)
+  window.initBlobHover(document.getElementById('home-news'), {
+    rowSelector: '.ntl-item'
+  });
+
+  // 4a — Google Scholar link, mini scale (no label — it's a link, not a category row)
+  window.initBlobHover(document.getElementById('page-publications'), {
+    rowSelector: 'a.pill[href*="scholar.google"]'
+  });
+
+  // 4b — Publication rows (year-blob canvas swell listeners are untouched)
+  window.initBlobHover(document.getElementById('page-publications'), {
+    rowSelector: '.pub-entry'
+  });
+
+  // 5e — Join "ready to join us?" button
+  window.initBlobHover(document.getElementById('page-join'), {
+    rowSelector: '#apply-open-btn'
+  });
+})();
 </script>
 
 </body>
