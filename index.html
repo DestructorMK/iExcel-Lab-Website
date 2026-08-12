@@ -623,12 +623,6 @@ footer a:hover{color:var(--white)}
       <li>Applied AI in grand challenges</li>
       <li>Human-AI teaming</li>
     </ul>
-    <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">Open Projects</h3></div>
-    <p style="font-family:var(--font);font-size:.9rem;color:var(--mid);margin-bottom:1.5rem">The following projects currently have open positions. Click any project to explore it.</p>
-    <div id="join-proj-wrap" style="position:relative;width:100%;height:260px;background:#000;border-radius:14px;overflow:hidden;margin-bottom:3rem">
-      <canvas id="join-proj-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
-      <canvas id="join-proj-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
-    </div>
     <div class="sec-header"><h3 style="font-family:var(--font);font-size:1.4rem;font-weight:400;color:var(--wolf)">What to Expect</h3></div>
     <p style="font-family:var(--font);font-size:1rem;line-height:1.85;max-width:700px;margin-bottom:3rem">Working in the iEXCEL Lab means joining a collaborative, interdisciplinary team. You'll work on real problems that sit at the intersection of computation, data, and human learning — publishing research, developing technical and communication skills, and contributing to socially meaningful work.</p>
     <div id="apply-open-btn" role="button" tabindex="0" style="display:inline-block;font-family:var(--font);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:var(--wolf);background:var(--white);border:1px solid var(--border);border-radius:4px;padding:.9rem 1.75rem;cursor:pointer;margin-bottom:6rem">Ready to join us?</div>
@@ -1605,6 +1599,23 @@ function pjFrame() {
     b.y = by + Math.cos(t * 1.27) * b.ay * amp;
   }
 
+  // Keep balls from overlapping by more than 25% of their combined radii
+  for (var pass = 0; pass < 2; pass++) {
+    for (var i = 0; i < pjBalls.length; i++) {
+      for (var j = i + 1; j < pjBalls.length; j++) {
+        var a = pjBalls[i], c = pjBalls[j];
+        var ddx = c.x - a.x, ddy = c.y - a.y;
+        var dist = Math.sqrt(ddx * ddx + ddy * ddy) || 0.001;
+        var minDist = (a.r + c.r) * 0.75;
+        if (dist < minDist) {
+          var push = (minDist - dist) / 2, nx = ddx / dist, ny = ddy / dist;
+          a.x -= nx * push; a.y -= ny * push;
+          c.x += nx * push; c.y += ny * push;
+        }
+      }
+    }
+  }
+
   pjHovered = null;
   for (var i = 0; i < pjBalls.length; i++) {
     var dx = pjMouse.x - pjBalls[i].x, dy = pjMouse.y - pjBalls[i].y;
@@ -1835,7 +1846,7 @@ window.openProject = openProject;
 })();
 </script>
 
-<!-- ════════════════ JOIN HERO METABALLS (same technique as Home hero, no watermark layer) ════════════════ -->
+<!-- ════════════════ JOIN HERO METABALLS (same technique as Home hero, incl. watermark layer) ════════════════ -->
 <script>
 (function() {
 var wrap = document.getElementById('join-hero-canvas-wrap');
@@ -1848,22 +1859,47 @@ var bctx = blobCanvas.getContext('2d');
 var lctx = labelCanvas.getContext('2d');
 blobCanvas.style.filter = 'blur(14px) contrast(18)';
 
+// Dedicated watermark canvas — sits between blob and label canvases, same as the home hero
+var wmCanvas = document.createElement('canvas');
+wmCanvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;filter:blur(3px)';
+wrap.insertBefore(wmCanvas, labelCanvas);
+var wmCtx = wmCanvas.getContext('2d');
+
+var bgImage = new Image();
+bgImage.src = 'Assets/iExcel Open Projects Background.png';
+
 function resize() {
   var w = wrap.offsetWidth, h = wrap.offsetHeight;
   blobCanvas.width  = w; blobCanvas.height  = h;
   labelCanvas.width = w; labelCanvas.height = h;
+  wmCanvas.width    = w; wmCanvas.height    = h;
 }
 resize();
 window.addEventListener('resize', resize);
 
+// Open-project balls (was a separate "Open Projects" section further down the page —
+// folded into the hero so they merge with the center blob instead)
+var openIds = ['futurescape', 'who-eats-whom', 'amr'];
+var openProjects = (window.projectsData || []).filter(function(p) { return openIds.indexOf(p.id) !== -1; });
+var jpSizeCtx = blobCanvas.getContext('2d');
+function jpLabelWidth(text) {
+  jpSizeCtx.font = '500 20px "OpenSauceSans","Helvetica Neue",sans-serif';
+  return jpSizeCtx.measureText(text).width;
+}
+
 var nodeData = [
-  { label:'Join the Lab', r:110, fx:0.50, fy:0.50, action:'scroll' },
-  { r:34, fx:0.20, fy:0.24 },
-  { r:26, fx:0.78, fy:0.22 },
-  { r:30, fx:0.16, fy:0.76 },
-  { r:22, fx:0.83, fy:0.72 },
-  { r:38, fx:0.50, fy:0.87 },
+  { label:'Join the Lab', r:140, fx:0.50, fy:0.50, action:'scroll' },
 ];
+var spawnRadius = 0.25;
+openProjects.forEach(function(p, i) {
+  var angle = -Math.PI / 2 + i * (Math.PI * 2 / openProjects.length);
+  var baseR = Math.max(50, jpLabelWidth(p.shortName) / 2 + 24);
+  nodeData.push({
+    label: p.shortName, r: p.id === 'amr' ? baseR * 1.2 : baseR,
+    fx: 0.50 + Math.cos(angle) * spawnRadius, fy: 0.50 + Math.sin(angle) * spawnRadius,
+    action: 'open', projectId: p.id
+  });
+});
 var balls = nodeData.map(function(nd) {
   return {
     nd: nd, x:0, y:0, bx:0, by:0,
@@ -1897,6 +1933,23 @@ function frame() {
     b.y = b.by + Math.cos(t * 1.27) * b.ay * amp;
   }
 
+  // Keep balls from overlapping by more than 25% of their combined radii
+  for (var pass = 0; pass < 2; pass++) {
+    for (var i = 0; i < balls.length; i++) {
+      for (var j = i + 1; j < balls.length; j++) {
+        var a = balls[i], c = balls[j];
+        var ddx = c.x - a.x, ddy = c.y - a.y;
+        var dist = Math.sqrt(ddx * ddx + ddy * ddy) || 0.001;
+        var minDist = (a.nd.r + c.nd.r) * scale * 0.75;
+        if (dist < minDist) {
+          var push = (minDist - dist) / 2, nx = ddx / dist, ny = ddy / dist;
+          a.x -= nx * push; a.y -= ny * push;
+          c.x += nx * push; c.y += ny * push;
+        }
+      }
+    }
+  }
+
   hoveredBall = null;
   for (var i = 0; i < balls.length; i++) {
     if (!balls[i].nd.action) continue;
@@ -1926,10 +1979,38 @@ function frame() {
   }
 
   lctx.clearRect(0, 0, W, H);
+
+  // ── Open Projects Background Image ──
+  wmCtx.clearRect(0, 0, W, H);
+  wmCtx.save();
+  if (bgImage.complete) {
+    var imgWidth = bgImage.naturalWidth;
+    var imgHeight = bgImage.naturalHeight;
+    var imgAspect = imgWidth / imgHeight;
+    var canvasAspect = W / H;
+
+    var drawWidth, drawHeight, offsetX, offsetY;
+
+    if (imgAspect > canvasAspect) {
+      drawHeight = H;
+      drawWidth = H * imgAspect;
+      offsetX = (W - drawWidth) / 2;
+      offsetY = 0;
+    } else {
+      drawWidth = W;
+      drawHeight = W / imgAspect;
+      offsetX = 0;
+      offsetY = (H - drawHeight) / 2;
+    }
+
+    wmCtx.drawImage(bgImage, offsetX, offsetY, drawWidth, drawHeight);
+  }
+  wmCtx.restore();
+
   for (var i = 0; i < balls.length; i++) {
     var b = balls[i], nd = b.nd;
     if (!nd.label) continue;
-    var fontSize = Math.round(20 * scale);
+    var fontSize = Math.round((nd.action === 'scroll' ? 28 : 20) * scale);
     lctx.save();
     lctx.font = '500 ' + fontSize + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
     lctx.textAlign    = 'center';
@@ -1953,125 +2034,20 @@ wrap.addEventListener('mouseleave', function() {
   mouse.x = -999; mouse.y = -999;
   wrap.style.cursor = 'none';
 });
-wrap.addEventListener('click', function() {
-  if (hoveredBall && hoveredBall.nd.action === 'scroll') {
+wrap.addEventListener('click', function(e) {
+  if (!hoveredBall) return;
+  if (hoveredBall.nd.action === 'scroll') {
     document.getElementById('join-next-section').scrollIntoView({ behavior: 'smooth' });
+  } else if (hoveredBall.nd.action === 'open' && window.openProject) {
+    window.openProject(hoveredBall.nd.projectId, e.clientX, e.clientY);
   }
 });
-})();
-</script>
 
-<!-- ════════════════ JOIN OPEN PROJECTS METABALLS (same technique as Lab Links mini metaballs) ════════════════ -->
-<script>
-(function() {
-var blobC  = document.getElementById('join-proj-blob');
-var labelC = document.getElementById('join-proj-labels');
-if (!blobC || !labelC) return;
-blobC.style.filter = 'blur(10px) contrast(20)';
-
-var openIds = ['futurescape', 'who-eats-whom', 'amr'];
-var openProjects = (window.projectsData || []).filter(function(p) { return openIds.indexOf(p.id) !== -1; });
-
-var JP_FONT = 15;
-var jpSizeCtx = blobC.getContext('2d');
-function jpLabelWidth(text) {
-  jpSizeCtx.font = '500 ' + JP_FONT + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
-  return jpSizeCtx.measureText(text).width;
-}
-
-var jpBalls = openProjects.map(function(p, i) {
-  return {
-    p: p, x: 0, y: 0, r: Math.max(48, jpLabelWidth(p.shortName) / 2 + 20),
-    fx: (i + 0.5) / openProjects.length, fy: 0.5,
-    phase: Math.random() * Math.PI * 2,
-    speed: 0.24 + Math.random() * 0.2,
-    ax: (Math.random() - 0.5) * 2,
-    ay: (Math.random() - 0.5) * 2,
-  };
+// Parallax on the background image, same as the home hero
+window.addEventListener('scroll', function() {
+  if (!document.getElementById('page-join').classList.contains('active')) return;
+  wmCanvas.style.transform = 'translateY(' + (window.scrollY * 0.15) + 'px)';
 });
-
-var jpMouse = { x: -999, y: -999 };
-var jpHovered = null;
-var jpTime = 0;
-
-function jpResize() {
-  var wrap = document.getElementById('join-proj-wrap');
-  if (!wrap) return;
-  blobC.width  = wrap.offsetWidth;  blobC.height  = wrap.offsetHeight;
-  labelC.width = wrap.offsetWidth;  labelC.height = wrap.offsetHeight;
-}
-
-function jpFrame() {
-  if (!document.getElementById('page-join').classList.contains('active')) {
-    requestAnimationFrame(jpFrame); return;
-  }
-  jpTime += 0.016;
-  var W = blobC.width, H = blobC.height;
-  if (!W || !H) { jpResize(); requestAnimationFrame(jpFrame); return; }
-
-  for (var i = 0; i < jpBalls.length; i++) {
-    var b = jpBalls[i];
-    var bx = b.fx * W, by = b.fy * H;
-    var t  = jpTime * b.speed + b.phase;
-    var amp = 10 + 16 * (0.5 + 0.5 * Math.sin(jpTime * 0.22 + b.phase * 0.5));
-    b.x = bx + Math.sin(t)        * b.ax * amp;
-    b.y = by + Math.cos(t * 1.27) * b.ay * amp;
-  }
-
-  jpHovered = null;
-  for (var i = 0; i < jpBalls.length; i++) {
-    var dx = jpMouse.x - jpBalls[i].x, dy = jpMouse.y - jpBalls[i].y;
-    if (Math.sqrt(dx*dx + dy*dy) < jpBalls[i].r + 10) { jpHovered = jpBalls[i]; break; }
-  }
-
-  var bctx = blobC.getContext('2d');
-  bctx.fillStyle = '#000';
-  bctx.fillRect(0, 0, W, H);
-  for (var i = 0; i < jpBalls.length; i++) {
-    var b = jpBalls[i];
-    bctx.beginPath();
-    bctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-    bctx.fillStyle = (b === jpHovered) ? '#cc0000' : '#fff';
-    bctx.fill();
-  }
-  if (jpMouse.x >= 0) {
-    var edge = Math.min(jpMouse.x, W - jpMouse.x, jpMouse.y, H - jpMouse.y);
-    var cr = 30 * Math.max(0, Math.min(1, edge / 50));
-    if (cr > 0) {
-      bctx.beginPath();
-      bctx.arc(jpMouse.x, jpMouse.y, cr, 0, Math.PI * 2);
-      bctx.fillStyle = jpHovered ? '#cc0000' : '#fff';
-      bctx.fill();
-    }
-  }
-
-  var lctx = labelC.getContext('2d');
-  lctx.clearRect(0, 0, W, H);
-  lctx.textAlign = 'center'; lctx.textBaseline = 'middle';
-  for (var i = 0; i < jpBalls.length; i++) {
-    var b = jpBalls[i];
-    lctx.font = '500 15px "OpenSauceSans","Helvetica Neue",sans-serif';
-    lctx.fillStyle = (b === jpHovered) ? '#fff' : '#000';
-    lctx.fillText(b.p.shortName, b.x, b.y);
-  }
-
-  requestAnimationFrame(jpFrame);
-}
-
-var jpWrap = document.getElementById('join-proj-wrap');
-jpWrap.addEventListener('mousemove', function(e) {
-  var rect = jpWrap.getBoundingClientRect();
-  jpMouse.x = e.clientX - rect.left; jpMouse.y = e.clientY - rect.top;
-  jpWrap.style.cursor = jpHovered ? 'pointer' : 'none';
-});
-jpWrap.addEventListener('mouseleave', function() { jpMouse.x = -999; jpMouse.y = -999; jpWrap.style.cursor = 'default'; });
-jpWrap.addEventListener('click', function(e) {
-  if (jpHovered && window.openProject) window.openProject(jpHovered.p.id, e.clientX, e.clientY);
-});
-
-jpResize();
-window.addEventListener('resize', jpResize);
-requestAnimationFrame(jpFrame);
 })();
 </script>
 
