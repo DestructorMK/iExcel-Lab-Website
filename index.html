@@ -304,6 +304,7 @@ footer a:hover{color:var(--white)}
   .lab-about-layout{grid-template-columns:1fr}
   .prof-blob-wrap{width:200px;height:220px;margin:0 auto}
   #proj-field-wrap{height:1000px}
+  #team-orbit-wrap{height:1000px}
   .proj-detail-grid{grid-template-columns:1fr}
   .proj-detail-inner{padding:4.5rem 1.5rem 4rem}
 }
@@ -406,31 +407,25 @@ footer a:hover{color:var(--white)}
       </div>
     </div>
   </div>
-  <div id="team-section" data-nav-theme="dark" style="background:#000;width:100%">
-    <div style="max-width:1160px;margin:0 auto;padding:3rem 2rem">
+  <div id="team-section" data-nav-theme="dark" style="background:#000;width:100%;position:relative">
+    <div id="team-watermark" style="position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.25"></div>
+    <div style="max-width:1160px;margin:0 auto;padding:3rem 2rem 1.5rem;position:relative;z-index:1">
       <div class="sec-header"><h2 class="sec-title" style="color:#fff">Team</h2></div>
-      <div style="margin-bottom:2.5rem">
-        <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Graduate Researchers</p>
-        <div id="team-grad-wrap" style="position:relative;width:100%;height:560px">
-          <canvas id="team-grad-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
-          <canvas id="team-grad-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
-        </div>
-      </div>
-      <div style="margin-bottom:2.5rem">
-        <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Undergraduate Researchers</p>
-        <div id="team-ugrad-wrap" style="position:relative;width:100%;height:560px">
-          <canvas id="team-ugrad-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
-          <canvas id="team-ugrad-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
-        </div>
-      </div>
-      <div>
-        <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Alumni</p>
-        <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 2rem">
-          <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Trisha Gite</li>
-          <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Nikhil Vasudeva</li>
-          <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Dee Kandel</li>
-        </ul>
-      </div>
+    </div>
+    <div id="team-orbit-wrap" style="position:relative;width:100%;height:1300px">
+      <canvas id="team-orbit-blob" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block"></canvas>
+      <canvas id="team-orbit-watermark" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none;mix-blend-mode:screen;opacity:.25"></canvas>
+      <canvas id="team-orbit-labels" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none"></canvas>
+      <div style="position:absolute;left:max(2rem, calc((100% - 1160px) / 2 + 2rem));top:1.5%;font-family:var(--font);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#fff;pointer-events:none">Graduate Researchers</div>
+      <div style="position:absolute;left:max(2rem, calc((100% - 1160px) / 2 + 2rem));top:51.5%;font-family:var(--font);font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#fff;pointer-events:none">Undergraduate Researchers</div>
+    </div>
+    <div style="max-width:1160px;margin:0 auto;padding:1.5rem 2rem 3rem;position:relative;z-index:1">
+      <p style="font-family:var(--font);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem">Alumni</p>
+      <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 2rem">
+        <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Trisha Gite</li>
+        <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Nikhil Vasudeva</li>
+        <li style="font-family:var(--font);font-weight:500;font-size:.9rem;color:#fff">Dee Kandel</li>
+      </ul>
     </div>
   </div>
   <div class="wrap" style="padding-top:2.5rem">
@@ -470,6 +465,7 @@ footer a:hover{color:var(--white)}
     </div>
     <div id="proj-field-wrap">
       <canvas id="proj-canvas"></canvas>
+      <canvas id="proj-watermark" style="position:absolute;top:0;left:0;width:100%;height:100%;display:block;pointer-events:none;mix-blend-mode:screen;opacity:.25"></canvas>
       <canvas id="proj-labels"></canvas>
       <div class="proj-cat-label" style="top:calc(10% - 110px)">Current Projects</div>
       <div class="proj-cat-label" style="top:calc(50% - 110px)">Legacy Projects</div>
@@ -1357,21 +1353,200 @@ function buildOrbit(def) {
   return { stop: function() { stopped = true; } };
 }
 window._buildOrbit = buildOrbit;
+})();
+</script>
 
-var teamDefs = [
-  {
-    wrapId: 'team-grad-wrap', blobId: 'team-grad-blob', labelId: 'team-grad-labels', orbitDir: 1,
-    isActive: function() { return document.getElementById('page-lab').classList.contains('active'); },
-    members: ['Stephen Liu','Lavanya Middha','Surabhi Nair','Ory Wickizer','Bipin Gowda','Gaurav Sheth','Yaswant Baddi','Dharani Guda','Ananya Patankar']
-  },
-  {
-    wrapId: 'team-ugrad-wrap', blobId: 'team-ugrad-blob', labelId: 'team-ugrad-labels', orbitDir: -1,
-    isActive: function() { return document.getElementById('page-lab').classList.contains('active'); },
-    members: ['Sairaj Gunda','Ashwin Mahesh','Petr Shevrev','Justin Huang','Mokshagna Kadiyala','Neelesh Yaddanapudi','Adam Biscoe','Maithili Bhoop','Carmella Holloway']
-  }
+<!-- ════════════════ TEAM PEOPLE — ONE MERGED CANVAS (two orbit bands: grad on top, undergrad on bottom,
+     sharing a single blob/label/watermark canvas set instead of two separate widgets) ════════════════ -->
+<script>
+(function() {
+var wrap = document.getElementById('team-orbit-wrap');
+var blobC = document.getElementById('team-orbit-blob');
+var labelC = document.getElementById('team-orbit-labels');
+if (!wrap || !blobC || !labelC) return;
+
+blobC.style.filter = 'blur(10px) contrast(20)';
+
+var BALL_R = 80;
+var bands = [
+  { y0: 0, y1: 0.5, orbitDir: 1,
+    members: ['Stephen Liu','Lavanya Middha','Surabhi Nair','Ory Wickizer','Bipin Gowda','Gaurav Sheth','Yaswant Baddi','Dharani Guda','Ananya Patankar'] },
+  { y0: 0.5, y1: 1, orbitDir: -1,
+    members: ['Sairaj Gunda','Ashwin Mahesh','Petr Shevrev','Justin Huang','Mokshagna Kadiyala','Neelesh Yaddanapudi','Adam Biscoe','Maithili Bhoop','Carmella Holloway'] }
 ];
 
-teamDefs.forEach(buildOrbit);
+var balls = [];
+bands.forEach(function(band) {
+  var n = band.members.length;
+  band.members.forEach(function(name, i) {
+    balls.push({
+      name: name, band: band,
+      initialAngle: (i / n) * Math.PI * 2 - Math.PI / 2,
+      x: 0, y: 0,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.18 + Math.random() * 0.18,
+      ax: (Math.random() - 0.5) * 2,
+      ay: (Math.random() - 0.5) * 2,
+    });
+  });
+});
+
+var time = 0;
+var mx = -999, my = -999;
+var CR = 36;
+
+wrap.addEventListener('mousemove', function(e) {
+  var r = wrap.getBoundingClientRect();
+  mx = e.clientX - r.left; my = e.clientY - r.top;
+});
+wrap.addEventListener('mouseleave', function() { mx = -999; my = -999; });
+
+function resize() {
+  var W = wrap.offsetWidth, H = wrap.offsetHeight;
+  blobC.width = W; labelC.width = W;
+  blobC.height = H; labelC.height = H;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function frame() {
+  if (!document.getElementById('page-lab').classList.contains('active')) {
+    requestAnimationFrame(frame); return;
+  }
+  var wrapW = wrap.offsetWidth;
+  if (wrapW > 0 && blobC.width !== wrapW) resize();
+  var W = blobC.width, H = blobC.height;
+  if (!W || !H) { requestAnimationFrame(frame); return; }
+  time += 0.016;
+
+  balls.forEach(function(b) {
+    var band = b.band;
+    var bandTop = band.y0 * H, bandH = (band.y1 - band.y0) * H;
+    var oa = b.initialAngle + time * 0.08 * band.orbitDir;
+    // Orbit radius pinned to the old per-widget scale (content-column width, 560px band height)
+    // rather than the new full-bleed W/bandH, so the rotation stays as tight as it was before
+    // the canvas grew edge-to-edge — it only shrinks further on viewports narrower than that.
+    var orbitRx = Math.min(W, 1096) * 0.38, orbitRy = Math.min(bandH, 560) * 0.28;
+    var cx = W * 0.5 + Math.cos(oa) * orbitRx;
+    var cy = bandTop + bandH * 0.55 + Math.sin(oa) * orbitRy;
+    var t = time * b.speed + b.phase;
+    var amp = 6 + 14 * (0.5 + 0.5 * Math.sin(time * 0.2 + b.phase * 0.5));
+    b.x = cx + Math.sin(t) * b.ax * amp;
+    b.y = cy + Math.cos(t * 1.27) * b.ay * amp;
+    b.x = Math.max(BALL_R + 4, Math.min(W - BALL_R - 4, b.x));
+    b.y = Math.max(bandTop + BALL_R + 4, Math.min(bandTop + bandH - BALL_R - 4, b.y));
+  });
+
+  var bctx = blobC.getContext('2d');
+  bctx.fillStyle = '#000';
+  bctx.fillRect(0, 0, W, H);
+  balls.forEach(function(b) {
+    bctx.beginPath();
+    bctx.arc(b.x, b.y, BALL_R, 0, Math.PI * 2);
+    bctx.fillStyle = '#fff';
+    bctx.fill();
+  });
+  if (mx >= 0 && mx <= W) {
+    var edge = Math.min(mx, W - mx, my, H - my);
+    var cr = CR * Math.max(0, Math.min(1, edge / 80));
+    if (cr > 0) {
+      bctx.beginPath();
+      bctx.arc(mx, my, cr, 0, Math.PI * 2);
+      bctx.fillStyle = '#fff';
+      bctx.fill();
+    }
+  }
+
+  var lctx = labelC.getContext('2d');
+  lctx.clearRect(0, 0, W, H);
+  lctx.textAlign = 'center'; lctx.textBaseline = 'middle';
+  var fontSize = Math.round(BALL_R * 0.23);
+  lctx.font = '500 ' + fontSize + 'px "OpenSauceSans","Helvetica Neue",sans-serif';
+  lctx.fillStyle = '#000';
+  var lh = fontSize * 1.3;
+  balls.forEach(function(b) {
+    var parts = b.name.split(' ');
+    var first = parts[0], rest = parts.slice(1).join(' ');
+    if (rest) {
+      lctx.fillText(first, b.x, b.y - lh * 0.5);
+      lctx.fillText(rest, b.x, b.y + lh * 0.5);
+    } else {
+      lctx.fillText(first, b.x, b.y);
+    }
+  });
+
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+})();
+</script>
+
+<!-- ════════════════ TEAM SECTION WATERMARK (section-wide backdrop, independent of the orbit canvas) ════════════════ -->
+<script>
+(function() {
+var section = document.getElementById('team-section');
+var bgLayer = document.getElementById('team-watermark');
+if (!section || !bgLayer) return;
+var img = new Image();
+var url = 'Assets/iExcel Team Background.png';
+img.src = url;
+var cssUrl = 'url("' + url + '")';
+
+function layout() {
+  var W = section.offsetWidth, H = section.offsetHeight;
+  if (!W || !H || !img.complete || !img.naturalWidth) return false;
+
+  var imgAspect = img.naturalWidth / img.naturalHeight;
+  var boxAspect = W / H;
+  var scaledW, scaledH;
+  if (imgAspect > boxAspect) { scaledH = H; scaledW = H * imgAspect; }
+  else { scaledW = W; scaledH = W / imgAspect; }
+  var offsetX = (W - scaledW) / 2, offsetY = (H - scaledH) / 2;
+
+  bgLayer.style.backgroundImage = cssUrl;
+  bgLayer.style.backgroundSize = scaledW + 'px ' + scaledH + 'px';
+  bgLayer.style.backgroundPosition = offsetX + 'px ' + offsetY + 'px';
+  bgLayer.style.backgroundRepeat = 'no-repeat';
+  return true;
+}
+
+function poll() {
+  if (!layout()) requestAnimationFrame(poll);
+}
+poll();
+img.onload = layout;
+window.addEventListener('resize', layout);
+})();
+</script>
+
+<!-- ════════════════ TEAM ORBIT WATERMARK (same self-contained cover-fit technique as the Projects field watermark) ════════════════ -->
+<script>
+(function() {
+var canvas = document.getElementById('team-orbit-watermark');
+var wrap = document.getElementById('team-orbit-wrap');
+if (!canvas || !wrap) return;
+var ctx = canvas.getContext('2d');
+var img = new Image();
+img.src = 'Assets/iExcel Team Background.png';
+
+function frame() {
+  var W = wrap.offsetWidth, H = wrap.offsetHeight;
+  if (W && H && img.complete && img.naturalWidth) {
+    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+    var imgAspect = img.naturalWidth / img.naturalHeight;
+    var canvasAspect = W / H;
+    var dw, dh, ox, oy;
+    if (imgAspect > canvasAspect) {
+      dh = H; dw = H * imgAspect; ox = (W - dw) / 2; oy = 0;
+    } else {
+      dw = W; dh = W / imgAspect; ox = 0; oy = (H - dh) / 2;
+    }
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(img, ox, oy, dw, dh);
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
 })();
 </script>
 
@@ -1670,6 +1845,37 @@ pjWrap.addEventListener('click', function(e) {
 pjResize();
 window.addEventListener('resize', pjResize);
 requestAnimationFrame(pjFrame);
+})();
+</script>
+
+<!-- ════════════════ PROJECTS FIELD WATERMARK (same cover-fit technique as Home/Join hero) ════════════════ -->
+<script>
+(function() {
+var canvas = document.getElementById('proj-watermark');
+var wrap = document.getElementById('proj-field-wrap');
+if (!canvas || !wrap) return;
+var ctx = canvas.getContext('2d');
+var img = new Image();
+img.src = 'Assets/iExcel Projects Background.png';
+
+function frame() {
+  var W = wrap.offsetWidth, H = wrap.offsetHeight;
+  if (W && H && img.complete && img.naturalWidth) {
+    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+    var imgAspect = img.naturalWidth / img.naturalHeight;
+    var canvasAspect = W / H;
+    var dw, dh, ox, oy;
+    if (imgAspect > canvasAspect) {
+      dh = H; dw = H * imgAspect; ox = (W - dw) / 2; oy = 0;
+    } else {
+      dw = W; dh = W / imgAspect; ox = 0; oy = (H - dh) / 2;
+    }
+    ctx.clearRect(0, 0, W, H);
+    ctx.drawImage(img, ox, oy, dw, dh);
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
 })();
 </script>
 
