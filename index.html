@@ -721,7 +721,20 @@ var CURSOR_R = 36;
 var hoveredBall = null;
 var time = 0;
 
+// Perf: this canvas is full-viewport blur(14px)+contrast(18), the single most expensive
+// paint operation on the page — skip the redraw work (not just the CSS, the JS math+fill
+// too) once the hero scrolls out of view or the tab is backgrounded. Still reschedules a
+// cheap check every frame so it resumes instantly, no visible jump, since `time` simply
+// doesn't advance while paused. prefers-reduced-motion zeroes the float wobble instead of
+// fully freezing, so the merge/label reveal still renders, just without the motion.
+var heroVisible = true;
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(function(entries) { heroVisible = entries[0].isIntersecting; }).observe(wrap);
+}
+
 function frame() {
+  if (!heroVisible || document.hidden) { requestAnimationFrame(frame); return; }
   time += 0.016;
   var W = blobCanvas.width, H = blobCanvas.height;
   var scale = Math.min(W, H) / 700;
@@ -730,7 +743,7 @@ function frame() {
     var b = balls[i];
     b.bx = b.nd.fx * W; b.by = b.nd.fy * H;
     var t = time * b.speed + b.phase;
-    var amp = 15 + 50 * (0.5 + 0.5 * Math.sin(time * 0.18 + b.phase * 0.5));
+    var amp = reduceMotion ? 0 : 15 + 50 * (0.5 + 0.5 * Math.sin(time * 0.18 + b.phase * 0.5));
     b.x = b.bx + Math.sin(t)        * b.ax * amp;
     b.y = b.by + Math.cos(t * 1.27) * b.ay * amp;
   }
@@ -855,7 +868,8 @@ function updateNavTheme() {
   nav.classList.toggle('on-dark', dark);
   nav.classList.toggle('on-light', !dark);
 }
-window.addEventListener('scroll', updateNavTheme, { passive: true });
+// Perf: scroll listener registration moved below updateHeroParallax — both are now driven
+// by one shared rAF-coalesced 'scroll' handler instead of two independent, unthrottled ones.
 
 // Page navigation
 var _navigatingFromHistory = false;
@@ -888,6 +902,33 @@ function go(page) {
 }
 window.go = go;
 
+// Perf: run fn the first time `page` becomes active (immediately if it already is). Used to
+// defer each page's background-image Image() fetches until that page is actually visited,
+// instead of every page's assets downloading eagerly on initial load regardless of whether
+// the visitor ever navigates there. Wraps window.go lazily (only once, on first use) and
+// composes safely with the other window.go wrappers added later in the file, since each of
+// those also calls through to the previous version rather than replacing it outright.
+window._onFirstVisit = (function() {
+  var callbacks = {};
+  var wrapped = false;
+  function ensureWrap() {
+    if (wrapped) return;
+    wrapped = true;
+    var _go = window.go;
+    window.go = function(page) {
+      _go(page);
+      var fns = callbacks[page];
+      if (fns) { delete callbacks[page]; fns.forEach(function(fn) { fn(); }); }
+    };
+  }
+  return function(page, fn) {
+    var pageEl = document.getElementById('page-' + page);
+    if (pageEl && pageEl.classList.contains('active')) { fn(); return; }
+    ensureWrap();
+    (callbacks[page] = callbacks[page] || []).push(fn);
+  };
+})();
+
 // Browser Back/Forward: restore whichever page the history entry points to. Routed through
 // window.go (not the base go directly) so any wrappers layered on top — the hero-click reveal,
 // the project-detail-panel close — still run; the reveal wrapper only animates when it has a
@@ -914,12 +955,18 @@ window.addEventListener('popstate', function(e) {
 })();
 
 // Parallax on hero + back-to-top visibility
-window.addEventListener('scroll', function() {
+function updateHeroParallax() {
   if (!document.getElementById('page-home').classList.contains('active')) return;
   var y = window.scrollY;
   var bl = document.getElementById('hero-blurb');
   var sh = document.getElementById('hero-scroll-hint');
   var btt = document.getElementById('back-to-top');
+  // Perf: read the footer's rect first, before any style writes below — reading it last (as
+  // this used to) forced the browser to flush the styles just written and recompute layout
+  // synchronously, on every single scroll event.
+  var footer = document.querySelector('footer');
+  var fRect = footer ? footer.getBoundingClientRect() : null;
+
   if (bl) {
     bl.style.transform = 'translateY(' + (y * 0.35) + 'px)';
     bl.style.opacity = Math.max(0, 1 - y / 180);
@@ -931,9 +978,7 @@ window.addEventListener('scroll', function() {
   if (btt) {
     if (y > 300) btt.classList.add('vis');
     else btt.classList.remove('vis');
-    var footer = document.querySelector('footer');
-    if (footer) {
-      var fRect = footer.getBoundingClientRect();
+    if (fRect) {
       var gap = 64;
       if (fRect.top < window.innerHeight) {
         btt.style.bottom = (window.innerHeight - fRect.top + gap) + 'px';
@@ -942,7 +987,22 @@ window.addEventListener('scroll', function() {
       }
     }
   }
-});
+}
+
+// Perf: updateNavTheme and updateHeroParallax both used to run on every raw 'scroll' event —
+// on a fast trackpad or high-refresh display that's often several times per animation frame,
+// each doing multiple getBoundingClientRect() reads. Coalesce both into a single rAF-scheduled
+// pass per frame instead.
+var scrollScheduled = false;
+window.addEventListener('scroll', function() {
+  if (scrollScheduled) return;
+  scrollScheduled = true;
+  requestAnimationFrame(function() {
+    scrollScheduled = false;
+    updateNavTheme();
+    updateHeroParallax();
+  });
+}, { passive: true });
 
 document.getElementById('back-to-top').addEventListener('click', function() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1078,6 +1138,7 @@ var lbBalls = labLinks.map(function(ln) {
 var lbMouse = { x: -999, y: -999 };
 var lbHovered = null;
 var lbTime = 0;
+var lbReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function lbResize() {
   var wrap = document.getElementById('lab-mini-wrap');
@@ -1090,7 +1151,7 @@ function lbFrame() {
   if (!document.getElementById('page-lab').classList.contains('active')) {
     requestAnimationFrame(lbFrame); return;
   }
-  lbTime += 0.016;
+  if (!lbReduceMotion) lbTime += 0.016;
   var W = blobC.width, H = blobC.height;
   if (!W || !H) { lbResize(); requestAnimationFrame(lbFrame); return; }
 
@@ -1173,12 +1234,18 @@ if (!canvas) return;
 var ctx = canvas.getContext('2d');
 
 var profImg = new Image();
-profImg.src = 'Assets/Dr. Aditi Profile Pic.jpg';
+window._onFirstVisit('lab', function() { profImg.src = 'Assets/Dr. Aditi Profile Pic.jpg'; });
 
 var blobT = 0;
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function animBlob() {
-  blobT += 0.008;
+  // Perf: this loop never checked page visibility before — it redrew every frame forever,
+  // even on every other page and even scrolled off Lab. Pause while Lab isn't active.
+  if (!document.getElementById('page-lab').classList.contains('active')) {
+    requestAnimationFrame(animBlob); return;
+  }
+  if (!reduceMotion) blobT += 0.008;
   var W = canvas.offsetWidth  || 280;
   var H = canvas.offsetHeight || 300;
   if (canvas.width !== W || canvas.height !== H) {
@@ -1272,6 +1339,7 @@ function buildOrbit(def) {
   var tmx = -999, tmy = -999;
   var TEAM_CR = 36;
   var stopped = false;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   wrap.addEventListener('mousemove', function(e) {
     var r = wrap.getBoundingClientRect();
@@ -1300,7 +1368,7 @@ function buildOrbit(def) {
     if (wrapW > 0 && blobC.width !== wrapW) resize();
     var W = blobC.width, H = blobC.height;
     if (!W || !H) { requestAnimationFrame(frame); return; }
-    time += 0.016;
+    if (!reduceMotion) time += 0.016;
 
     for (var i = 0; i < balls.length; i++) {
       var b = balls[i], band = b.band;
@@ -1402,8 +1470,7 @@ var section = document.getElementById('team-section');
 var bgLayer = document.getElementById('team-watermark');
 if (!section || !bgLayer) return;
 var img = new Image();
-var url = 'Assets/iExcel Team Background.png';
-img.src = url;
+var url = 'Assets/iExcel Team Background.webp'; // lossless re-encode, ~58% of the .png size
 var cssUrl = 'url("' + url + '")';
 
 function layout() {
@@ -1427,8 +1494,14 @@ function layout() {
 function poll() {
   if (!layout()) requestAnimationFrame(poll);
 }
-poll();
-img.onload = layout;
+// Perf: previously started polling at 60fps from initial page load and wouldn't stop until
+// the first time the user visited Lab (section.offsetWidth is 0 while hidden, so layout()
+// kept failing every frame). Image fetch + polling now both wait for that first visit.
+window._onFirstVisit('lab', function() {
+  img.src = url;
+  img.onload = layout;
+  poll();
+});
 window.addEventListener('resize', layout);
 })();
 </script>
@@ -1441,18 +1514,25 @@ var wrap = document.getElementById('team-orbit-wrap');
 if (!canvas || !wrap) return;
 var ctx = canvas.getContext('2d');
 var img = new Image();
-img.src = 'Assets/iExcel Team Background.png';
 
-function frame() {
+// Perf: this used to redraw a static, unchanging image every frame forever — even on every
+// other page (0x0 no-op draws while Lab is hidden, but still 60fps of wasted function calls
+// and offsetWidth/Height reads). The image only ever needs to redraw on load and on resize,
+// so draw once on each of those instead of looping. Image fetch is also deferred to first
+// Lab visit (see window._onFirstVisit) instead of downloading on initial page load.
+function draw() {
   var W = wrap.offsetWidth, H = wrap.offsetHeight;
-  if (W && H && img.complete && img.naturalWidth) {
-    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
-    ctx.clearRect(0, 0, W, H);
-    window._drawCoverFit(ctx, img, W, H);
-  }
-  requestAnimationFrame(frame);
+  if (!W || !H || !img.complete || !img.naturalWidth) return;
+  if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+  ctx.clearRect(0, 0, W, H);
+  window._drawCoverFit(ctx, img, W, H);
 }
-requestAnimationFrame(frame);
+window._onFirstVisit('lab', function() {
+  img.src = 'Assets/iExcel Team Background.webp'; // lossless re-encode, ~58% of the .png size
+  img.onload = draw;
+  draw();
+});
+window.addEventListener('resize', draw);
 })();
 </script>
 
@@ -1655,6 +1735,7 @@ var pjBalls = projectsData.map(function(p) {
 var pjMouse = { x: -999, y: -999 };
 var pjHovered = null;
 var pjTime = 0;
+var pjReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function pjResize() {
   var wrap = document.getElementById('proj-field-wrap');
@@ -1667,7 +1748,7 @@ function pjFrame() {
   if (!document.getElementById('page-projects').classList.contains('active')) {
     requestAnimationFrame(pjFrame); return;
   }
-  pjTime += 0.016;
+  if (!pjReduceMotion) pjTime += 0.016;
   var W = blobC.width, H = blobC.height;
   if (!W || !H) { pjResize(); requestAnimationFrame(pjFrame); return; }
 
@@ -1747,18 +1828,22 @@ var wrap = document.getElementById('proj-field-wrap');
 if (!canvas || !wrap) return;
 var ctx = canvas.getContext('2d');
 var img = new Image();
-img.src = 'Assets/iExcel Projects Background.png';
 
-function frame() {
+// Perf: same fix as the Team orbit watermark — draw once on load/resize instead of
+// redrawing a static image forever, and defer the fetch until Projects is first visited.
+function draw() {
   var W = wrap.offsetWidth, H = wrap.offsetHeight;
-  if (W && H && img.complete && img.naturalWidth) {
-    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
-    ctx.clearRect(0, 0, W, H);
-    window._drawCoverFit(ctx, img, W, H);
-  }
-  requestAnimationFrame(frame);
+  if (!W || !H || !img.complete || !img.naturalWidth) return;
+  if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+  ctx.clearRect(0, 0, W, H);
+  window._drawCoverFit(ctx, img, W, H);
 }
-requestAnimationFrame(frame);
+window._onFirstVisit('projects', function() {
+  img.src = 'Assets/iExcel Projects Background.webp'; // lossless re-encode, ~59% of the .png size
+  img.onload = draw;
+  draw();
+});
+window.addEventListener('resize', draw);
 })();
 </script>
 
@@ -1955,7 +2040,8 @@ wrap.insertBefore(wmCanvas, labelCanvas);
 var wmCtx = wmCanvas.getContext('2d');
 
 var bgImage = new Image();
-bgImage.src = 'Assets/iExcel Open Projects Background.png';
+// Perf: defer the fetch until Join is first visited instead of downloading on initial load.
+window._onFirstVisit('join', function() { bgImage.src = 'Assets/iExcel Open Projects Background.webp'; }); // lossless re-encode, ~59% of the .png size
 
 function resize() {
   var w = wrap.offsetWidth, h = wrap.offsetHeight;
@@ -2003,6 +2089,7 @@ var mouse = { x: -999, y: -999 };
 var CURSOR_R = 36;
 var hoveredBall = null;
 var time = 0;
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function frame() {
   if (!document.getElementById('page-join').classList.contains('active')) {
@@ -2010,7 +2097,7 @@ function frame() {
   }
   var W = blobCanvas.width, H = blobCanvas.height;
   if (!W || !H) { resize(); requestAnimationFrame(frame); return; }
-  time += 0.016;
+  if (!reduceMotion) time += 0.016;
   var scale = Math.min(W, H) / 700;
 
   for (var i = 0; i < balls.length; i++) {
@@ -2297,6 +2384,7 @@ window._makeTimelineMetaballs = function(Point, Path, Group, PointText, Color, S
   }
 
   var time = 0;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canvasEl = document.getElementById(opts.canvasId);
 
   function onFrame(event) {
@@ -2312,7 +2400,7 @@ window._makeTimelineMetaballs = function(Point, Path, Group, PointText, Color, S
           }
       }
       if (!view.size.width) return;
-      time += event.delta;
+      if (!reduceMotion) time += event.delta;
       var rect    = canvasEl.getBoundingClientRect();
       var trackX  = view.size.width / 2;
       var centerY = view.size.height / 2;
